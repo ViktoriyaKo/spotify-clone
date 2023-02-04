@@ -1,4 +1,3 @@
-// @ts-nocheck
 import express, { Request } from 'express';
 import path from 'path';
 // Cross-Origin Resource Sharing politics
@@ -25,7 +24,6 @@ app.set('views', path.join(__dirname, 'views'));
 app.options('*', cors());
 app.use(express.static(path.join(__dirname, 'public')));
 
-
 const limiter = rateLimit({
   max: 100,
   windowMs: 60 * 60 * 1000,
@@ -42,12 +40,7 @@ app.use(mongoSanitize());
 app.use(
   hpp({
     whitelist: [
-      'duration',
-      'ratingAverage',
-      'ratingQuantity',
-      'maxGroupSize',
-      'difficulty',
-      'price',
+      'rating',
     ],
   }),
 );
@@ -63,6 +56,7 @@ app.use(compression());
 app.use('/api/v1/users', userRouter);
 app.all('*', (req, res, next) => {
   next(new AppError(`can't find ${req.originalUrl} on this server!`, 404));
+  
 });
 
 export default app;

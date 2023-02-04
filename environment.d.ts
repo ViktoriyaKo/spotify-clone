@@ -12,8 +12,14 @@ declare global {
     }
   }
 }
+
+export interface IRes extends Response {
+  cookie: any;
+}
+
 export interface IReq extends Request {
   requestTime: string
+  secure: string
 }
 
 export {};
