@@ -23,7 +23,7 @@ a {
   position: sticky;
   z-index: 10;
   background: linear-gradient(rgb(0 0 0 / 90%), rgb(105 79 114 / 70%)),
-    url(./back-aside.jpg);
+    url("./back-aside.jpg");
   background-size: cover;
   top: 0;
   width: 300px;
@@ -96,74 +96,6 @@ a {
   flex: 1;
 }
 
-.text-ref-main {
-  color: #1b1a1b;
-  text-shadow: rgb(162 59 180) 2px 1px 2px;
-  letter-spacing: 2px;
-  font-weight: 700;
-}
-
-.main-card {
-  height: 300px;
-  position: relative;
-  display: block;
-  color: #1b1a1b;
-  transition: all 0.3s;
-  box-shadow: 0 2px 5px 0 rgb(0 0 0 / 20%);
-  overflow: hidden;
-}
-
-.main-card img {
-  transition: 1s;
-  border-radius: 5px;
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-}
-
-.wrapper-img {
-  display: flex;
-  height: 170px;
-}
-
-.main-card:hover {
-  box-shadow: 0 14px 30px -15px rgb(0 0 0 / 75%);
-}
-
-.main-card h4 {
-  font-size: 20px;
-}
-
-.btn-play {
-  position: absolute;
-  top: 100px;
-  right: 30px;
-  width: 35px;
-  height: 35px;
-  background-color: #7f6187;
-  padding-bottom: 3px;
-  border-radius: 50%;
-  border: none;
-  justify-content: center;
-  align-items: center;
-  transition: 0.4s;
-  opacity: 0;
-}
-
-.main-card:hover .btn-play {
-  opacity: 1;
-  transition: 0.4s;
-}
-
-.btn-play:hover {
-  scale: 1.1;
-}
-
-.test {
-  width: 100%;
-  height: auto;
-}
-
 @media (max-width: 992px) {
   .aside-block {
     position: fixed;
@@ -184,4 +116,45 @@ a {
   display: none;
   background-color: #1b1a1b88;
   inset: 0;
+}
+
+/* profile account*/
+.td-info-table {
+  font-size: 20px;
+  color: #0000007d;
+}
+
+.text-main-profile {
+  text-shadow: rgb(162 59 180) 2px 1px 2px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.text-main-profile + h2 {
+  font-weight: 700;
+  text-shadow: rgb(162 59 180) 2px 1px 2px;
+}
+
+.btn-set-profile {
+  background-color: #35830b;
+}
+
+/* from home: */
+.color-active {
+  background: #7f6187;
+}
+
+/* change profile*/
+#sex {
+  color: gray;
+}
+
+.form-check-input:checked {
+  background-color: #35830b;
+  border-color: #35830b;
+}
+
+.text-privacy {
+  color: gray;
+  font-size: 13px;
 }

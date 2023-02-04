@@ -1,0 +1,55 @@
+<!-- main change profile-->
+<main>
+  <div class="container-fluid">
+    <div class="p-4">
+      <h1 class="text-main-profile">Change your profile</h1>
+
+      <form>
+        <div class="modal-body col-md-6">
+          <div class="mb-3">
+            <label for="name" class="form-label">Change your name</label>
+            <input type="text" class="form-control" id="name" />
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">Change your email</label>
+            <input type="email" class="form-control" id="email" />
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">Sex</label>
+            <select
+              class="form-select form-select mb-5"
+              id="sex"
+              aria-label=".form-select example"
+            >
+              <option value="Woman">Select an option</option>
+              <option value="Woman">Woman</option>
+              <option value="Man">Man</option>
+            </select>
+            <div class="form-check">
+              <input
+                checked
+                class="form-check-input"
+                type="checkbox"
+                id="flexCheckDefault"
+              />
+              <label
+                class="form-check-label text-privacy"
+                for="flexCheckDefault"
+              >
+                Share my registration data with Spotify's content provides for
+                marketing purposes.
+              </label>
+            </div>
+          </div>
+          <button
+            type="submit"
+            class="btn btn-secondary btn-set-profile text-uppercase px-5"
+          >
+            Save profile
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</main>
+<!-- main finished -->

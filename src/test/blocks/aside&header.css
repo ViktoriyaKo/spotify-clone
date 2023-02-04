@@ -80,7 +80,38 @@ a {
   background: #7f6187;
 }
 
+.logo-profile {
+  width: 30px;
+  height: 30px;
+}
+
+.color-set {
+  background: #7f6187;
+}
+
 /* main */
 .blocks-main {
   flex: 1;
+}
+
+@media (max-width: 992px) {
+  .aside-block {
+    position: fixed;
+    transform: translateX(-100%);
+    transition: 0.3s;
+  }
+}
+
+@media (max-width: 400px) {
+  .aside-block {
+    width: 200px;
+  }
+}
+
+.shadow-aside {
+  z-index: 5;
+  position: fixed;
+  display: none;
+  background-color: #1b1a1b88;
+  inset: 0;
 }
