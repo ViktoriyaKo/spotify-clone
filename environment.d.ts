@@ -1,3 +1,5 @@
+import { Request } from 'express';
+
 declare global {
   namespace NodeJS {
     interface ProcessEnv {
@@ -5,8 +7,13 @@ declare global {
       DATABASE_PASSWORD: string;
       PORT: number;
       NODE_ENV: string;
+      JWT_COOKIE_EXPIRES_IN:number;
+      JWT_SECRET: string;
     }
   }
+}
+export interface IReq extends Request {
+  requestTime: string
 }
 
 export {};

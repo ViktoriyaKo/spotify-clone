@@ -1,6 +1,7 @@
 import mongoose, { ConnectOptions } from 'mongoose';
 import dotenv from 'dotenv';
 import app from './app';
+import AppError from './utils/appError';
 
 process.on('uncaughtException', (err) => {
   console.log('UNCAUGHT Exception, shutting down....');
@@ -30,13 +31,13 @@ const server = app.listen(port, () => {
   console.log(`App running on port ${port}...`);
 });
 
-// process.on('unhandledRejection', (err) => {
-//   console.log('1.', err.name as string, '\n2.', err.message as string);
-//   console.log('UNHANDLED Rejection, shutting down....');
-//   server.close(() => {
-//     process.exit(1);
-//   });
-// });
+process.on('unhandledRejection', (err: AppError) => {
+  console.log('1.', err.name, '\n2.', err.message);
+  console.log('UNHANDLED Rejection, shutting down....');
+  server.close(() => {
+    process.exit(1);
+  });
+});
 
 process.on('SIGTERM', () => {
   console.log('SIGTERM RECIEVED. SHUTTING DOWN.');
