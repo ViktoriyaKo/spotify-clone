@@ -14,6 +14,7 @@ import compression from 'compression';
 import rateLimit from 'express-rate-limit';
 import AppError from './utils/appError';
 import { IReq } from './environment';
+import viewRouter from './routs/viewRoutes';
 
 import userRouter from './routs/userRoutes';
 
@@ -53,6 +54,7 @@ app.use((req: any, _res, next) => {
 
 app.use(compression());
 
+app.use('/', viewRouter);
 app.use('/api/v1/users', userRouter);
 app.all('*', (req, res, next) => {
   next(new AppError(`can't find ${req.originalUrl} on this server!`, 404));
