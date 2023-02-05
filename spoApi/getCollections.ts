@@ -1,8 +1,9 @@
 import fetch from 'cross-fetch';
 
 const getToken = async () => {
-  const clientId = 'ee48a06765864cd78e2623a3780b4a2c';
-  const clientSecret = 'bc158f47531d43ae851fe9b87c01983f';
+  const clientId = process.env.CLIENT_ID;
+  console.log(clientId)
+  const clientSecret = process.env.CLIENT_SECRET;
   const result = await fetch('https://accounts.spotify.com/api/token', {
     method: 'POST',
     headers: {

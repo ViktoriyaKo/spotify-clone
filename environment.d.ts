@@ -9,6 +9,8 @@ declare global {
       NODE_ENV: string;
       JWT_COOKIE_EXPIRES_IN:number;
       JWT_SECRET: string;
+      CLIENT_SECRET: string;
+      CLIENT_ID: string;
     }
   }
 }
