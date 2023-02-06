@@ -1,5 +1,5 @@
 import crypto from 'crypto';
-import mongoose, {Document} from 'mongoose';
+import mongoose, { Document } from 'mongoose';
 import validator from 'validator';
 import bcrypt from 'bcrypt';
 
@@ -14,7 +14,7 @@ export interface IUser extends Document {
   passwordResetToken: string;
   passwordResetExpires: Date;
   active: boolean;
-  changedPasswordAfter: (iat: string)=>{}
+  changedPasswordAfter: (iat: string) => {};
 }
 
 const userSchema = new mongoose.Schema<IUser>({
@@ -57,9 +57,12 @@ const userSchema = new mongoose.Schema<IUser>({
     required: [true, 'Please provide a password'],
     minlength: [8, 'The user name must have more or equal then 10 characters.'],
     validate: {
-      // this only workd on create and save
-      //@ts-ignore
-      validator: function (el: string) {el === this.password},
+      // this only worked on create and save
+      // @ts-ignore
+      validator: function (el: string) {
+        // @ts-ignore
+        el === this.password;
+      },
       message: 'Passwords are not the same!',
     },
   },
@@ -97,7 +100,7 @@ userSchema.pre(/^find/, function (next) {
 
 userSchema.methods.correctPassword = async function (
   candidatePassword: string,
-  userPassword: string,
+  userPassword: string
 ) {
   return await bcrypt.compare(candidatePassword, userPassword);
 };
@@ -106,7 +109,7 @@ userSchema.methods.changedPasswordAfter = function (JWTTimestamp: Date) {
   if (this.passwordChangedAt) {
     const changedTimestamp = parseInt(
       String(this.passwordChangedAt.getTime() / 1000),
-      10,
+      10
     );
     return JWTTimestamp < new Date(changedTimestamp);
   }

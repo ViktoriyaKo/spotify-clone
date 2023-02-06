@@ -7,18 +7,25 @@ import catchAsync from '../utils/catchAsync';
 import AppError from '../utils/appError';
 import { IReq, IRes } from '../environment';
 
-const signToken = (id: string) => jwt.sign({ id }, process.env.JWT_SECRET, {
-  expiresIn: process.env.JWT_EXPIRES_IN,
-});
+const signToken = (id: string) =>
+  jwt.sign({ id }, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_EXPIRES_IN,
+  });
 
-const createSendToken = (user: IUser, statusCode: number, req: IReq, res: IRes) => {
+const createSendToken = (
+  user: IUser,
+  statusCode: number,
+  req: IReq,
+  res: IRes
+) => {
   const token = signToken(user._id);
   const cookieOptions = {
     expires: new Date(
-      Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000,
+      Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
     ),
     httpOnly: true,
-    secure: req.secure || req.headers['x-forwarded-proto'] as string === 'https',
+    secure:
+      req.secure || (req.headers['x-forwarded-proto'] as string) === 'https',
   };
   res.cookie('jwt', token, cookieOptions);
   // remove the password from the responce
@@ -41,6 +48,7 @@ const login = catchAsync(async (req: IReq, res: IRes, next: NextFunction) => {
   }
   // 2. check if user exists && password correct
   const user = await User.findOne({ email }).select('+password');
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   if (!user || !(await user.correctPassword(password, user.password))) {
     return next(new AppError('Incorrect email or password!', 401));
@@ -75,8 +83,8 @@ const protect = catchAsync(async (req: IReq, res: IRes, next: NextFunction) => {
   // 1. Getting token and check of it's there
   let token;
   if (
-    req.headers.authorization
-    && req.headers.authorization.startsWith('Bearer')
+    req.headers.authorization &&
+    req.headers.authorization.startsWith('Bearer')
   ) {
     token = req.headers.authorization.split(' ')[1] as string;
   } else if (req.cookies.jwt) {
@@ -84,23 +92,28 @@ const protect = catchAsync(async (req: IReq, res: IRes, next: NextFunction) => {
   }
   if (!token) {
     return next(
-      new AppError('You are not logged in! Please log in to get access.', 401),
+      new AppError('You are not logged in! Please log in to get access.', 401)
     );
   }
   // 2. Verification token
   //@ts-ignore
-  const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET) as jwt.JWT;
+  const decoded = (await promisify(jwt.verify)(
+    token,
+    //@ts-ignore
+    process.env.JWT_SECRET
+    //@ts-ignore
+  )) as jwt.JWT;
   // 3. Check if user still exists
   const currentUser = await User.findById(decoded.id);
   if (!currentUser) {
     return next(
-      new AppError('The user belonging to the token does not longer exist', 401),
+      new AppError('The user belonging to the token does not longer exist', 401)
     );
   }
   // 4. Check if user changed password after the JWT(=token) was issued
   if (currentUser.changedPasswordAfter(decoded.iat)) {
     return next(
-      new AppError('User recently changed password! Please log in again', 401),
+      new AppError('User recently changed password! Please log in again', 401)
     );
   }
   // Grant access to protected route
@@ -114,12 +127,12 @@ const isLoggedIn = async (req: IReq, res: IRes, next: NextFunction) => {
     try {
       // 1. Verify token
       //@ts-ignore
-      const decoded = await promisify(jwt.verify)(
+      const decoded = (await promisify(jwt.verify)(
         req.cookies.jwt,
-        //@ts-ignore
+        // @ts-ignore
         process.env.JWT_SECRET
-        //@ts-ignore
-      ) as jwt.JWT;
+        // @ts-ignore
+      )) as jwt.JWT;
       // 3. Check if user still exists
       const currentUser = await User.findById(decoded.id);
       if (!currentUser) {
@@ -140,5 +153,9 @@ const isLoggedIn = async (req: IReq, res: IRes, next: NextFunction) => {
 };
 
 export default {
-  login, signup, logout, protect, isLoggedIn,
+  login,
+  signup,
+  logout,
+  protect,
+  isLoggedIn,
 };

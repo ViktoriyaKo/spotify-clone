@@ -9,7 +9,7 @@ declare global {
       DATABASE_PASSWORD: string;
       PORT: number;
       NODE_ENV: string;
-      JWT_COOKIE_EXPIRES_IN:number;
+      JWT_COOKIE_EXPIRES_IN: number;
       JWT_SECRET: Secret;
       CLIENT_SECRET: string;
       CLIENT_ID: string;

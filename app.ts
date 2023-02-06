@@ -6,7 +6,7 @@ import cors from 'cors';
 import mongoSanitize from 'express-mongo-sanitize';
 // Express middleware to protect against HTTP Parameter Pollution attacks
 import hpp from 'hpp';
-// parse cookie 
+// parse cookie
 import cookieParser from 'cookie-parser';
 // compress response bodies, increase speed
 import compression from 'compression';
@@ -40,10 +40,8 @@ app.use(mongoSanitize());
 
 app.use(
   hpp({
-    whitelist: [
-      'rating',
-    ],
-  }),
+    whitelist: ['rating'],
+  })
 );
 
 app.use((req: any, _res, next) => {
@@ -58,7 +56,6 @@ app.use('/', viewRouter);
 app.use('/api/v1/users', userRouter);
 app.all('*', (req, res, next) => {
   next(new AppError(`can't find ${req.originalUrl} on this server!`, 404));
-  
 });
 
 export default app;

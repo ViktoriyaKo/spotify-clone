@@ -1,5 +1,6 @@
 body {
   margin: 0;
+  display: flex;
   padding: 0;
   font-family: Tahoma, sans-serif;
 }
@@ -14,7 +15,6 @@ a {
 
 /* aside */
 
-/* изменить root! */
 .nav-link {
   color: #d3d0e2;
 }
@@ -23,7 +23,7 @@ a {
   position: sticky;
   z-index: 10;
   background: linear-gradient(rgb(0 0 0 / 90%), rgb(105 79 114 / 70%)),
-    url(./back-aside.jpg);
+    url('../img/cover.jpg');
   background-size: cover;
   top: 0;
   width: 300px;
@@ -33,7 +33,7 @@ a {
 
 .logo {
   color: #fff;
-  background: url("./spotify.svg") no-repeat left center;
+  background: url('../img/spotify-big.svg') no-repeat left center;
   padding-left: 35px;
   text-decoration: none;
   margin: 20px;
@@ -94,6 +94,7 @@ a {
 
 .blocks-main {
   flex: 1;
+  overflow: auto;
 }
 
 .text-ref-main {
@@ -163,6 +164,85 @@ a {
   width: 100%;
   height: auto;
 }
+
+/* Liked tracks */
+
+.text-main {
+  text-shadow: rgb(0 0 0) 4px 6px 3px;
+  letter-spacing: 4px;
+  font-weight: 900;
+  font-size: 60px;
+}
+
+.block-like-svg {
+  display: inline-block;
+  padding: 40px;
+  background: linear-gradient(70deg, #000000, #e7c0ff);
+  margin-right: 50px;
+}
+
+.block-like-svg svg {
+  color: white;
+  width: 60px;
+  height: 60px;
+}
+
+.main-favorites {
+  height: calc(100vh - 60px);
+  display: flex;
+  flex-direction: column;
+}
+
+.main-favorites .p-4 {
+  background: linear-gradient(#000, #67487a);
+}
+
+/* playlist */
+.table-like-playlist {
+  background: #0000007d;
+  color: rgba(240, 248, 255, 0.85);
+}
+
+.icon-album {
+  width: 50px;
+  height: 50px;
+}
+
+.name-liked-track {
+  color: #ffffff87;
+}
+
+.wrapper-table {
+  flex: 1;
+  background: radial-gradient(#000000d1, #000);
+}
+
+.btn-play-like {
+  width: 35px;
+  height: 35px;
+  background-color: #1e7e33;
+  padding-bottom: 3px;
+  border-radius: 50%;
+  border: none;
+  justify-content: center;
+  align-items: center;
+  transition: 0.4s;
+  margin-left: 4%;
+}
+
+.btn-play-like:hover,
+.heart-svg-table:hover {
+  scale: 1.1;
+  transition: 0.4s;
+}
+
+.heart-svg-table {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+/* finish liked tracks */
 
 @media (max-width: 992px) {
   .aside-block {

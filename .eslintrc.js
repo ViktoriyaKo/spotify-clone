@@ -3,6 +3,13 @@ module.exports = {
     browser: true,
     es2021: true,
   },
+  settings: {
+    'import/resolver': {
+      node: {
+        extensions: ['.js', '.jsx', '.ts', '.tsx', '.env', '.d.ts'],
+      },
+    },
+  },
   extends: [
     'plugin:import/errors',
     'plugin:import/warnings',
@@ -17,9 +24,7 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
-  plugins: [
-    '@typescript-eslint',
-  ],
+  plugins: ['@typescript-eslint'],
   rules: {
     'import/extensions': [
       'error',

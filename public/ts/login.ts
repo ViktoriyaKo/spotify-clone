@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const login = async (email, password) => {
   try {
-    console.log('testetstest')
+    console.log('testetstest', email, password);
     const res = await axios({
       method: 'POST',
       url: '/api/v1/users/login',
@@ -21,4 +21,4 @@ const login = async (email, password) => {
   }
 };
 
-export default login
+export default login;

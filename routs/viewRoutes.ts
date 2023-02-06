@@ -4,11 +4,10 @@ import viewsController from '../controllers/viewController';
 
 const router = express.Router();
 
-router.get(
-  '/',
-  viewsController.getOverview,
-);
+router.get('/', viewsController.getOverview);
 
-router.get('/playlists/', authController.protect, viewsController.getPlaylists);
+router.get('/home/', viewsController.getPlaylists);
+
+router.get('/favorite/', viewsController.getFavoriteTracks);
 
 export default router;

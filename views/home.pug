@@ -1,0 +1,36 @@
+head
+  meta(charset='UTF-8')
+  meta(http-equiv='X-UA-Compatible' content='IE=edge')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  title Home
+  link(rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css')
+  link(rel='stylesheet' href='/css/home.css')
+  
+// aside
+include ./_aside
+.blocks-main
+  // header
+  include ./_header
+  // main home
+  main
+    .container-fluid
+      .p-4
+        .mb-5
+          h3.text-uppercase.m-0
+            a.text-ref-main(href='#') Recently Played
+          .d-flex.align-items-center.justify-content-between
+            small.text-muted Your choice
+            a.text-muted(href='#') See more
+          .row
+            each track in playlist.tracks.items
+              .col-xxl-2.col-xl-3.col-md-4.col-sm-6
+                a.main-card.p-3.rounded-2(href='#')
+                  .wrapper-img
+                    img(src=`${playlist.images[1].url}` alt='album')
+                    button.btn-play
+                      svg.svg-play(xmlns='http://www.w3.org/2000/svg' fill='none' viewbox='0 0 24 24' stroke-width='1.5' stroke='currentColor')
+                        path(stroke-linecap='round' stroke-linejoin='round' d='M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z')
+                  h4.mt-2= track.name
+                  p.text-muted
+                    | Lorem ipsum dolor sit amet consectetur adipisicing elit.  
+script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js')
