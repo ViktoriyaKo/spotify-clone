@@ -1,3 +1,13 @@
-import x from './test2';
+import { login } from './login';
 
-console.log(`hi, x=${x}`);
+// DOM ELEMENTS
+const loginForm = document.querySelector('.btnSignIn');
+
+if (loginForm) {
+  loginForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const email = document.querySelector('.inputEmail').value as string;
+    const password = document.getElementById('password').value as string;
+    login(email, password);
+  });
+}

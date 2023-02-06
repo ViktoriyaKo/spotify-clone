@@ -9,6 +9,6 @@ router.get(
   viewsController.getOverview,
 );
 
-router.get('/playlists/', viewsController.getPlaylists);
+router.get('/playlists/', authController.protect, viewsController.getPlaylists);
 
 export default router;

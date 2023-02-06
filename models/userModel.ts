@@ -14,6 +14,7 @@ export interface IUser extends Document {
   passwordResetToken: string;
   passwordResetExpires: Date;
   active: boolean;
+  changedPasswordAfter: (iat: string)=>{}
 }
 
 const userSchema = new mongoose.Schema<IUser>({
