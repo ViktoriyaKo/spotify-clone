@@ -17,14 +17,43 @@ const getPlaylists = catchAsync(
     const playlist = await spotyApi.getOneAlbum('4aawyAB9vmqN3uQ7FjRGTy');
     res.status(200).render('home', {
       playlist,
+      state: 'btnHome',
     });
   }
 );
 
 const getFavoriteTracks = catchAsync(
   async (req: IReq, res: IRes, next: NextFunction) => {
-    res.status(200).render('favorite');
+    res.status(200).render('favorite', {
+      state: 'btnFavorite',
+    });
   }
 );
 
-export default { getOverview, getPlaylists, getFavoriteTracks };
+// profile:
+const getProfileMain = catchAsync(
+  async (req: IReq, res: IRes, next: NextFunction) => {
+    res.status(200).render('profile-account');
+  }
+);
+
+const changeProfilePassword = catchAsync(
+  async (req: IReq, res: IRes, next: NextFunction) => {
+    res.status(200).render('password');
+  }
+);
+
+const changeProfile = catchAsync(
+  async (req: IReq, res: IRes, next: NextFunction) => {
+    res.status(200).render('account');
+  }
+);
+
+export default {
+  getOverview,
+  getPlaylists,
+  getFavoriteTracks,
+  getProfileMain,
+  changeProfilePassword,
+  changeProfile,
+};

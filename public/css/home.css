@@ -244,6 +244,53 @@ a {
 
 /* finish liked tracks */
 
+/* profile account*/
+.td-info-table {
+  font-size: 20px;
+  color: #0000007d;
+}
+
+.text-main-profile {
+  text-shadow: rgb(162 59 180) 2px 1px 2px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.text-main-profile + h2 {
+  font-weight: 700;
+  text-shadow: rgb(162 59 180) 2px 1px 2px;
+}
+
+.btn-set-profile {
+  background-color: #35830b;
+}
+
+/* from home: */
+.color-active {
+  background: #7f6187;
+}
+
+/* change profile*/
+#sex {
+  color: gray;
+}
+
+.form-check-input:checked {
+  background-color: #35830b;
+  border-color: #35830b;
+}
+
+.text-privacy {
+  color: gray;
+  font-size: 13px;
+}
+
+.btn-set {
+  background: #7f6187;
+}
+
+/* finish profile */
+
 @media (max-width: 992px) {
   .aside-block {
     position: fixed;
