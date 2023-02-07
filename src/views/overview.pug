@@ -1,0 +1,73 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(http-equiv='X-UA-Compatible' content='IE=edge')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  title Document
+  link(rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css')
+  link(rel='stylesheet' href='/css/start-page.css')
+.wrapper
+  a.nav-link.test(href='#') Spotify
+  video.video__media(src='/img/video1.mp4' autoplay='true' muted='true' loop='true')
+  .text-area
+    h2 Find music you love
+    h3 Discover new artist
+  .wrapper-btn
+    button.btn.btn-secondary.btn-set(data-bs-toggle='modal' data-bs-target='#createAccount')
+      | Create an account
+    button.btn.btn-secondary.btn-set(data-bs-toggle='modal' data-bs-target='#existAccount')
+      | I already have an account
+// modal 1
+#createAccount.modal.fade(tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true')
+  .modal-dialog
+    .modal-content.modalLogIn
+      .modal-header
+        h1#exampleModalLabel.modal-title.fs-5
+          | Create account
+        button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+      form
+        .modal-body
+          .form-floating.mb-3
+            input#floatingInputEmail.form-control.formEmail(type='text' placeholder='Your name' required='')
+            label(for='floatingInput') Your name
+          .form-floating.mb-3
+            input#floatingInput.form-control(type='email' placeholder='name@example.com' required='')
+            label(for='floatingInput') Email address
+          .form-floating.mb-3
+            input#floatingPassword.form-control(type='password' placeholder='Password' required='')
+            label(for='floatingPassword') Password
+            small.text-muted Minimum of 8 characters
+          .form-floating.mb-3
+            input#floatingPassword2.form-control(type='password' placeholder='Password' required='')
+            label(for='floatingPassword2') Confirm Password
+        .modal-footer.justify-content-center
+          button.w-100.mb-2.btn.btn-lg.rounded-3.btn-secondary.btn-set(type='submit')
+            | Sign up
+          small.text-muted
+            | By signing up I accept the Terms of Use. I have read and
+            | understood the Privacy Policy and Cookie Policy
+// modal
+// modal
+#existAccount.modal.fade(tabindex='-1' aria-labelledby='existccountLabel' aria-hidden='true')
+  .modal-dialog
+    .modal-content
+      .modal-header
+        h1#existccountLabel.modal-title.fs-5 Sign in
+        button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+      form
+        .modal-body
+          .form-floating.mb-3
+            input#floatingInput2.form-control.inputEmail(type='email' placeholder='name@example.com' required='')
+            label(for='floatingInput2') Email
+          .form-floating.mb-3
+            input#floatingPassword3.form-control.inputPsw(type='password' placeholder='Password' required='')
+            label(for='floatingPassword3') Password
+            a(href='Forgot your password?')
+        .modal-footer.justify-content-center
+          button.w-100.mb-2.btn.btn-lg.rounded-3.btn-secondary.btn-set.btnSignIn(type='button')
+            | Sign in
+// modal
+script(src='	https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js')
+script(src='/dist/index.js')
+
+
