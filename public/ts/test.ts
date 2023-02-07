@@ -1,15 +1,15 @@
-import { login } from './login';
+import login from './login';
+import './home';
 
-console.log('hi spoty');
+console.log('hello spoty');
 // DOM ELEMENTS
 const loginForm = document.querySelector('.btnSignIn');
-console.log('loginForm: ', loginForm);
+const inputEmail = document.querySelector('.inputEmail') as HTMLInputElement;
+const inputPsw = document.querySelector('.inputPsw') as HTMLInputElement;
 if (loginForm) {
-  loginForm.addEventListener('click', (e) => {
-    console.log('btn clicked');
-    e.preventDefault();
-    const email = document.querySelector('.inputEmail').value as string;
-    const password = document.querySelector('.inputPsw').value as string;
+  loginForm.addEventListener('click', () => {
+    const email = inputEmail.value as string;
+    const password = inputPsw.value as string;
     login(email, password);
   });
 }

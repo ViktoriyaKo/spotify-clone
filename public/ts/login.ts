@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const login = async (email, password) => {
   try {
-    console.log('testetstest', email, password);
+    console.log('data was sent', email, password);
     const res = await axios({
       method: 'POST',
       url: '/api/v1/users/login',
@@ -17,7 +17,7 @@ const login = async (email, password) => {
       }, 1500);
     }
   } catch (err) {
-    console.log('error', err.response.data.message);
+    console.log('error', err.response.data);
   }
 };
 
