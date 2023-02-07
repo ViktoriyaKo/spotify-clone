@@ -21,7 +21,17 @@ export interface IRes extends Response {
   cookie: any;
 }
 
+export interface IBody {
+  email?: string;
+  passwordChangedAt?: string;
+  role?: string;
+  password?: string;
+  passwordConfirm?: string;
+  name?: string;
+  photo?: string;
+}
 export interface IReq extends Request {
+  body: IBody;
   token: string | JwtPayload;
   requestTime: string;
   secure: string;
