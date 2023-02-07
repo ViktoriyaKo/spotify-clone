@@ -14,9 +14,9 @@ const getOverview = catchAsync(
 
 const getPlaylists = catchAsync(
   async (req: IReq, res: IRes, next: NextFunction) => {
-    const playlist = await spotyApi.getOneAlbum('4aawyAB9vmqN3uQ7FjRGTy');
+    const playlists = await spotyApi.getGenres();
     res.status(200).render('home', {
-      playlist,
+      playlists,
       state: 'btnHome',
     });
   }
