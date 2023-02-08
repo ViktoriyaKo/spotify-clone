@@ -20,14 +20,12 @@ const getToken = async () => {
 
 const getOneAlbum = async (id: string) => {
   const token = await getToken();
-  initial.test = token;
   const result = await fetch(`https://api.spotify.com/v1/albums/${id}`, {
     method: 'GET',
     headers: { Authorization: `Bearer ${token}` },
   });
 
   const data = await result.json();
-  console.log(data);
   return data;
 };
 
@@ -45,7 +43,7 @@ const getGenres = async () => {
   return data.categories.items;
 };
 
-const getSingleCategory = async (genreId) => {
+const getSingleCategory = async (genreId: string) => {
   const token = await getToken();
   const result = await fetch(
     `https://api.spotify.com/v1/browse/categories/${genreId}`,
@@ -62,7 +60,8 @@ const getSingleCategory = async (genreId) => {
 
 // example: dinner
 // getPlaylistFromGenre('dinner');
-const getPlaylistFromGenre = async (genreId) => {
+const getPlaylistFromGenre = async (genreId: string) => {
+  const token = await getToken();
   const limit = 10;
   const result = await fetch(
     `https://api.spotify.com/v1/browse/categories/${genreId}/playlists?limit=${limit}`,
@@ -88,4 +87,4 @@ const getNewReleases = async () => {
   return data.albums.items;
 };
 
-export default { getOneAlbum, getGenres };
+export default { getOneAlbum };
