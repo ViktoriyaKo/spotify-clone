@@ -6,15 +6,13 @@ import catchAsync from '../utils/catchAsync';
 
 const getOverview = catchAsync(
   async (req: IReq, res: IRes, next: NextFunction) => {
-    res.status(200).render('overview', {
-      msg: 'All tours',
-    });
+    res.status(200).render('overview');
   }
 );
 
 const getPlaylists = catchAsync(
   async (req: IReq, res: IRes, next: NextFunction) => {
-    const playlists = await spotyApi.getGenres();
+    const playlists = await spotyApi.getOneAlbum('4aawyAB9vmqN3uQ7FjRGTy');
     res.status(200).render('home', {
       playlists,
       state: 'btnHome',
@@ -33,19 +31,25 @@ const getFavoriteTracks = catchAsync(
 // profile:
 const getProfileMain = catchAsync(
   async (req: IReq, res: IRes, next: NextFunction) => {
-    res.status(200).render('profile-account');
+    res.status(200).render('profile/profile-account', {
+      state: 'btnAcc',
+    });
   }
 );
 
 const changeProfilePassword = catchAsync(
   async (req: IReq, res: IRes, next: NextFunction) => {
-    res.status(200).render('password');
+    res.status(200).render('profile/password', {
+      state: 'btnPsw',
+    });
   }
 );
 
 const changeProfile = catchAsync(
   async (req: IReq, res: IRes, next: NextFunction) => {
-    res.status(200).render('account');
+    res.status(200).render('profile/account', {
+      state: 'btnChange',
+    });
   }
 );
 
