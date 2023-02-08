@@ -1,0 +1,19 @@
+extends profile-base.pug
+block content
+  main
+    .container-fluid
+      .p-4
+        h1.text-main-profile Account overview
+        h2 Profile
+        .m-3
+          img(src='../img/user-main.png' alt='user')
+        table.table.table-light.p-4.mb-5.col-4
+          tbody
+            tr
+              td.p-3.td-info-table Username
+              td.p-3.text-center Cover
+            tr
+              td.p-3.td-info-table E-mail address
+              td.p-3.text-center Cover
+        button.btn.btn-secondary.btn-set.text-uppercase
+          | change your profile

@@ -1,0 +1,314 @@
+body {
+  margin: 0;
+  display: flex;
+  padding: 0;
+  font-family: Tahoma, sans-serif;
+}
+
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* aside */
+
+.nav-link {
+  color: #d3d0e2;
+}
+
+.aside-block {
+  position: sticky;
+  z-index: 10;
+  background: linear-gradient(rgb(0 0 0 / 90%), rgb(105 79 114 / 70%)),
+    url('../img/cover.jpg');
+  background-size: cover;
+  top: 0;
+  width: 300px;
+  color: white;
+  height: 100vh;
+}
+
+.logo {
+  color: #fff;
+  background: url('../img/spotify-big.svg') no-repeat left center;
+  padding-left: 35px;
+  text-decoration: none;
+  margin: 20px;
+  font-size: 25px;
+}
+
+.logo-main {
+  width: 20px;
+  height: 20px;
+  margin-right: 15px;
+}
+
+.aside-block a {
+  display: flex;
+  align-items: center;
+}
+
+.text-footer {
+  color: #d3d0e2;
+  transition: 0.3s;
+  font-size: 11px;
+}
+.text-footer:hover {
+  color: white;
+  text-decoration: underline;
+}
+
+/* header */
+.header {
+  height: 60px;
+  z-index: 1;
+  position: sticky;
+  top: 0;
+  flex: 1;
+  justify-content: space-between;
+  display: flex;
+  align-items: center;
+}
+
+.header a {
+  color: white;
+}
+
+.color-active {
+  background: #7f6187;
+}
+
+.logo-profile {
+  width: 30px;
+  height: 30px;
+}
+
+.color-set {
+  background: #7f6187;
+}
+
+/* main */
+
+.blocks-main {
+  flex: 1;
+  overflow: auto;
+}
+
+.text-ref-main {
+  color: #1b1a1b;
+  text-shadow: rgb(162 59 180) 2px 1px 2px;
+  letter-spacing: 2px;
+  font-weight: 700;
+}
+
+.main-card {
+  height: 300px;
+  position: relative;
+  display: block;
+  color: #1b1a1b;
+  transition: all 0.3s;
+  box-shadow: 0 2px 5px 0 rgb(0 0 0 / 20%);
+  overflow: hidden;
+}
+
+.main-card img {
+  transition: 1s;
+  border-radius: 5px;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.wrapper-img {
+  display: flex;
+  height: 170px;
+}
+
+.main-card:hover {
+  box-shadow: 0 14px 30px -15px rgb(0 0 0 / 75%);
+}
+
+.main-card h4 {
+  font-size: 20px;
+}
+
+.btn-play {
+  position: absolute;
+  top: 100px;
+  right: 30px;
+  width: 35px;
+  height: 35px;
+  background-color: #7f6187;
+  padding-bottom: 3px;
+  border-radius: 50%;
+  border: none;
+  justify-content: center;
+  align-items: center;
+  transition: 0.4s;
+  opacity: 0;
+}
+
+.main-card:hover .btn-play {
+  opacity: 1;
+  transition: 0.4s;
+}
+
+.btn-play:hover {
+  scale: 1.1;
+}
+
+.test {
+  width: 100%;
+  height: auto;
+}
+
+/* Liked tracks */
+
+.text-main {
+  text-shadow: rgb(0 0 0) 4px 6px 3px;
+  letter-spacing: 4px;
+  font-weight: 900;
+  font-size: 60px;
+}
+
+.block-like-svg {
+  display: inline-block;
+  padding: 40px;
+  background: linear-gradient(70deg, #000000, #e7c0ff);
+  margin-right: 50px;
+}
+
+.block-like-svg svg {
+  color: white;
+  width: 60px;
+  height: 60px;
+}
+
+.main-favorites {
+  height: calc(100vh - 60px);
+  display: flex;
+  flex-direction: column;
+}
+
+.main-favorites .p-4 {
+  background: linear-gradient(#000, #67487a);
+}
+
+/* playlist */
+.table-like-playlist {
+  background: #0000007d;
+  color: rgba(240, 248, 255, 0.85);
+}
+
+.icon-album {
+  width: 50px;
+  height: 50px;
+}
+
+.name-liked-track {
+  color: #ffffff87;
+}
+
+.wrapper-table {
+  flex: 1;
+  background: radial-gradient(#000000d1, #000);
+}
+
+.btn-play-like {
+  width: 35px;
+  height: 35px;
+  background-color: #1e7e33;
+  padding-bottom: 3px;
+  border-radius: 50%;
+  border: none;
+  justify-content: center;
+  align-items: center;
+  transition: 0.4s;
+  margin-left: 4%;
+}
+
+.btn-play-like:hover,
+.heart-svg-table:hover {
+  scale: 1.1;
+  transition: 0.4s;
+}
+
+.heart-svg-table {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+/* finish liked tracks */
+
+/* profile account*/
+.td-info-table {
+  font-size: 20px;
+  color: #0000007d;
+}
+
+.text-main-profile {
+  text-shadow: rgb(162 59 180) 2px 1px 2px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.text-main-profile + h2 {
+  font-weight: 700;
+  text-shadow: rgb(162 59 180) 2px 1px 2px;
+}
+
+.btn-set-profile {
+  background-color: #35830b;
+}
+
+/* from home: */
+.color-active {
+  background: #7f6187;
+}
+
+/* change profile*/
+#sex {
+  color: gray;
+}
+
+.form-check-input:checked {
+  background-color: #35830b;
+  border-color: #35830b;
+}
+
+.text-privacy {
+  color: gray;
+  font-size: 13px;
+}
+
+.btn-set {
+  background: #7f6187;
+}
+
+/* finish profile */
+
+@media (max-width: 992px) {
+  .aside-block {
+    position: fixed;
+    transform: translateX(-100%);
+    transition: 0.3s;
+  }
+}
+
+@media (max-width: 400px) {
+  .aside-block {
+    width: 200px;
+  }
+}
+
+.shadow-aside {
+  z-index: 5;
+  position: fixed;
+  display: none;
+  background-color: #1b1a1b88;
+  inset: 0;
+}
