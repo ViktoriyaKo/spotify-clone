@@ -16,4 +16,10 @@ router.get('/profile/account/', viewsController.changeProfile);
 
 router.get('/profile/password/', viewsController.changeProfilePassword);
 
+router.get('/library/playlists/', viewsController.getUserPlaylists);
+
+router.get('/library/artists/', viewsController.getUserArtists);
+
+router.get('/library/albums/', viewsController.getUserAlbums);
+
 export default router;

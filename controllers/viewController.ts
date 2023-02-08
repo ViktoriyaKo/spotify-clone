@@ -49,6 +49,38 @@ const changeProfile = catchAsync(
   }
 );
 
+// library:
+
+const getUserPlaylists = catchAsync(
+  async (req: IReq, res: IRes, next: NextFunction) => {
+    const playlists = spotyApi.getUserPlaylists();
+    res.status(200).render('library-playlists', {
+      playlists,
+      state: 'btnLibrary',
+    });
+  }
+);
+
+const getUserAlbums = catchAsync(
+  async (req: IReq, res: IRes, next: NextFunction) => {
+    const albums = await spotyApi.getUserSavedAlbums();
+    res.status(200).render('library-albums', {
+      albums,
+      state: 'btnLibrary',
+    });
+  }
+);
+
+const getUserArtists = catchAsync(
+  async (req: IReq, res: IRes, next: NextFunction) => {
+    const artists = await spotyApi.getFollowedArtist();
+    res.status(200).render('library-artists', {
+      artists,
+      state: 'btnLibrary',
+    });
+  }
+);
+
 export default {
   getOverview,
   getPlaylists,
@@ -56,4 +88,7 @@ export default {
   getProfileMain,
   changeProfilePassword,
   changeProfile,
+  getUserPlaylists,
+  getUserArtists,
+  getUserAlbums,
 };
