@@ -1,3 +1,5 @@
+import spotyApi from '../../spoApi/getCollections';
+
 const asideBlock = document.querySelector('.aside-block') as HTMLDivElement;
 const shadowAside = document.querySelector('.shadow-aside') as HTMLDivElement;
 const openAside = document.querySelector('.open-aside') as HTMLDivElement;

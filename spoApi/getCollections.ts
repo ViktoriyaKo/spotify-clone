@@ -29,6 +29,7 @@ const getOneAlbum = async (id: string) => {
   return data;
 };
 
+// for home:
 const getGenres = async () => {
   const token = await getToken();
   const result = await fetch(
@@ -40,25 +41,25 @@ const getGenres = async () => {
   );
 
   const data = await result.json();
+  console.log(data.categories.items);
   return data.categories.items;
 };
 
-const getSingleCategory = async (genreId: string) => {
-  const token = await getToken();
-  const result = await fetch(
-    `https://api.spotify.com/v1/browse/categories/${genreId}`,
-    {
-      method: 'GET',
-      headers: { Authorization: `Bearer ${token}` },
-    }
-  );
+// const getSingleCategory = async (genreId: string) => {
+//   const token = await getToken();
+//   const result = await fetch(
+//     `https://api.spotify.com/v1/browse/categories/${genreId}`,
+//     {
+//       method: 'GET',
+//       headers: { Authorization: `Bearer ${token}` },
+//     }
+//   );
 
-  const data = await result.json();
-  console.log(data);
-  return data;
-};
+//   const data = await result.json();
+//   console.log(data);
+//   return data;
+// };
 
-// example: dinner
 // getPlaylistFromGenre('dinner');
 const getPlaylistFromGenre = async (genreId: string) => {
   const token = await getToken();
@@ -74,6 +75,8 @@ const getPlaylistFromGenre = async (genreId: string) => {
   const data = await result.json();
   return data.playlists.items;
 };
+
+// finish home
 
 const getNewReleases = async () => {
   // Default value: 20
@@ -149,7 +152,7 @@ const getUserPlaylists = async () => {
 };
 
 const getUserSavedTracks = async () => {
-  const token = await getToken();
+  const token = process.env.CLIENT_TOKEN;
   const offset = 0;
   const limit = 50;
   const result = await fetch(
@@ -165,6 +168,23 @@ const getUserSavedTracks = async () => {
   );
 
   const data = await result.json();
+  console.log(data.items);
+  return data.items;
+};
+
+// profile:
+
+const getCurrentUser = async () => {
+  const token = process.env.CLIENT_TOKEN;
+  const result = await fetch(`https://api.spotify.com/v1/me`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  const data = await result.json();
   return data;
 };
 
@@ -175,4 +195,6 @@ export default {
   getFollowedArtist,
   getUserPlaylists,
   getUserSavedTracks,
+  getPlaylistFromGenre,
+  getCurrentUser,
 };

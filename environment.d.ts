@@ -13,6 +13,7 @@ declare global {
       JWT_SECRET: Secret;
       CLIENT_SECRET: string;
       CLIENT_ID: string;
+      CLIENT_TOKEN: string;
     }
   }
 }

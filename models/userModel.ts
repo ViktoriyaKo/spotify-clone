@@ -31,10 +31,7 @@ const userSchema = new mongoose.Schema<IUser>({
       40,
       'The user name must have less or equal then 40 characters.',
     ],
-    minlength: [
-      10,
-      'The user name must have more or equal then 10 characters.',
-    ],
+    minlength: [8, 'The user name must have more or equal then 8 characters.'],
     validate: [validator.isEmail, 'Please provide valid email!'],
   },
   photo: {
@@ -49,19 +46,23 @@ const userSchema = new mongoose.Schema<IUser>({
   password: {
     type: String,
     required: [true, 'Please provide a password'],
-    minlength: [8, 'The user name must have more or equal then 10 characters.'],
+    minlength: [8, 'The user name must have more or equal then 8 characters.'],
     select: false,
   },
   passwordConfirm: {
     type: String,
     required: [true, 'Please provide a password'],
-    minlength: [8, 'The user name must have more or equal then 10 characters.'],
+    minlength: [8, 'The user name must have more or equal then 8 characters.'],
     validate: {
       // this only worked on create and save
       // @ts-ignore
       validator: function (el: string) {
         // @ts-ignore
-        el === this.password;
+        console.log('el:', el);
+        // @ts-ignore
+        console.log('this.password:', this.password);
+        // @ts-ignore
+        return el === this.password;
       },
       message: 'Passwords are not the same!',
     },

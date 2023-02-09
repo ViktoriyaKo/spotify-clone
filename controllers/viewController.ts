@@ -22,7 +22,9 @@ const getPlaylists = catchAsync(
 
 const getFavoriteTracks = catchAsync(
   async (req: IReq, res: IRes, next: NextFunction) => {
+    const tracks = await spotyApi.getUserSavedTracks();
     res.status(200).render('favorite', {
+      tracks,
       state: 'btnFavorite',
     });
   }
@@ -31,7 +33,9 @@ const getFavoriteTracks = catchAsync(
 // profile:
 const getProfileMain = catchAsync(
   async (req: IReq, res: IRes, next: NextFunction) => {
+    const account = await spotyApi.getCurrentUser();
     res.status(200).render('profile/profile-account', {
+      account,
       state: 'btnAcc',
     });
   }

@@ -28,20 +28,20 @@ head
       form
         .modal-body
           .form-floating.mb-3
-            input#floatingInputEmail.form-control.formEmail(type='text' placeholder='Your name' required='')
+            input#floatingInputEmail.form-control.formEmail.inputNameUp(type='text' placeholder='Your name' required='')
             label(for='floatingInput') Your name
           .form-floating.mb-3
-            input#floatingInput.form-control(type='email' placeholder='name@example.com' required='')
+            input#floatingInput.form-control.inputEmailUp(type='email' placeholder='name@example.com' required='')
             label(for='floatingInput') Email address
           .form-floating.mb-3
-            input#floatingPassword.form-control(type='password' placeholder='Password' required='')
+            input#floatingPassword.form-control.inputPasswordUp(type='password' placeholder='Password' required='')
             label(for='floatingPassword') Password
             small.text-muted Minimum of 8 characters
           .form-floating.mb-3
-            input#floatingPassword2.form-control(type='password' placeholder='Password' required='')
+            input#floatingPassword2.form-control.inputPasswordUpConfirm(type='password' placeholder='Password' required='')
             label(for='floatingPassword2') Confirm Password
         .modal-footer.justify-content-center
-          button.w-100.mb-2.btn.btn-lg.rounded-3.btn-secondary.btn-set(type='submit')
+          button.w-100.mb-2.btn.btn-lg.rounded-3.btn-secondary.btn-set.btnSignUp(type='button')
             | Sign up
           small.text-muted
             | By signing up I accept the Terms of Use. I have read and
