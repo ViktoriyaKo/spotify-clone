@@ -6,7 +6,7 @@ block content
       a#artists.p-2.rounded(href='./artists') Artists
       a#albums.p-2.rounded(href='./albums') Albums
     .container-fluid.p-3
-      dis.row
+      .row
         h3.col-12 Playlists
       .row
         .col-xxl-4.col-xl-6.col-md-8.col-sm-12
@@ -21,7 +21,7 @@ block content
           .col-xxl-2.col-xl-3.col-md-4.col-sm-6.mb-4
             a.main-card.p-3.rounded-2(href='#')
               .wrapper-img
-                img(src='' alt='playlist cover')
+                img(src=(playlist.images[0] ? `${playlist.images[0].url}` : '') alt='playlist cover')
                 button.btn-play
                   svg.svg-play(xmlns='http://www.w3.org/2000/svg' fill='none' viewbox='0 0 24 24' stroke-width='1.5' stroke='currentColor')
                     path(stroke-linecap='round' stroke-linejoin='round' d='M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z')
