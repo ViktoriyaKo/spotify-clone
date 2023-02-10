@@ -14,6 +14,7 @@ declare global {
       CLIENT_SECRET: string;
       CLIENT_ID: string;
       CLIENT_TOKEN: string;
+      BASE_URL: string;
     }
   }
 }

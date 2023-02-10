@@ -168,8 +168,7 @@ const getUserSavedTracks = async () => {
   );
 
   const data = await result.json();
-  console.log(data.items);
-  return data.items;
+  return data;
 };
 
 // profile:

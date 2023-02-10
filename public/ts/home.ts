@@ -31,3 +31,9 @@ if (nav) {
     });
   });
 }
+
+function formatTime(seconds: number) {
+  const min = Math.floor(seconds / 1000 / 60);
+  const sec = Math.floor(seconds / 1000) % 60;
+  return `${min}:${sec}`;
+}

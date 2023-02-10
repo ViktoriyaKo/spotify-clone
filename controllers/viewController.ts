@@ -23,8 +23,10 @@ const getPlaylists = catchAsync(
 const getFavoriteTracks = catchAsync(
   async (req: IReq, res: IRes, next: NextFunction) => {
     const tracks = await spotyApi.getUserSavedTracks();
+    const account = await spotyApi.getCurrentUser();
     res.status(200).render('favorite', {
       tracks,
+      account,
       state: 'btnFavorite',
     });
   }

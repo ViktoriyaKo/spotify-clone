@@ -58,10 +58,6 @@ const userSchema = new mongoose.Schema<IUser>({
       // @ts-ignore
       validator: function (el: string) {
         // @ts-ignore
-        console.log('el:', el);
-        // @ts-ignore
-        console.log('this.password:', this.password);
-        // @ts-ignore
         return el === this.password;
       },
       message: 'Passwords are not the same!',

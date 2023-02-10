@@ -193,6 +193,12 @@ a {
   flex-direction: column;
 }
 
+.logo-liked {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 30px;
+}
+
 .main-favorites .p-4 {
   background: linear-gradient(#000, #67487a);
 }
@@ -296,6 +302,21 @@ a {
     position: fixed;
     transform: translateX(-100%);
     transition: 0.3s;
+  }
+}
+
+@media (max-width: 460px) {
+  .block-like-svg {
+    padding: 10px;
+    margin-right: 10px;
+  }
+
+  .text-main {
+    font-size: 20px;
+  }
+
+  .td-info-table {
+    font-size: 14px;
   }
 }
 
