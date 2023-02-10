@@ -12,7 +12,7 @@ block content
           small.text-uppercase= `${account.display_name} - `
             span.amount-liked-track= tracks.total
             |  track
-    .wrapper-table.py-3
+    .wrapper-table
       if +tracks.total > 0
         button.btn-play-like
           svg.svg-play(xmlns='http://www.w3.org/2000/svg' fill='black' viewbox='0 0 24 24' stroke-width='1.5' stroke='currentColor')

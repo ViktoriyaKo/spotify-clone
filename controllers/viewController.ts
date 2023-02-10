@@ -12,11 +12,17 @@ const getOverview = catchAsync(
 
 const getPlaylists = catchAsync(
   async (req: IReq, res: IRes, next: NextFunction) => {
-    const playlists = await spotyApi.getOneAlbum('4aawyAB9vmqN3uQ7FjRGTy');
     const userTopTracks = await spotyApi.getUserTopItems('tracks');
+    const userTopArtists = await spotyApi.getUserTopItems('artists');
+    const topCategory = await spotyApi.getGenres();
+    const trackRecommendations = await spotyApi.getRecommendations();
+    const newReleases = await spotyApi.getNewReleases();
     res.status(200).render('home', {
-      playlists,
       userTopTracks,
+      userTopArtists,
+      topCategory,
+      newReleases,
+      trackRecommendations,
       state: 'btnHome',
     });
   }
