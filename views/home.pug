@@ -13,7 +13,7 @@ block content
             each userTopTrack, index in userTopTracks.items
               if index < 6
                 .col-xxl-2.col-xl-3.col-md-4.col-sm-6.mb-2(id=userTopTrack.id)
-                  a.main-card-home.p-3.rounded-2(href='#')
+                  a.main-card.p-3.rounded-2(href='#')
                     .wrapper-img
                       img(src=`${userTopTrack.album.images[1].url}` alt='album')
                       button.btn-play
@@ -31,7 +31,7 @@ block content
             each category, index in topCategory
               if (index > 0 && index < 7)
                 .col-xxl-2.col-xl-3.col-md-4.col-sm-6.mb-2(id=category.id)
-                  a.main-card-home.p-3.rounded-2(href='#')
+                  a.main-card.p-3.rounded-2(href='#')
                     .wrapper-img
                       img(src=`${category.icons[0].url}` alt='category')
                       button.btn-play
@@ -48,7 +48,7 @@ block content
             each newRelease, index in newReleases
               if index < 6
                 .col-xxl-2.col-xl-3.col-md-4.col-sm-6.mb-2(id=newRelease.id)
-                  a.main-card-home.p-3.rounded-2(href='#')
+                  a.main-card.p-3.rounded-2(href='#')
                     .wrapper-img
                       img(src=`${newRelease.images[1].url}` alt='newRelease')
                       button.btn-play
@@ -66,7 +66,7 @@ block content
             each userTopArtist, index in userTopArtists.items
               if index < 6
                 .col-xxl-2.col-xl-3.col-md-4.col-sm-6.mb-2(id=userTopArtist.id)
-                  a.main-card-home.p-3.rounded-2(href='#')
+                  a.main-card.p-3.rounded-2(href='#')
                     .wrapper-img
                       img(src=`${userTopArtist.images[1].url}` alt='artist')
                       button.btn-play
@@ -84,7 +84,7 @@ block content
             each trackRecommendation, index in trackRecommendations
               if index < 6
                 .col-xxl-2.col-xl-3.col-md-4.col-sm-6.mb-2(id=trackRecommendation.id)
-                  a.main-card-home.p-3.rounded-2(href='#')
+                  a.main-card.p-3.rounded-2(href='#')
                     .wrapper-img
                       img(src=`${trackRecommendation.album.images[1].url}` alt='artist')
                       button.btn-play
