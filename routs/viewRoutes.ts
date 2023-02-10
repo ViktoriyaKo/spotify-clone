@@ -22,6 +22,8 @@ router.get('/library/artists/', viewsController.getUserArtists);
 
 router.get('/library/albums/', viewsController.getUserAlbums);
 
+router.get(`/playlist/***********************`, viewsController.getPlaylist);
+
 router.get('/login', viewsController.login);
 
 router.get('/callback', viewsController.callback);

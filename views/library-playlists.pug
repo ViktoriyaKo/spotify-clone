@@ -19,9 +19,9 @@ block content
               | 3 favorite songs
         each playlist in playlists
           .col-xxl-2.col-xl-3.col-md-4.col-sm-6.mb-4
-            a.main-card.p-3.rounded-2(href='#')
+            a.main-card.p-3.rounded-2(href=`/playlist/${playlist.id}`)
               .wrapper-img
-                img(src=(playlist.images[0] ? `${playlist.images[0].url}` : '') alt='playlist cover')
+                img(src=(playlist.images[0] ? `${playlist.images[0].url}` : `../img/card-bg.svg`) class=(playlist.images[0] ? '' : 'default-bg') alt='playlist cover')
                 button.btn-play
                   svg.svg-play(xmlns='http://www.w3.org/2000/svg' fill='none' viewbox='0 0 24 24' stroke-width='1.5' stroke='currentColor')
                     path(stroke-linecap='round' stroke-linejoin='round' d='M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z')

@@ -190,6 +190,20 @@ const getUserSavedTracks = async () => {
   return data;
 }
 
+const getPlaylist = async (id: string) => {
+  const result = await fetch(`https://api.spotify.com/v1/playlists/${id}?market=ES`, {
+    method: 'GET', 
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    }
+  });
+
+  const data = await result.json();
+  return data;
+}
+
 export default { 
   getOneAlbum, 
   getGenres, 
@@ -197,6 +211,7 @@ export default {
   getFollowedArtist, 
   getUserPlaylists,
   getUserSavedTracks,
+  getPlaylist,
   login,
   callback
 };

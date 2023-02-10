@@ -82,6 +82,17 @@ const getUserArtists = catchAsync(
   }
 );
 
+const getPlaylist = catchAsync(
+  async (req: IReq, res: IRes, next: NextFunction) => {
+    const id = req.params[0];
+    const playlist = await spotyApi.getPlaylist(id);
+    res.status(200).render('playlist', {
+      playlist,
+      state: 'btnLibrary',
+    });
+  }
+)
+
 const login = catchAsync(
   async (req: IReq, res: IRes, next: NextFunction) => {
     const queryParams = await spotyApi.login();
@@ -110,6 +121,7 @@ export default {
   getUserPlaylists,
   getUserArtists,
   getUserAlbums,
+  getPlaylist,
   login,
   callback,
 };
