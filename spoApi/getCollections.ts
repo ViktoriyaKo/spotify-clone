@@ -151,6 +151,27 @@ const getUserPlaylists = async () => {
   return data.items;
 };
 
+const getUserTopItems = async (type: string) => {
+  const token = process.env.CLIENT_TOKEN;
+  const offset = 0;
+  const limit = 6;
+  const time = 'medium_term';
+  const result = await fetch(
+    `https://api.spotify.com/v1/me/top/${type}?time_range=${time}&limit=${limit}&offset=${offset}`,
+    {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
+  const data = await result.json();
+  return data;
+};
+
 const getUserSavedTracks = async () => {
   const token = process.env.CLIENT_TOKEN;
   const offset = 0;
@@ -187,6 +208,22 @@ const getCurrentUser = async () => {
   return data;
 };
 
+//
+
+const removeUserSavedTrack = async (id: string) => {
+  const token = process.env.CLIENT_TOKEN;
+  const result = await fetch(`https://api.spotify.com/v1/me/tracks/${id}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  const data = await result.json();
+  return data;
+};
+
 export default {
   getOneAlbum,
   getGenres,
@@ -196,4 +233,6 @@ export default {
   getUserSavedTracks,
   getPlaylistFromGenre,
   getCurrentUser,
+  removeUserSavedTrack,
+  getUserTopItems,
 };
