@@ -3,6 +3,7 @@ import { IReq, IRes } from '../environment';
 import User from '../models/userModel';
 import spotyApi from '../spoApi/getCollections';
 import catchAsync from '../utils/catchAsync';
+import querystring from 'querystring';
 
 const getOverview = catchAsync(
   async (req: IReq, res: IRes, next: NextFunction) => {
@@ -71,7 +72,7 @@ const changeProfile = catchAsync(
 
 const getUserPlaylists = catchAsync(
   async (req: IReq, res: IRes, next: NextFunction) => {
-    const playlists = spotyApi.getUserPlaylists();
+    const playlists = await spotyApi.getUserPlaylists();
     res.status(200).render('library-playlists', {
       playlists,
       state: 'btnLibrary',
@@ -99,6 +100,37 @@ const getUserArtists = catchAsync(
   }
 );
 
+const getPlaylist = catchAsync(
+  async (req: IReq, res: IRes, next: NextFunction) => {
+    const id = req.params[0];
+    const playlist = await spotyApi.getPlaylist(id);
+    res.status(200).render('playlist', {
+      playlist,
+      state: 'btnLibrary',
+    });
+  }
+);
+
+const login = catchAsync(async (req: IReq, res: IRes, next: NextFunction) => {
+  const queryParams = await spotyApi.login();
+  const stateKey = 'spotify_auth_state';
+  res.cookie(stateKey, queryParams.state);
+
+  res.redirect(
+    `https://accounts.spotify.com/authorize?${querystring.stringify(
+      queryParams
+    )}`
+  );
+});
+
+const callback = catchAsync(
+  async (req: IReq, res: IRes, next: NextFunction) => {
+    await spotyApi.callback(req, res);
+
+    res.redirect('http://localhost:7999/home');
+  }
+);
+
 export default {
   getOverview,
   getPlaylists,
@@ -109,4 +141,7 @@ export default {
   getUserPlaylists,
   getUserArtists,
   getUserAlbums,
+  getPlaylist,
+  login,
+  callback,
 };
