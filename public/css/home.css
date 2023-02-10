@@ -106,7 +106,7 @@ a {
   font-weight: 700;
 }
 
-.main-card-home {
+.main-card {
   height: 100%;
   position: relative;
   display: block;
@@ -116,7 +116,7 @@ a {
   overflow: hidden;
 }
 
-.main-card-home img {
+.main-card img {
   transition: 1s;
   border-radius: 5px;
   width: 100%;
@@ -135,11 +135,11 @@ a {
   height: 170px;
 }
 
-.main-card-home:hover {
+.main-card:hover {
   box-shadow: 0 14px 30px -15px rgb(0 0 0 / 75%);
 }
 
-.main-card-home h4 {
+.main-card h4 {
   font-size: 20px;
 }
 
@@ -159,7 +159,7 @@ a {
   opacity: 0;
 }
 
-.main-card-home:hover .btn-play {
+.main-card:hover .btn-play {
   opacity: 1;
   transition: 0.4s;
 }
