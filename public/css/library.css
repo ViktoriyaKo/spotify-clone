@@ -1,41 +1,45 @@
-.library-nav  a {
-    color: #444444;
+.library-nav a {
+  color: #444444;
 }
 
-.library-nav  a:hover {
-    color: black;
+.library-nav a:hover {
+  color: black;
 }
 
 .favorite-card {
-    height: 265px;
-    position: relative;
-    display: block;
-    color: #1b1a1b;
-    transition: all 0.3s;
-    box-shadow: 0 2px 5px 0 rgb(0 0 0 / 20%);
-    overflow: hidden;
+  height: 265px;
+  position: relative;
+  display: block;
+  color: #1b1a1b;
+  transition: all 0.3s;
+  box-shadow: 0 2px 5px 0 rgb(0 0 0 / 20%);
+  overflow: hidden;
 
-    color: white;
-    background: rgb(34,193,195);
-    background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);
+  color: white;
+  background: rgb(34, 193, 195);
+  background: linear-gradient(
+    0deg,
+    rgba(34, 193, 195, 1) 0%,
+    rgba(253, 187, 45, 1) 100%
+  );
 }
 
 .favorite-card:hover .btn-play {
-    opacity: 1;
-    transition: 0.4s;
+  opacity: 1;
+  transition: 0.4s;
 }
 
 .favorite-card .btn-play {
-    top: 70%;
-    width: 50px;
-    height: 50px;
-    padding-left: 10px;
+  top: 70%;
+  width: 50px;
+  height: 50px;
+  padding-left: 10px;
 }
 
 .favorite-card:hover {
-    box-shadow: 0 14px 30px -15px rgb(0 0 0 / 75%);
+  box-shadow: 0 14px 30px -15px rgb(0 0 0 / 75%);
 }
 
 .main-card {
-    height: auto;
+  height: auto;
 }
