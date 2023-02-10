@@ -1,25 +1,64 @@
 import fetch from 'cross-fetch';
+import querystring from 'querystring';
+import axios  from 'axios';
+import { IReq, IRes } from '../environment';
 
-const getToken = async () => {
-  const clientId = process.env.CLIENT_ID;
-  const clientSecret = process.env.CLIENT_SECRET;
-  const result = await fetch('https://accounts.spotify.com/api/token', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      Authorization: `Basic ${Buffer.from(
-        `${clientId}:${clientSecret}`
-      ).toString('base64')}`,
-    },
-    body: 'grant_type=client_credentials',
-  });
+let token: string;
 
-  const data = await result.json();
-  return data.access_token;
+const generateRandomString = (length: number) => {
+  let text = '';
+  const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  for (let i = 0; i < length; i++) {
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+  }
+  return text;
 };
 
+const login = async () => {
+  const clientId = process.env.CLIENT_ID;
+  const scope = 'user-read-private user-read-email ugc-image-upload user-library-read user-follow-read user-read-playback-state user-modify-playback-state user-read-currently-playing app-remote-control streaming playlist-read-private playlist-read-collaborative playlist-modify-private playlist-modify-public user-follow-modify user-read-playback-position user-top-read user-read-recently-played user-library-modify user-read-email user-read-private';
+  const redirectUri = 'http://localhost:7999/callback';
+
+  const state = generateRandomString(16);
+
+  const queryParams = {
+    client_id: clientId,
+    response_type: 'code',
+    redirect_uri: redirectUri,
+    state: state,
+    scope: scope,
+  };
+
+  return queryParams;
+}
+
+const callback = async (req: IReq, res: IRes) => {
+  const clientId = process.env.CLIENT_ID;
+  const clientSecret = process.env.CLIENT_SECRET;
+  const code = req.query.code || null;
+  const redirectUri = 'http://localhost:7999/callback';
+
+  await axios({
+      method: 'post',
+      url: 'https://accounts.spotify.com/api/token',
+      data: {
+        code: code,
+        redirect_uri: redirectUri,
+        grant_type: 'authorization_code'
+      },
+      headers: {
+        'content-type': 'application/x-www-form-urlencoded',
+        Authorization: `Basic ${Buffer.from(`${clientId}:${clientSecret}`).toString('base64')}`,
+      },
+    })
+    .then(response => {
+      if (response.status === 200) {
+        token = response.data.access_token;
+      }
+    })
+}
+
 const getOneAlbum = async (id: string) => {
-  const token = await getToken();
   const result = await fetch(`https://api.spotify.com/v1/albums/${id}`, {
     method: 'GET',
     headers: { Authorization: `Bearer ${token}` },
@@ -30,12 +69,15 @@ const getOneAlbum = async (id: string) => {
 };
 
 const getGenres = async () => {
-  const token = await getToken();
+  console.log(token)
   const result = await fetch(
-    `https://api.spotify.com/v1/browse/categories?locale=sv_US`,
+    `https://api.spotify.com/v1/browse/categories?country=SE&locale=sv_SE&limit=10&offset=5`,
     {
       method: 'GET',
-      headers: { Authorization: `Bearer ${token}` },
+      headers: { 
+        'Accept': 'application/json',
+        'Content-type': 'application/json',
+        Authorization: `Bearer ${token}` },
     }
   );
 
@@ -44,7 +86,6 @@ const getGenres = async () => {
 };
 
 const getSingleCategory = async (genreId: string) => {
-  const token = await getToken();
   const result = await fetch(
     `https://api.spotify.com/v1/browse/categories/${genreId}`,
     {
@@ -54,14 +95,12 @@ const getSingleCategory = async (genreId: string) => {
   );
 
   const data = await result.json();
-  console.log(data);
   return data;
 };
 
 // example: dinner
 // getPlaylistFromGenre('dinner');
 const getPlaylistFromGenre = async (genreId: string) => {
-  const token = await getToken();
   const limit = 10;
   const result = await fetch(
     `https://api.spotify.com/v1/browse/categories/${genreId}/playlists?limit=${limit}`,
@@ -77,7 +116,6 @@ const getPlaylistFromGenre = async (genreId: string) => {
 
 const getNewReleases = async () => {
   // Default value: 20
-  const token = await getToken();
   const result = await fetch(`https://api.spotify.com/v1/browse/new-releases`, {
     method: 'GET',
     headers: { Authorization: `Bearer ${token}` },
@@ -88,7 +126,6 @@ const getNewReleases = async () => {
 };
 
 const getUserSavedAlbums = async ()=> {
-  const token = await getToken();
   const limit = 50; 
   const offset = 5;
   const result = await fetch(`https://api.spotify.com/v1/me/albums?limit=${limit}&offset=${offset}&market=ES`, {
@@ -105,7 +142,6 @@ const getUserSavedAlbums = async ()=> {
 }
 
 const getFollowedArtist = async ()=> {
-  const token = await getToken();
   const type = 'artist'; 
   const limit = 50;
   const after = '0I2XqVXqHScXjHhk6AYYRe'; // ?????
@@ -123,7 +159,6 @@ const getFollowedArtist = async ()=> {
 }
 
 const getUserPlaylists = async ()=> {
-  const token = await getToken();
   const offset = 0;
   const limit = 50;
   const result = await fetch(`https://api.spotify.com/v1/me/playlists?limit=${limit}&offset=${offset}`, {
@@ -140,7 +175,6 @@ const getUserPlaylists = async ()=> {
 }
 
 const getUserSavedTracks = async () => {
-  const token = await getToken();
   const offset = 0;
   const limit = 50;
   const result = await fetch(`https://api.spotify.com/v1/me/tracks?market=ES&limit=${limit}&offset=${offset}`, {
@@ -162,5 +196,7 @@ export default {
   getUserSavedAlbums, 
   getFollowedArtist, 
   getUserPlaylists,
-  getUserSavedTracks 
+  getUserSavedTracks,
+  login,
+  callback
 };
