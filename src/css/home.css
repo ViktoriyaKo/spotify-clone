@@ -252,6 +252,17 @@ a {
   }
 }
 
+@media (max-width: 460px) {
+  .block-like-svg {
+    padding: 10px;
+    margin-right: 10px;
+  }
+
+  .text-main {
+    font-size: 20px;
+  }
+}
+
 @media (max-width: 400px) {
   .aside-block {
     width: 200px;

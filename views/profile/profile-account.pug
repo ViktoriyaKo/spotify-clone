@@ -10,10 +10,13 @@ block content
         table.table.table-light.p-4.mb-5.col-4
           tbody
             tr
-              td.p-3.td-info-table Username
-              td.p-3.text-center Cover
+              td.p-2.td-info-table Username
+              td.p-2.text-end= account.display_name
             tr
-              td.p-3.td-info-table E-mail address
-              td.p-3.text-center Cover
+              td.p-2.td-info-table E-mail address
+              td.p-2.text-end= account.email
+            tr
+              td.p-2.td-info-table Country
+              td.p-2.text-end= account.country
         button.btn.btn-secondary.btn-set.text-uppercase
           | change your profile

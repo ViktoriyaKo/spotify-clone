@@ -104,8 +104,8 @@ a {
   font-weight: 700;
 }
 
-.main-card {
-  height: 300px;
+.main-card-home {
+  height: 100%;
   position: relative;
   display: block;
   color: #1b1a1b;
@@ -114,7 +114,7 @@ a {
   overflow: hidden;
 }
 
-.main-card img {
+.main-card-home img {
   transition: 1s;
   border-radius: 5px;
   width: 100%;
@@ -127,11 +127,11 @@ a {
   height: 170px;
 }
 
-.main-card:hover {
+.main-card-home:hover {
   box-shadow: 0 14px 30px -15px rgb(0 0 0 / 75%);
 }
 
-.main-card h4 {
+.main-card-home h4 {
   font-size: 20px;
 }
 
@@ -151,7 +151,7 @@ a {
   opacity: 0;
 }
 
-.main-card:hover .btn-play {
+.main-card-home:hover .btn-play {
   opacity: 1;
   transition: 0.4s;
 }
@@ -193,6 +193,12 @@ a {
   flex-direction: column;
 }
 
+.logo-liked {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 30px;
+}
+
 .main-favorites .p-4 {
   background: linear-gradient(#000, #67487a);
 }
@@ -215,6 +221,7 @@ a {
 .wrapper-table {
   flex: 1;
   background: radial-gradient(#000000d1, #000);
+  padding: 10px 0 80px 0;
 }
 
 .btn-play-like {
@@ -240,6 +247,23 @@ a {
   width: 20px;
   height: 20px;
   cursor: pointer;
+}
+
+.play-icon-like {
+  display: none;
+  margin: 0 auto;
+}
+
+.chosen-track:hover {
+  background: #3e3e3e;
+}
+
+.chosen-track:hover .play-icon-like {
+  display: block;
+}
+
+.chosen-track:hover .number-track {
+  display: none;
 }
 
 /* finish liked tracks */
@@ -296,6 +320,21 @@ a {
     position: fixed;
     transform: translateX(-100%);
     transition: 0.3s;
+  }
+}
+
+@media (max-width: 460px) {
+  .block-like-svg {
+    padding: 10px;
+    margin-right: 10px;
+  }
+
+  .text-main {
+    font-size: 20px;
+  }
+
+  .td-info-table {
+    font-size: 14px;
   }
 }
 

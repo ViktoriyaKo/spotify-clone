@@ -12,9 +12,17 @@ const getOverview = catchAsync(
 
 const getPlaylists = catchAsync(
   async (req: IReq, res: IRes, next: NextFunction) => {
-    const playlists = await spotyApi.getOneAlbum('4aawyAB9vmqN3uQ7FjRGTy');
+    const userTopTracks = await spotyApi.getUserTopItems('tracks');
+    const userTopArtists = await spotyApi.getUserTopItems('artists');
+    const topCategory = await spotyApi.getGenres();
+    const trackRecommendations = await spotyApi.getRecommendations();
+    const newReleases = await spotyApi.getNewReleases();
     res.status(200).render('home', {
-      playlists,
+      userTopTracks,
+      userTopArtists,
+      topCategory,
+      newReleases,
+      trackRecommendations,
       state: 'btnHome',
     });
   }
@@ -22,7 +30,11 @@ const getPlaylists = catchAsync(
 
 const getFavoriteTracks = catchAsync(
   async (req: IReq, res: IRes, next: NextFunction) => {
+    const tracks = await spotyApi.getUserSavedTracks();
+    const account = await spotyApi.getCurrentUser();
     res.status(200).render('favorite', {
+      tracks,
+      account,
       state: 'btnFavorite',
     });
   }
@@ -31,7 +43,9 @@ const getFavoriteTracks = catchAsync(
 // profile:
 const getProfileMain = catchAsync(
   async (req: IReq, res: IRes, next: NextFunction) => {
+    const account = await spotyApi.getCurrentUser();
     res.status(200).render('profile/profile-account', {
+      account,
       state: 'btnAcc',
     });
   }

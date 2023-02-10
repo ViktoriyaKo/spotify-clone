@@ -31,6 +31,7 @@ const createSendToken = (
   // remove the password from the responce
   user.password = '';
   // @ts-ignore
+  res.redirect(+`${process.env.BASE_URL + process.env.PORT}/home`);
   res.status(statusCode).json({
     status: 'success',
     token,

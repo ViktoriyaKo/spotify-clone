@@ -19,7 +19,7 @@ const getToken = async () => {
 };
 
 const getOneAlbum = async (id: string) => {
-  const token = await getToken();
+  // const token = await getToken();
   const result = await fetch(`https://api.spotify.com/v1/albums/${id}`, {
     method: 'GET',
     headers: { Authorization: `Bearer ${token}` },
@@ -29,10 +29,13 @@ const getOneAlbum = async (id: string) => {
   return data;
 };
 
+// for home:
 const getGenres = async () => {
-  const token = await getToken();
+  // const token = await getToken();
+  const offset = 0;
+  const limit = 20;
   const result = await fetch(
-    `https://api.spotify.com/v1/browse/categories?locale=sv_US`,
+    `https://api.spotify.com/v1/browse/categories?country=US&locale=sv_se&offset=${offset}&limit=${limit}`,
     {
       method: 'GET',
       headers: { Authorization: `Bearer ${token}` },
@@ -43,25 +46,24 @@ const getGenres = async () => {
   return data.categories.items;
 };
 
-const getSingleCategory = async (genreId: string) => {
-  const token = await getToken();
-  const result = await fetch(
-    `https://api.spotify.com/v1/browse/categories/${genreId}`,
-    {
-      method: 'GET',
-      headers: { Authorization: `Bearer ${token}` },
-    }
-  );
+// const getSingleCategory = async (genreId: string) => {
+const token = await getToken();
+//   const result = await fetch(
+//     `https://api.spotify.com/v1/browse/categories/${genreId}`,
+//     {
+//       method: 'GET',
+//       headers: { Authorization: `Bearer ${token}` },
+//     }
+//   );
 
-  const data = await result.json();
-  console.log(data);
-  return data;
-};
+//   const data = await result.json();
+//   console.log(data);
+//   return data;
+// };
 
-// example: dinner
 // getPlaylistFromGenre('dinner');
 const getPlaylistFromGenre = async (genreId: string) => {
-  const token = await getToken();
+  // const token = await getToken();
   const limit = 10;
   const result = await fetch(
     `https://api.spotify.com/v1/browse/categories/${genreId}/playlists?limit=${limit}`,
@@ -75,20 +77,26 @@ const getPlaylistFromGenre = async (genreId: string) => {
   return data.playlists.items;
 };
 
+// finish home
+
 const getNewReleases = async () => {
-  // Default value: 20
-  const token = await getToken();
-  const result = await fetch(`https://api.spotify.com/v1/browse/new-releases`, {
-    method: 'GET',
-    headers: { Authorization: `Bearer ${token}` },
-  });
+  // const token = await getToken();
+  const offset = 0;
+  const limit = 20;
+  const result = await fetch(
+    `https://api.spotify.com/v1/browse/new-releases?country=SE&limit=${limit}&offset=${offset}`,
+    {
+      method: 'GET',
+      headers: { Authorization: `Bearer ${token}` },
+    }
+  );
 
   const data = await result.json();
   return data.albums.items;
 };
 
 const getUserSavedAlbums = async () => {
-  const token = await getToken();
+  // const token = await getToken();
   const limit = 50;
   const offset = 5;
   const result = await fetch(
@@ -108,7 +116,7 @@ const getUserSavedAlbums = async () => {
 };
 
 const getFollowedArtist = async () => {
-  const token = await getToken();
+  // const token = await getToken();
   const type = 'artist';
   const limit = 50;
   const after = '0I2XqVXqHScXjHhk6AYYRe'; // ?????
@@ -129,7 +137,7 @@ const getFollowedArtist = async () => {
 };
 
 const getUserPlaylists = async () => {
-  const token = await getToken();
+  // const token = await getToken();
   const offset = 0;
   const limit = 50;
   const result = await fetch(
@@ -148,8 +156,29 @@ const getUserPlaylists = async () => {
   return data.items;
 };
 
+const getUserTopItems = async (type: string) => {
+  // const token = process.env.CLIENT_TOKEN;
+  const offset = 0;
+  const limit = 20;
+  const time = 'medium_term';
+  const result = await fetch(
+    `https://api.spotify.com/v1/me/top/${type}?time_range=${time}&limit=${limit}&offset=${offset}`,
+    {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
+  const data = await result.json();
+  return data;
+};
+
 const getUserSavedTracks = async () => {
-  const token = await getToken();
+  // const token = process.env.CLIENT_TOKEN;
   const offset = 0;
   const limit = 50;
   const result = await fetch(
@@ -168,6 +197,56 @@ const getUserSavedTracks = async () => {
   return data;
 };
 
+const getRecommendations = async () => {
+  // const token = await getToken();
+  const track = '0c6xIDDpzE81m2q797ordA';
+  const limit = 20;
+  const recomendation = 'dance%2Ccountry';
+  const artist = '4NHQUGzhtTLFvgF5SZesLK';
+  const result = await fetch(
+    `https://api.spotify.com/v1/recommendations?limit=${limit}&market=ES&seed_artists=${artist}&seed_genres=${recomendation}&seed_tracks=${track}`,
+    {
+      method: 'GET',
+      headers: { Authorization: `Bearer ${token}` },
+    }
+  );
+
+  const data = await result.json();
+  return data.tracks;
+};
+
+// profile:
+
+const getCurrentUser = async () => {
+  // const token = process.env.CLIENT_TOKEN;
+  const result = await fetch(`https://api.spotify.com/v1/me`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  const data = await result.json();
+  return data;
+};
+
+//
+
+const removeUserSavedTrack = async (id: string) => {
+  // const token = process.env.CLIENT_TOKEN;
+  const result = await fetch(`https://api.spotify.com/v1/me/tracks/${id}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  const data = await result.json();
+  return data;
+};
+
 export default {
   getOneAlbum,
   getGenres,
@@ -175,4 +254,10 @@ export default {
   getFollowedArtist,
   getUserPlaylists,
   getUserSavedTracks,
+  getPlaylistFromGenre,
+  getCurrentUser,
+  removeUserSavedTrack,
+  getUserTopItems,
+  getNewReleases,
+  getRecommendations,
 };
