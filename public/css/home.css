@@ -249,6 +249,23 @@ a {
   cursor: pointer;
 }
 
+.play-icon-like {
+  display: none;
+  margin: 0 auto;
+}
+
+.chosen-track:hover {
+  background: #3e3e3e;
+}
+
+.chosen-track:hover .play-icon-like {
+  display: block;
+}
+
+.chosen-track:hover .number-track {
+  display: none;
+}
+
 /* finish liked tracks */
 
 /* profile account*/

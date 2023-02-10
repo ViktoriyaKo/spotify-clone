@@ -28,8 +28,12 @@ block content
                   path(stroke-linecap='round' stroke-linejoin='round' d='M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z')
           tbody.align-middle
             each track, index in tracks.items
-              tr
-                th#track.track.id.col-1.text-center= index + 1
+              tr.chosen-track
+                th.col-1.text-center
+                  span.number-track= index + 1
+                  svg.logo-main.play-icon-like(xmlns='http://www.w3.org/2000/svg' fill='none' viewbox='0 0 24 24' stroke-width='1.5' stroke='currentColor')
+                    path(stroke-linecap='round' stroke-linejoin='round' d='M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z')
+
                 td.col-4
                   .d-flex.gap-3
                     img.icon-album(src=`${track.track.album.images[2].url}` alt='album')
