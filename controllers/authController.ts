@@ -1,3 +1,4 @@
+// @ts-nocheck
 import crypto from 'crypto';
 import { promisify } from 'util';
 import jwt, { Secret, JwtPayload } from 'jsonwebtoken';
@@ -31,7 +32,7 @@ const createSendToken = (
   // remove the password from the responce
   user.password = '';
   // @ts-ignore
-  res.redirect(+`${process.env.BASE_URL + process.env.PORT}/home`);
+  //res.redirect(`${process.env.BASE_URL + process.env.PORT}/home`);
   res.status(statusCode).json({
     status: 'success',
     token,
@@ -123,6 +124,23 @@ const protect = catchAsync(async (req: IReq, res: IRes, next: NextFunction) => {
   next();
 });
 
+
+const updatePassword = catchAsync(async (req: IReq, res: IRes, next: NextFunction) => {
+  // 1. Get user from collection
+  const user = await User.findById(req.user.id as string).select('+password');
+  // 2. Check if POSTed current password is correct
+  if (!(await user.correctPassword(req.body.passwordCurrent, user.password))) {
+    return next(new AppError('Your current password is wrong', 401));
+  }
+  // 3. If so, update password.
+  user.password = req.body.password;
+  user.passwordConfirm = req.body.passwordConfirm;
+  await user.save();
+  // 4. Log user in, send JWT
+  createSendToken(user, 200, req, res);
+});
+
+
 const isLoggedIn = async (req: IReq, res: IRes, next: NextFunction) => {
   if (req.cookies.jwt) {
     try {
@@ -153,10 +171,23 @@ const isLoggedIn = async (req: IReq, res: IRes, next: NextFunction) => {
   next();
 };
 
+
+const logout = (req, res) => {
+  res.cookie('jwt', 'loggedout', {
+    expires: new Date(Date.now() + 10 * 1000),
+    httpOnly: true,
+  });
+  res.status(200).json({
+    status: 'success',
+  });
+};
+
 export default {
   login,
   signup,
   logout,
   protect,
   isLoggedIn,
+  updatePassword,
+  logout
 };
