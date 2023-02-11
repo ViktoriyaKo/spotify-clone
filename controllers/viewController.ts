@@ -127,7 +127,7 @@ const callback = catchAsync(
   async (req: IReq, res: IRes, next: NextFunction) => {
     await spotyApi.callback(req, res);
 
-    res.redirect('http://localhost:7999/home');
+    res.redirect('http://localhost:7999');
   }
 );
 

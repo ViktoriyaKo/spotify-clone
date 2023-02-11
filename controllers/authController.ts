@@ -31,14 +31,10 @@ const createSendToken = (
   res.cookie('jwt', token, cookieOptions);
   // remove the password from the responce
   user.password = '';
-  // @ts-ignore
-  //res.redirect(`${process.env.BASE_URL + process.env.PORT}/home`);
-  res.status(statusCode).json({
+  console.log('redirectTo:')
+  console.log(`${process.env.BASE_URL + process.env.PORT}/home`)
+  res.status(200).json({
     status: 'success',
-    token,
-    data: {
-      user,
-    },
   });
 };
 
@@ -56,7 +52,7 @@ const login = catchAsync(async (req: IReq, res: IRes, next: NextFunction) => {
     return next(new AppError('Incorrect email or password!', 401));
   }
   // 3. if everything ok, send token to client
-  createSendToken(user, 200, req, res);
+  createSendToken(user, 200, req, res, next);
 });
 
 const signup = catchAsync(async (req: IReq, res: IRes, next: NextFunction) => {
@@ -70,16 +66,6 @@ const signup = catchAsync(async (req: IReq, res: IRes, next: NextFunction) => {
   });
   createSendToken(newUser, 201, req, res);
 });
-
-const logout = (req: IReq, res: IRes) => {
-  res.cookie('jwt', 'loggedout', {
-    expires: new Date(Date.now() + 10 * 1000),
-    httpOnly: true,
-  });
-  res.status(200).json({
-    status: 'success',
-  });
-};
 
 const protect = catchAsync(async (req: IReq, res: IRes, next: NextFunction) => {
   // 1. Getting token and check of it's there
@@ -172,7 +158,7 @@ const isLoggedIn = async (req: IReq, res: IRes, next: NextFunction) => {
 };
 
 
-const logout = (req, res) => {
+const logout = (req: IReq, res: IRes) => {
   res.cookie('jwt', 'loggedout', {
     expires: new Date(Date.now() + 10 * 1000),
     httpOnly: true,
@@ -185,7 +171,6 @@ const logout = (req, res) => {
 export default {
   login,
   signup,
-  logout,
   protect,
   isLoggedIn,
   updatePassword,
