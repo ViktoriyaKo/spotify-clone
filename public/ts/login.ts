@@ -13,8 +13,9 @@ export const login = async (email, password) => {
     });
     if (res.data.status === 'success') {
       window.setTimeout(() => {
-        location.assign('/');
-      }, 1500);
+        console.log('redirecting from front')
+        location.assign('/home');
+      }, 300);
     }
   } catch (err) {
     console.log('error', err.response.data);
@@ -37,8 +38,8 @@ export const signup = async (name, email, role, password, passwordConfirm) => {
     });
     if (res.data.status === 'success') {
       window.setTimeout(() => {
-        location.assign('/');
-      }, 1500);
+        location.assign('/home');
+      }, 300);
     }
   } catch (err) {
     console.log('error', err.response.data);
