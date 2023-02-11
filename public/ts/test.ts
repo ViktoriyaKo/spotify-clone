@@ -1,5 +1,6 @@
 import { login, signup } from './login';
 import './home';
+import './account';
 
 console.log('hello spoty');
 // DOM ELEMENTS

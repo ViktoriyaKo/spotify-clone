@@ -7,11 +7,19 @@ block content
         form
           .modal-body.col-md-6
             .mb-3
+              img.img-preview.mb-4.mb-3(src='../img/user-main.png' alt='user')
+              input.form-control#photo.mb-2(type='file' accept=".png, .jpg, .jpeg")
+              button.btn.btn-secondary.btn-set-photo.text-uppercase.px-5(type='button' disabled='')
+                | Save photo
+            .mb-3
+        form
+          .modal-body.col-md-6
+            .mb-3
               label.form-label(for='name') Change your name
-              input#name.form-control(type='text')
+              input#name.form-control.inputChangeName(type='text' required='')
             .mb-3
               label.form-label(for='email') Change your email
-              input#email.form-control(type='email')
+              input#email.form-control.inputChangeEmail(type='email' required='')
             .mb-3
               label.form-label(for='email') Sex
               select#sex.form-select.form-select.mb-5(aria-label='.form-select example')

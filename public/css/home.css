@@ -88,6 +88,10 @@ a {
   height: 30px;
 }
 
+.img-preview {
+  max-width: 200px;
+}
+
 .color-set {
   background: #7f6187;
 }
