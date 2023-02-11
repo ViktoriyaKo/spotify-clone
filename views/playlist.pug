@@ -5,7 +5,7 @@ block content
       .d-flex.align-items-stretch.mb-3.gap-5
         .playlist-img
           img(src= (playlist.images[0] ? `${playlist.images[0].url}` : '../img/card-bg.svg') class=(playlist.images[0] ? '' : 'default-bg') alt='playlist image')
-        .d-flex.flex-column.text-white.justify-content-between
+        .d-flex.flex-column.text-white.justify-content-end
           small Playlist
           h1.text-main= playlist.name
           small= `${playlist.owner.display_name} • `

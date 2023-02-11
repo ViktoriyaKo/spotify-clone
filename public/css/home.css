@@ -148,6 +148,16 @@ p {
   font-size: 20px;
 }
 
+.main-card .title {
+  margin: 0;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+
+  font-size: 18px;
+}
+
 .btn-play {
   position: absolute;
   top: 100px;
@@ -162,6 +172,19 @@ p {
   align-items: center;
   transition: 0.4s;
   opacity: 0;
+}
+
+.btn-like {
+  width: 70px;
+  height: 70px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
+
+.changing-icon.heart-icon.btn-like-icon {
+  width: 100%;
+  height: 100%;
 }
 
 .main-card:hover .btn-play {
@@ -185,6 +208,7 @@ p {
   letter-spacing: 4px;
   font-weight: 900;
   font-size: 60px;
+  margin: 15px 0;
 }
 
 .block-like-svg {
