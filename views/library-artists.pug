@@ -11,7 +11,7 @@ block content
       .row
         each artist in artists
           .col-xxl-2.col-xl-3.col-md-4.col-sm-6.mb-4
-            a.main-card.p-3.rounded-2(href='#')
+            a.main-card.p-3.rounded-2(href=`/artist/${artist.id}`)
               .wrapper-img
                 img(src=`${artist.images[0].url}` alt='artists photo')
                 button.btn-play

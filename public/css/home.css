@@ -13,6 +13,10 @@ a {
   text-decoration: none;
 }
 
+p {
+  margin: 0;
+}
+
 /* aside */
 
 .nav-link {
@@ -97,6 +101,7 @@ a {
 .blocks-main {
   flex: 1;
   overflow: auto;
+  margin-bottom: 80px;
 }
 
 .text-ref-main {
@@ -319,6 +324,11 @@ thead {
 
 .btn-play-playlist:hover {
   transform: scale(1.1);
+}
+
+.recommendation-row {
+  flex-wrap: nowrap;
+  overflow: hidden;
 }
 
 /* finish liked tracks */

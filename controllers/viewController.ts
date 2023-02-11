@@ -111,6 +111,23 @@ const getPlaylist = catchAsync(
   }
 );
 
+const getArtist = catchAsync(
+  async (req: IReq, res: IRes, next: NextFunction) => {
+    const id = req.params[0];
+    const artist = await spotyApi.getArtist(id);
+    const artistAlbums = await spotyApi.getArtistAlbums(id);
+    const artistTopTracks = await spotyApi.getArtistTopTracks(id);
+    const relatedArtist = await spotyApi.getRelatedArtist(id);
+    res.status(200).render('artist', {
+      artist,
+      artistTopTracks,
+      artistAlbums,
+      relatedArtist,
+      state: 'btnLibrary',
+    });
+  }
+);
+
 const login = catchAsync(async (req: IReq, res: IRes, next: NextFunction) => {
   const queryParams = await spotyApi.login();
   const stateKey = 'spotify_auth_state';
@@ -142,6 +159,7 @@ export default {
   getUserArtists,
   getUserAlbums,
   getPlaylist,
+  getArtist,
   login,
   callback,
 };
