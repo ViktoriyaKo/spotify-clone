@@ -63,9 +63,14 @@ export const setPhoto = async (photo) => {
       },
     });
     if (res.data.status === 'success') {
-      window.setTimeout(() => {
-        location.assign('/profile/account');
-      }, 300);
+      const info = document.querySelector('.wrapper-info');
+      if (info) {
+        info.classList.remove('hidden');
+        info.innerHTML = '<div class="info"><h3>Your photo is saved</h3></div>';
+        setTimeout(() => {
+          info.classList.add('hidden');
+        }, 2000);
+      }
     }
   } catch (err) {
     console.log('error', err.response.data);
