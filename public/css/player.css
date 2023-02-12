@@ -1,10 +1,12 @@
 /* player */
 .player {
-    position: fixed;
+    position: relative;
+    grid-area: 'player';
+    grid-column: 1 / 4;
     bottom: 0;
     left: 0;
     right: 0;
-    height: 90px;
+    height: var(--height-player);
     z-index: 11;
   
     background-color: #121212;
@@ -52,16 +54,6 @@
   
     cursor: pointer;
     transition: all 0.1s ease;
-  }
-  
-  
-  i {
-    cursor: pointer;
-    transition: all 0.1s ease;
-  }
-  
-  i:hover {
-    color:#eaa5ff;
   }
   
   .play-pause:hover{
@@ -128,9 +120,11 @@
   
   .active-icon {
     fill:#eaa5ff;
+    stroke: #eaa5ff;
   }
 
-  @media (max-width: 720px) {
+
+  @media (max-width: 768px) {
     .progress-controller,
     .volume-bar {
       visibility: hidden;

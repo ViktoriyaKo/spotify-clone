@@ -1,0 +1,68 @@
+extends base.pug
+block content
+  main.gradient
+      .d-flex.align-items-stretch.mb-3.gap-5
+        .playlist-img
+          img(src= (artist.images[0] ? `${artist.images[0].url}` : '../img/card-bg.svg') class=(artist.images[0] ? '' : 'default-bg') alt='playlist image')
+        .d-flex.flex-column.text-white.justify-content-end
+          p.text-capitalize= artist.type
+          h1.text-main= artist.name
+          p= `${artist.followers.total} Followers`
+      button.btn-play-playlist.align-items-center.justify-content-center.rounded-circle
+        svg(viewbox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg')
+          path(d='M16.1378 10.5689L9.60498 7.30252C8.40816 6.70411 7 7.5744 7 8.91249V15.0876C7 16.4257 8.40816 17.2959 9.60498 16.6975L16.1378 13.4311C17.3171 12.8415 17.3171 11.1586 16.1378 10.5689Z' fill='#222222')
+      h3.text-light.py-3.fw-bold Popular tracks
+      table.table.table-like-playlist
+        tbody.align-middle
+          -
+            let rowNum = 1;
+          each item in artistTopTracks.tracks
+            -
+              let min = Math.floor(item.duration_ms / 60000);
+              let sec = Math.floor(Math.round(item.duration_ms % 60000) / 1000);
+            tr.chosen-track
+              th.col-1.text-center
+                span.number-track= `${rowNum++}`
+                svg.logo-main.play-icon-like.changing-icon(xmlns='http://www.w3.org/2000/svg' fill='none' viewbox='0 0 24 24' stroke-width='1.5' stroke='currentColor')
+                  path(stroke-linecap='round' stroke-linejoin='round' d='M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z')
+              td.col-4
+                .d-flex.gap-3
+                  img.icon-album(src=`${item.album.images[0].url}` alt='album')
+                  .d-flex.flex-column
+                    small.d-block.name-liked-track= item.name
+                    small.d-block.singer-liked-track= item.artists[0].name
+              td.col-4
+                .d-flex.justify-content-between
+                  span= item.album.name
+                  .heart-svg-table
+                    svg.changing-icon.heart-icon(xmlns='http://www.w3.org/2000/svg' fill='transparent' viewbox='-20 0 850 850' stroke-width='30' stroke='none')
+                      path(d='M459,19.28c-63.743,0-115.094,35.209-153.593,80.995C267.999,52.94,216.744,19.28,153,19.28 C63.227,19.28,0,96.469,0,180.638c0,45.154,18.494,77.686,38.747,108.229l237.781,285.078c26.699,25.033,31.729,25.033,58.427,0 l238.316-285.078C597.082,258.324,612,225.792,612,180.638C612,96.469,548.772,19.28,459,19.28z')
+              td.col-1= `${min}:${(sec < 10 ? '0' : '')}${sec}`
+      .d-flex.justify-content-between.align-items-center
+        h3.text-light.py-3.fw-bold Albums 
+        a(href=`/artist/${artist.id}/discography`).text-light See more
+      .row.recommendation-row
+        each album in artistAlbums.items
+          .col-xxl-2.col-xl-3.col-md-4.col-sm-6.mb-2
+            a.main-card.p-3.rounded-2(href=`/album/${album.id}`)
+              .wrapper-img
+                img(src=`${album.images[0].url}` alt='category')
+                button.btn-play
+                  svg.svg-play(xmlns='http://www.w3.org/2000/svg' fill='none' viewbox='0 0 24 24' stroke-width='1.5' stroke='currentColor')
+                    path(stroke-linecap='round' stroke-linejoin='round' d='M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z')
+              p.mt-2.text-light.title= album.name
+              small.text-light= `${album.type} • ${album.release_date.split('-')[0]}`
+      .d-flex.justify-content-between.align-items-center
+        h3.text-light.py-3.fw-bold Related Artist
+        a(href='#').text-light See more
+      .row.recommendation-row
+        each artist in relatedArtist.artists
+          .col-xxl-2.col-xl-3.col-md-4.col-sm-6.mb-2
+            a.main-card.p-3.rounded-2(href=`/artist/${artist.id}`)
+              .wrapper-img
+                img(src=`${artist.images[0].url}` alt='category')
+                button.btn-play
+                  svg.svg-play(xmlns='http://www.w3.org/2000/svg' fill='none' viewbox='0 0 24 24' stroke-width='1.5' stroke='currentColor')
+                    path(stroke-linecap='round' stroke-linejoin='round' d='M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z')
+              p.mt-2.text-light.title= artist.name
+              small.text-light= artist.type
