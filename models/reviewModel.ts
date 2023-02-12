@@ -1,4 +1,3 @@
-// review / rating / createdAt / ref to tour / ref to user
 import mongoose from 'mongoose';
 
 const reviewSchema = new mongoose.Schema(
