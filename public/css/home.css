@@ -348,6 +348,10 @@ thead {
   background-color: #35830b;
 }
 
+.profile-photo {
+  max-width: 200px;
+}
+
 /* from home: */
 .color-active {
   background: #7f6187;
@@ -421,7 +425,8 @@ thead {
     font-size: 20px;
   }
 
-  .td-info-table {
+  .td-info-table,
+  .info-table-data {
     font-size: 14px;
   }
 }

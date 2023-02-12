@@ -18,7 +18,30 @@ export const login = async (email: string, password: string) => {
       }, 300);
     }
   } catch (err) {
-    console.log('error', err.response.data);
+    const error2 = document.querySelector('.error2');
+    if (err.response.status === 401) {
+      if (error2) {
+        error2.classList.remove('hidden');
+        error2.innerHTML = 'Incorrect email or password';
+      }
+    }
+    console.log(err);
+  }
+};
+
+export const logout = async () => {
+  try {
+    const res = await axios({
+      method: 'GET',
+      url: '/api/v1/users/logout',
+    });
+    if (res.data.status === 'success') {
+      window.setTimeout(() => {
+        location.assign('/');
+      }, 300);
+    }
+  } catch (err) {
+    console.log(err);
   }
 };
 
@@ -48,19 +71,25 @@ export const signup = async (
       }, 300);
     }
   } catch (err) {
-    console.log('error', err.response.data);
+    const error1 = document.querySelector('.error1');
+    if (error1) {
+      if (err.response.status === 500) {
+        console.log(err);
+        error1.classList.remove('hidden');
+        error1.innerHTML = 'Incorrect password';
+      }
+    }
+    console.log(err);
   }
 };
 
-export const setPhoto = async (photo) => {
+export const setPhoto = async (data) => {
   try {
-    console.log('photo was sent', photo);
+    console.log('photo was sent', data);
     const res = await axios({
       method: 'PATCH',
       url: '/api/v1/users/updateMe',
-      data: {
-        photo,
-      },
+      data,
     });
     if (res.data.status === 'success') {
       const info = document.querySelector('.wrapper-info');

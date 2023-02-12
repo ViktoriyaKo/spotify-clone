@@ -7,7 +7,7 @@ block content
         form#formPhoto
           .modal-body.col-md-6
             .mb-3
-              img.img-preview.mb-4.mb-3(src='../img/user-main.png' alt='user')
+              img.img-preview.mb-4.mb-3.rounded-2(src=`../img/users/${photo}` alt='user')
               input.form-control#photo.mb-2(type='file' accept=".png, .jpg, .jpeg")
               button.btn.btn-secondary.btn-set-photo.text-uppercase.px-5(type='button' disabled='')
                 | Save photo
@@ -23,11 +23,6 @@ block content
               label.form-label(for='email') Change your email
               input#email.form-control.inputChangeEmail(type='email' required='')
             .mb-3
-              label.form-label(for='email') Sex
-              select#sex.form-select.form-select.mb-5(aria-label='.form-select example')
-                option(value='Woman') Select an option
-                option(value='Woman') Woman
-                option(value='Man') Man
               .form-check
                 input#flexCheckDefault.form-check-input(checked='' type='checkbox')
                 label.form-check-label.text-privacy(for='flexCheckDefault')

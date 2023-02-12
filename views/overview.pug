@@ -25,7 +25,7 @@ head
         h1#exampleModalLabel.modal-title.fs-5
           | Create account
         button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
-      form
+      form#formSignup
         .modal-body
           .form-floating.mb-3
             input#floatingInputEmail.form-control.formEmail.inputNameUp(type='text' placeholder='Your name' required='')
@@ -40,8 +40,10 @@ head
           .form-floating.mb-3
             input#floatingPassword2.form-control.inputPasswordUpConfirm(type='password' placeholder='Password' required='')
             label(for='floatingPassword2') Confirm Password
+            .error1.mb-1
+            
         .modal-footer.justify-content-center
-          button.w-100.mb-2.btn.btn-lg.rounded-3.btn-secondary.btn-set.btnSignUp(type='button')
+          button.w-100.mb-2.btn.btn-lg.rounded-3.btn-secondary.btn-set.btnSignUp(type='submit')
             | Sign up
           small.text-muted
             | By signing up I accept the Terms of Use. I have read and
@@ -54,17 +56,18 @@ head
       .modal-header
         h1#existccountLabel.modal-title.fs-5 Sign in
         button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
-      form
+      form#formSignin
         .modal-body
           .form-floating.mb-3
             input#floatingInput2.form-control.inputEmail(type='email' placeholder='name@example.com' required='')
             label(for='floatingInput2') Email
-          .form-floating.mb-3
+          .form-floating.mb-1
             input#floatingPassword3.form-control.inputPsw(type='password' placeholder='Password' required='')
             label(for='floatingPassword3') Password
-            a(href='Forgot your password?')
+            .error2.mb-1
+            
         .modal-footer.justify-content-center
-          button.w-100.mb-2.btn.btn-lg.rounded-3.btn-secondary.btn-set.btnSignIn(type='button')
+          button.w-100.mb-2.btn.btn-lg.rounded-3.btn-secondary.btn-set.btnSignIn(type='submit')
             | Sign in
 // modal
 script(src='	https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js')

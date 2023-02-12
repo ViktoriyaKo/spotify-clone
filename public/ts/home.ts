@@ -38,7 +38,6 @@ if (tableLikePlaylist) {
     const target = el.target as HTMLElement;
     if (target.closest('.heart-svg-table')) {
       console.log(target.id);
-      // await spotyApi.removeUserSavedTrack(target.id);
     }
   });
 }
