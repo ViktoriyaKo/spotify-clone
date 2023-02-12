@@ -31,8 +31,8 @@ const createSendToken = (
   res.cookie('jwt', token, cookieOptions);
   // remove the password from the responce
   user.password = '';
-  console.log('redirectTo:')
-  console.log(`${process.env.BASE_URL + process.env.PORT}/home`)
+  console.log('redirectTo:');
+  console.log(`${process.env.BASE_URL + process.env.PORT}/home`);
   res.status(200).json({
     status: 'success',
   });
@@ -110,22 +110,24 @@ const protect = catchAsync(async (req: IReq, res: IRes, next: NextFunction) => {
   next();
 });
 
-
-const updatePassword = catchAsync(async (req: IReq, res: IRes, next: NextFunction) => {
-  // 1. Get user from collection
-  const user = await User.findById(req.user.id as string).select('+password');
-  // 2. Check if POSTed current password is correct
-  if (!(await user.correctPassword(req.body.passwordCurrent, user.password))) {
-    return next(new AppError('Your current password is wrong', 401));
+const updatePassword = catchAsync(
+  async (req: IReq, res: IRes, next: NextFunction) => {
+    // 1. Get user from collection
+    const user = await User.findById(req.user.id as string).select('+password');
+    // 2. Check if POSTed current password is correct
+    if (
+      !(await user.correctPassword(req.body.passwordCurrent, user.password))
+    ) {
+      return next(new AppError('Your current password is wrong', 401));
+    }
+    // 3. If so, update password.
+    user.password = req.body.password;
+    user.passwordConfirm = req.body.passwordConfirm;
+    await user.save();
+    // 4. Log user in, send JWT
+    createSendToken(user, 200, req, res);
   }
-  // 3. If so, update password.
-  user.password = req.body.password;
-  user.passwordConfirm = req.body.passwordConfirm;
-  await user.save();
-  // 4. Log user in, send JWT
-  createSendToken(user, 200, req, res);
-});
-
+);
 
 const isLoggedIn = async (req: IReq, res: IRes, next: NextFunction) => {
   if (req.cookies.jwt) {
@@ -157,7 +159,6 @@ const isLoggedIn = async (req: IReq, res: IRes, next: NextFunction) => {
   next();
 };
 
-
 const logout = (req: IReq, res: IRes) => {
   res.cookie('jwt', 'loggedout', {
     expires: new Date(Date.now() + 10 * 1000),
@@ -174,5 +175,5 @@ export default {
   protect,
   isLoggedIn,
   updatePassword,
-  logout
+  logout,
 };
