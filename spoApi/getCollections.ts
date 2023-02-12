@@ -71,6 +71,16 @@ const getOneAlbum = async (id: string) => {
   return data;
 };
 
+const getSingleTrack = async (id: string) => {
+  const result = await fetch(`https://api.spotify.com/v1/tracks/${id}`, {
+    method: 'GET',
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+  const data = await result.json();
+  return data;
+};
+
 // for home:
 const getGenres = async () => {
   const offset = 0;
@@ -104,7 +114,6 @@ const getSingleCategory = async (genreId: string) => {
   return data;
 };
 
-// getPlaylistFromGenre('dinner');
 const getPlaylistFromGenre = async (genreId: string) => {
   const limit = 10;
   const result = await fetch(
@@ -297,17 +306,14 @@ const getPlaylist = async (id: string) => {
 };
 
 const getArtist = async (id: string) => {
-  const result = await fetch(
-    `https://api.spotify.com/v1/artists/${id}`,
-    {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
+  const result = await fetch(`https://api.spotify.com/v1/artists/${id}`, {
+    method: 'GET',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  });
 
   const data = await result.json();
   return data;
@@ -472,5 +478,5 @@ export default {
   getRecommendations,
   removeUserSavedTrack,
   getCurrentUser,
+  getSingleTrack,
 };
-

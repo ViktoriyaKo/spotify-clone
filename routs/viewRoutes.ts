@@ -28,6 +28,8 @@ router.get('/library/albums/', viewsController.getUserAlbums);
 
 router.get(`/playlist/:id`, viewsController.getPlaylist);
 
+router.get(`/track/:id`, viewsController.getTrack);
+
 router.get(`/artist/:id/discography`, viewsController.getDiscography);
 
 router.get(`/artist/:id`, viewsController.getArtist);

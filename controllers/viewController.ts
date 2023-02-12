@@ -15,13 +15,11 @@ const getPlaylists = catchAsync(
   async (req: IReq, res: IRes, next: NextFunction) => {
     const userTopTracks = await spotyApi.getUserTopItems('tracks');
     const userTopArtists = await spotyApi.getUserTopItems('artists');
-    const topCategory = await spotyApi.getGenres();
     const trackRecommendations = await spotyApi.getRecommendations();
     const newReleases = await spotyApi.getNewReleases();
     res.status(200).render('home', {
       userTopTracks,
       userTopArtists,
-      topCategory,
       newReleases,
       trackRecommendations,
       state: 'btnHome',
@@ -148,6 +146,22 @@ const getAlbum = catchAsync(
   }
 );
 
+const getTrack = catchAsync(
+  async (req: IReq, res: IRes, next: NextFunction) => {
+    const id = req.params.id;
+    const track = await spotyApi.getSingleTrack(id);
+    const artistId = track.artists[0].id;
+    const artist = await spotyApi.getArtist(artistId);
+    const artistAlbums = await spotyApi.getArtistAlbums(artistId);
+    res.status(200).render('track', {
+      track,
+      artist,
+      artistId,
+      artistAlbums,
+    });
+  }
+);
+
 const delAlbum = catchAsync(
   async (req: IReq, res: IRes, next: NextFunction) => {
     const id = req.body.albumId as string;
@@ -217,4 +231,5 @@ export default {
   getDiscography,
   login,
   callback,
+  getTrack,
 };
