@@ -385,6 +385,22 @@ const getAlbumTracks = async (id: string) => {
   return data;
 };
 
+const getSeveralAlbums = async (ids: string) => {
+  const result = await fetch(
+    `https://api.spotify.com/v1/albums?ids=${ids}&market=ES`,
+    {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
+  const data = await result.json();
+  return data;
+};
 
 export default {
   getOneAlbum,
@@ -400,6 +416,7 @@ export default {
   getArtistAlbums,
   getRelatedArtist,
   getAlbumTracks,
+  getSeveralAlbums,
   login,
   callback,
   getUserTopItems,

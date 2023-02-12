@@ -115,7 +115,7 @@ main {
   grid-column: 2 / 4;
   grid-row: 2 / 3;
   height: calc(100vh - var(--height-header) - var(--height-player));
-  overflow-x: scroll;
+  overflow-y: scroll;
   padding: 2vw;
 }
 

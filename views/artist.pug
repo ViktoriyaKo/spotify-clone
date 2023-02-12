@@ -40,7 +40,7 @@ block content
               td.col-1= `${min}:${(sec < 10 ? '0' : '')}${sec}`
       .d-flex.justify-content-between.align-items-center
         h3.text-light.py-3.fw-bold Albums 
-        a(href='#').text-light See more
+        a(href=`/artist/${artist.id}/discography`).text-light See more
       .row.recommendation-row
         each album in artistAlbums.items
           .col-xxl-2.col-xl-3.col-md-4.col-sm-6.mb-2

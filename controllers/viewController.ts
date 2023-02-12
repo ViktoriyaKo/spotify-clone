@@ -102,7 +102,7 @@ const getUserArtists = catchAsync(
 
 const getPlaylist = catchAsync(
   async (req: IReq, res: IRes, next: NextFunction) => {
-    const id = req.params[0];
+    const id = req.params.id;
     const playlist = await spotyApi.getPlaylist(id);
     res.status(200).render('playlist', {
       playlist,
@@ -113,7 +113,7 @@ const getPlaylist = catchAsync(
 
 const getArtist = catchAsync(
   async (req: IReq, res: IRes, next: NextFunction) => {
-    const id = req.params[0];
+    const id = req.params.id;
     const artist = await spotyApi.getArtist(id);
     const artistAlbums = await spotyApi.getArtistAlbums(id);
     const artistTopTracks = await spotyApi.getArtistTopTracks(id);
@@ -130,7 +130,7 @@ const getArtist = catchAsync(
 
 const getAlbum = catchAsync(
   async (req: IReq, res: IRes, next: NextFunction) => {
-    const id = req.params[0];
+    const id = req.params.id;
     const album = await spotyApi.getOneAlbum(id);
     const albumTracks = await spotyApi.getAlbumTracks(id);
     const artistId = album.artists[0].id;
@@ -138,6 +138,17 @@ const getAlbum = catchAsync(
     res.status(200).render('album', {
       album,
       albumTracks,
+      artistAlbums,
+      state: 'btnLibrary',
+    });
+  }
+);
+
+const getDiscography = catchAsync(
+  async (req: IReq, res: IRes, next: NextFunction) => {
+    const id = req.params.id;
+    const artistAlbums = await spotyApi.getArtistAlbums(id);
+    res.status(200).render('discography', {
       artistAlbums,
       state: 'btnLibrary',
     });
@@ -177,6 +188,7 @@ export default {
   getPlaylist,
   getArtist,
   getAlbum,
+  getDiscography,
   login,
   callback,
 };
