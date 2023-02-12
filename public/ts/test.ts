@@ -1,12 +1,14 @@
 import { login, signup } from './login';
 import './home';
+import './account';
 
 console.log('hello spoty');
 // DOM ELEMENTS
-const loginForm = document.querySelector('.btnSignIn');
+const formSignup = document.querySelector('#formSignup') as HTMLFormElement;
+const formSignin = document.querySelector('#formSignin') as HTMLFormElement;
 const inputEmail = document.querySelector('.inputEmail') as HTMLInputElement;
 const inputPsw = document.querySelector('.inputPsw') as HTMLInputElement;
-const btnSignUp = document.querySelector('.btnSignUp') as HTMLInputElement;
+
 const inputNameUp = document.querySelector('.inputNameUp') as HTMLInputElement;
 const inputEmailUp = document.querySelector(
   '.inputEmailUp'
@@ -19,16 +21,18 @@ const inputPasswordUpConfirm = document.querySelector(
   '.inputPasswordUpConfirm'
 ) as HTMLInputElement;
 
-if (loginForm) {
-  loginForm.addEventListener('click', () => {
+if (formSignin) {
+  formSignin.addEventListener('submit', (e) => {
+    e.preventDefault();
     const email = inputEmail.value as string;
     const password = inputPsw.value as string;
     login(email, password);
   });
 }
 
-if (btnSignUp) {
-  btnSignUp.addEventListener('click', () => {
+if (formSignup) {
+  formSignup.addEventListener('submit', (e) => {
+    e.preventDefault();
     const role = 'user';
     const name = inputNameUp.value as string;
     const email = inputEmailUp.value as string;

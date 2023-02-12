@@ -88,6 +88,10 @@ a {
   height: 30px;
 }
 
+.img-preview {
+  max-width: 200px;
+}
+
 .color-set {
   background: #7f6187;
 }
@@ -344,6 +348,10 @@ thead {
   background-color: #35830b;
 }
 
+.profile-photo {
+  max-width: 200px;
+}
+
 /* from home: */
 .color-active {
   background: #7f6187;
@@ -352,6 +360,35 @@ thead {
 /* change profile*/
 #sex {
   color: gray;
+}
+
+.wrapper-info {
+  position: fixed;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0px;
+  left: 0px;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(7, 7, 7, 0.232);
+  font-weight: 700;
+}
+
+.info {
+  max-width: 300px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 150px;
+  background: white;
+  border-radius: 5px;
+}
+
+.info h3 {
+  align-self: center;
+  text-shadow: rgb(162 59 180) 2px 1px 2px;
 }
 
 .form-check-input:checked {
@@ -388,7 +425,8 @@ thead {
     font-size: 20px;
   }
 
-  .td-info-table {
+  .td-info-table,
+  .info-table-data {
     font-size: 14px;
   }
 }
@@ -405,4 +443,8 @@ thead {
   display: none;
   background-color: #1b1a1b88;
   inset: 0;
+}
+
+.hidden {
+  display: none;
 }

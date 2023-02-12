@@ -44,9 +44,10 @@ const getFavoriteTracks = catchAsync(
 // profile:
 const getProfileMain = catchAsync(
   async (req: IReq, res: IRes, next: NextFunction) => {
-    const account = await spotyApi.getCurrentUser();
     res.status(200).render('profile/profile-account', {
-      account,
+      name: req.user.name,
+      email: req.user.email,
+      photo: req.user.photo,
       state: 'btnAcc',
     });
   }
@@ -64,6 +65,7 @@ const changeProfile = catchAsync(
   async (req: IReq, res: IRes, next: NextFunction) => {
     res.status(200).render('profile/account', {
       state: 'btnChange',
+      photo: req.user.photo,
     });
   }
 );
