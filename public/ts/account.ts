@@ -1,4 +1,4 @@
-import { setPhoto } from './login';
+import { setPhoto, changeAccount, changePassword } from './login';
 // DOM:
 const checkboxAccount = document.querySelector(
   '#flexCheckDefault'
@@ -9,6 +9,9 @@ const btnSetProfile = document.querySelector(
 const btnSetPhoto = document.querySelector(
   '.btn-set-photo'
 ) as HTMLInputElement;
+const btnSetPassword = document.querySelector(
+  '.btn-set-password'
+) as HTMLInputElement;
 const inputChangeName = document.querySelector(
   '.inputChangeName'
 ) as HTMLInputElement;
@@ -18,8 +21,22 @@ const inputChangeEmail = document.querySelector(
 
 const inputPhoto = document.querySelector('#photo') as HTMLInputElement;
 const imgPreview = document.querySelector('.img-preview') as HTMLImageElement;
+const formPhoto = document.querySelector('#formPhoto') as HTMLFormElement;
+const formChangeData = document.querySelector(
+  '#formChangeData'
+) as HTMLFormElement;
+const formChangePassword = document.querySelector(
+  '#formChangePassword'
+) as HTMLFormElement;
+const currentPassword = document.querySelector(
+  '#currentPassword'
+) as HTMLInputElement;
+const newPassword = document.querySelector('#newPassword') as HTMLInputElement;
+const repeatNewPassword = document.querySelector(
+  '#repeatNewPassword'
+) as HTMLInputElement;
 
-if (inputPhoto) {
+if (formPhoto) {
   inputPhoto.addEventListener('change', (el) => {
     imgPreview.onload = () => {
       URL.revokeObjectURL(inputPhoto.src);
@@ -32,19 +49,33 @@ if (inputPhoto) {
   });
   btnSetPhoto.addEventListener('click', () => {
     if (inputPhoto.files) {
-      // const formData = new FormData();
-      // formData.append('photo', inputPhoto.files[0])
-      console.log(inputPhoto.files[0]);
-      setPhoto(inputPhoto.files[0]);
+      const data = new FormData();
+      data.append('photo', inputPhoto.files[0]);
+      console.log(inputPhoto.files[0].name);
+      console.log(data);
+      setPhoto(data);
     }
   });
 }
 
-// checkboxAccount.addEventListener('change', () => {
-//   btnSetProfile.disabled = !checkboxAccount.checked;
-// });
-// btnSetProfile.addEventListener('click', () => {
-//   const name = inputChangeName.value as string;
-//   const email = inputChangeEmail.value as string;
-//   changeAccount(name, email);
-// });
+if (formChangeData) {
+  checkboxAccount.addEventListener('change', () => {
+    btnSetProfile.disabled = !checkboxAccount.checked;
+  });
+  formChangeData.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = inputChangeName.value as string;
+    const email = inputChangeEmail.value as string;
+    changeAccount(name, email);
+  });
+}
+
+if (formChangePassword) {
+  formChangePassword.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const currentPsw = currentPassword.value as string;
+    const newPsw = newPassword.value as string;
+    const repeatNewPsw = repeatNewPassword.value as string;
+    changePassword(currentPsw, newPsw, repeatNewPsw);
+  });
+}
