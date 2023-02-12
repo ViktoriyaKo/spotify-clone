@@ -17,7 +17,7 @@ export const login = async (email: string, password: string) => {
         location.assign('/home');
       }, 300);
     }
-  } catch (err) {
+  } catch (err: any) {
     const error2 = document.querySelector('.error2');
     if (err.response.status === 401) {
       if (error2) {
@@ -70,7 +70,7 @@ export const signup = async (
         location.assign('/home');
       }, 300);
     }
-  } catch (err) {
+  } catch (err: any) {
     const error1 = document.querySelector('.error1');
     if (error1) {
       if (err.response.status === 500) {
@@ -83,7 +83,7 @@ export const signup = async (
   }
 };
 
-export const setPhoto = async (data) => {
+export const setPhoto = async (data: FormData) => {
   try {
     console.log('photo was sent', data);
     const res = await axios({
@@ -101,7 +101,7 @@ export const setPhoto = async (data) => {
         }, 2000);
       }
     }
-  } catch (err) {
+  } catch (err: any) {
     console.log('error', err.response.data);
   }
 };
@@ -130,7 +130,7 @@ export const changeAccount = async (name: string, email: string) => {
         }, 2000);
       }
     }
-  } catch (err) {
+  } catch (err: any) {
     console.log('error', err.response.data);
   }
 };
@@ -162,7 +162,7 @@ export const changePassword = async (
         }, 2000);
       }
     }
-  } catch (err) {
+  } catch (err: any) {
     console.log('error', err.response.data);
   }
 };
