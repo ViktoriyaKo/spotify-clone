@@ -104,10 +104,76 @@ const getUserArtists = catchAsync(
 
 const getPlaylist = catchAsync(
   async (req: IReq, res: IRes, next: NextFunction) => {
-    const id = req.params[0];
+    const id = req.params.id;
     const playlist = await spotyApi.getPlaylist(id);
     res.status(200).render('playlist', {
       playlist,
+      state: 'btnLibrary',
+    });
+  }
+);
+
+const getArtist = catchAsync(
+  async (req: IReq, res: IRes, next: NextFunction) => {
+    const id = req.params.id;
+    const artist = await spotyApi.getArtist(id);
+    const artistAlbums = await spotyApi.getArtistAlbums(id);
+    const artistTopTracks = await spotyApi.getArtistTopTracks(id);
+    const relatedArtist = await spotyApi.getRelatedArtist(id);
+    res.status(200).render('artist', {
+      artist,
+      artistTopTracks,
+      artistAlbums,
+      relatedArtist,
+      state: 'btnLibrary',
+    });
+  }
+);
+
+const getAlbum = catchAsync(
+  async (req: IReq, res: IRes, next: NextFunction) => {
+    const id = req.params.id;
+    const album = await spotyApi.getOneAlbum(id);
+    const albumTracks = await spotyApi.getAlbumTracks(id);
+    const artistId = album.artists[0].id;
+    const artistAlbums = await spotyApi.getArtistAlbums(artistId);
+    const checkSavedAlbums = await spotyApi.checkUserSavedAlbums(id);
+    res.status(200).render('album', {
+      album,
+      albumTracks,
+      artistAlbums,
+      checkSavedAlbums,
+      state: 'btnLibrary',
+    });
+  }
+);
+
+const delAlbum = catchAsync(
+  async (req: IReq, res: IRes, next: NextFunction) => {
+    const id = req.body.albumId as string;
+    await spotyApi.removeUserSavedAlbums(id);
+    res.status(202).json({
+      status: 'album was deleted',
+    });
+  }
+);
+
+const saveAlbum = catchAsync(
+  async (req: IReq, res: IRes, next: NextFunction) => {
+    const id = req.body.albumId as string;
+    await spotyApi.saveAlbumsForUser(id);
+    res.status(202).json({
+      status: 'album was saved',
+    });
+  }
+);
+
+const getDiscography = catchAsync(
+  async (req: IReq, res: IRes, next: NextFunction) => {
+    const id = req.params.id;
+    const artistAlbums = await spotyApi.getArtistAlbums(id);
+    res.status(200).render('discography', {
+      artistAlbums,
       state: 'btnLibrary',
     });
   }
@@ -134,6 +200,8 @@ const callback = catchAsync(
 );
 
 export default {
+  delAlbum,
+  saveAlbum,
   getOverview,
   getPlaylists,
   getFavoriteTracks,
@@ -144,6 +212,9 @@ export default {
   getUserArtists,
   getUserAlbums,
   getPlaylist,
+  getArtist,
+  getAlbum,
+  getDiscography,
   login,
   callback,
 };
