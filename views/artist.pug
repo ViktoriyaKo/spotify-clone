@@ -1,7 +1,6 @@
 extends base.pug
 block content
-  main.main-favorites
-    .gradient.p-4
+  main.gradient
       .d-flex.align-items-stretch.mb-3.gap-5
         .playlist-img
           img(src= (artist.images[0] ? `${artist.images[0].url}` : '../img/card-bg.svg') class=(artist.images[0] ? '' : 'default-bg') alt='playlist image')

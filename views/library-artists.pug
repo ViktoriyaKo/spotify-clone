@@ -1,13 +1,13 @@
 extends base.pug
 block content
   main
-    nav.library-nav.d-flex.p-3.gap-4
+    nav.library-nav.d-flex.gap-4
       a#playlists.p-2.rounded(href='./playlists') Playlists
       a#artists.text-light.color-active.p-2.rounded(href='./artists') Artists
       a#albums.p-2.rounded(href='./albums') Albums
-    .container-fluid.p-3
-      dis.row
-        h3.col-12 Artists
+    div
+      .row
+        h3.col-12.py-4 Artists
       .row
         each artist in artists
           .col-xxl-2.col-xl-3.col-md-4.col-sm-6.mb-4

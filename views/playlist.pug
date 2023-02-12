@@ -1,15 +1,14 @@
 extends base.pug
 block content
-  main.main-favorites
-    .gradient.p-4
-      .d-flex.align-items-stretch.mb-3.gap-5
-        .playlist-img
-          img(src= (playlist.images[0] ? `${playlist.images[0].url}` : '../img/card-bg.svg') class=(playlist.images[0] ? '' : 'default-bg') alt='playlist image')
-        .d-flex.flex-column.text-white.justify-content-end
-          small Playlist
-          h1.text-main= playlist.name
-          small= `${playlist.owner.display_name} • `
-            span.amount-liked-track= `${playlist.tracks.total} songs • `
+  main.gradient
+    .d-flex.align-items-stretch.mb-3.gap-5
+      .playlist-img
+        img(src= (playlist.images[0] ? `${playlist.images[0].url}` : '../img/card-bg.svg') class=(playlist.images[0] ? '' : 'default-bg') alt='playlist image')
+      .d-flex.flex-column.text-white.justify-content-end
+        small Playlist
+        h1.text-main= playlist.name
+        small= `${playlist.owner.display_name} • `
+          span.amount-liked-track= `${playlist.tracks.total} songs • `
     .wrapper-table
       button.btn-play-playlist.align-items-center.justify-content-center.rounded-circle
         svg(viewbox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg')

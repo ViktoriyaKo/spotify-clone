@@ -1,13 +1,13 @@
 extends base.pug
 block content
   main
-    nav.library-nav.d-flex.p-3.gap-4
+    nav.library-nav.d-flex.gap-4
       a#playlists.text-light.color-active.p-2.rounded(href='./playlists') Playlists
       a#artists.p-2.rounded(href='./artists') Artists
       a#albums.p-2.rounded(href='./albums') Albums
-    .container-fluid.p-3
+    div
       .row
-        h3.col-12 Playlists
+        h3.col-12.py-4 Playlists
       .row
         .col-xxl-4.col-xl-6.col-md-8.col-sm-12
           a.favorite-card.p-3.rounded.bg-dark.d-flex.flex-column.align-items-center.justify-content-center(href='/favorite')
