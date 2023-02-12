@@ -1,5 +1,8 @@
 import axios from 'axios';
 
+const error1 = document.querySelector('.error1');
+const error2 = document.querySelector('.error2');
+
 export const login = async (email: string, password: string) => {
   try {
     console.log('data was sent', email, password);
@@ -18,7 +21,6 @@ export const login = async (email: string, password: string) => {
       }, 300);
     }
   } catch (err: any) {
-    const error2 = document.querySelector('.error2');
     if (err.response.status === 401) {
       if (error2) {
         error2.classList.remove('hidden');
@@ -40,8 +42,8 @@ export const logout = async () => {
         location.assign('/');
       }, 300);
     }
-  } catch (err) {
-    console.log(err);
+  } catch (err: any) {
+    console.log('error ', err);
   }
 };
 
@@ -66,12 +68,14 @@ export const signup = async (
       },
     });
     if (res.data.status === 'success') {
+      if (error1) {
+        error1.classList.add('hidden');
+      }
       window.setTimeout(() => {
         location.assign('/home');
       }, 300);
     }
   } catch (err: any) {
-    const error1 = document.querySelector('.error1');
     if (error1) {
       if (err.response.status === 500) {
         console.log(err);
@@ -120,6 +124,9 @@ export const changeAccount = async (name: string, email: string) => {
     if (res.data.status === 'success') {
       const info = document.querySelector('.wrapper-info');
       const form = document.querySelector('#formChangeData') as HTMLFormElement;
+      if (error1) {
+        error1.classList.add('hidden');
+      }
       if (info && form) {
         info.classList.remove('hidden');
         info.innerHTML =
@@ -131,7 +138,12 @@ export const changeAccount = async (name: string, email: string) => {
       }
     }
   } catch (err: any) {
-    console.log('error', err.response.data);
+    if (error1) {
+      console.log(err);
+      error1.classList.remove('hidden');
+      error1.innerHTML = 'Please enter correct data';
+    }
+    console.log(err);
   }
 };
 
@@ -153,6 +165,9 @@ export const changePassword = async (
     });
     if (res.data.status === 'success') {
       const info = document.querySelector('.wrapper-info');
+      if (error2) {
+        error2.classList.add('hidden');
+      }
       if (info) {
         info.classList.remove('hidden');
         info.innerHTML =
@@ -163,6 +178,18 @@ export const changePassword = async (
       }
     }
   } catch (err: any) {
-    console.log('error', err.response.data);
+    if (err.response.status === 401) {
+      if (error2) {
+        error2.classList.remove('hidden');
+        error2.innerHTML = 'Incorrect your current password';
+      }
+    }
+    if (err.response.status === 500) {
+      if (error2) {
+        error2.classList.remove('hidden');
+        error2.innerHTML = 'Incorrect new password';
+      }
+    }
+    console.log(err);
   }
 };

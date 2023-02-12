@@ -344,7 +344,9 @@ thead {
   text-shadow: rgb(162 59 180) 2px 1px 2px;
 }
 
-.btn-set-profile {
+.btn-set-profile,
+.btn-set-password,
+.btn-set-photo {
   background-color: #35830b;
 }
 
@@ -358,8 +360,11 @@ thead {
 }
 
 /* change profile*/
-#sex {
-  color: gray;
+
+.error1,
+.error2 {
+  color: red;
+  display: block;
 }
 
 .wrapper-info {
@@ -384,6 +389,7 @@ thead {
   height: 150px;
   background: white;
   border-radius: 5px;
+  text-align: center;
 }
 
 .info h3 {

@@ -1,4 +1,4 @@
-import { setPhoto, changeAccount, changePassword } from './login';
+import { setPhoto, changeAccount, changePassword, logout } from './login';
 // DOM:
 const checkboxAccount = document.querySelector(
   '#flexCheckDefault'
@@ -76,5 +76,12 @@ if (formChangePassword) {
     const newPsw = newPassword.value as string;
     const repeatNewPsw = repeatNewPassword.value as string;
     changePassword(currentPsw, newPsw, repeatNewPsw);
+  });
+}
+
+const btnExit = document.querySelector('.btn-exit');
+if (btnExit) {
+  btnExit.addEventListener('click', (e) => {
+    logout();
   });
 }
