@@ -17,6 +17,7 @@ import { IReq } from './environment';
 import viewRouter from './routs/viewRoutes';
 
 import userRouter from './routs/userRoutes';
+import spoAPI from './routs/spoAPI';
 
 const app = express();
 app.enable('trust proxy');
@@ -54,6 +55,7 @@ app.use(compression());
 
 app.use('/', viewRouter);
 app.use('/api/v1/users', userRouter);
+app.use('/api/v1/spotyApi', spoAPI);
 app.all('*', (req, res, next) => {
   next(new AppError(`can't find ${req.originalUrl} on this server!`, 404));
 });

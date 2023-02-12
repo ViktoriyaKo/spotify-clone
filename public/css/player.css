@@ -56,16 +56,6 @@
     transition: all 0.1s ease;
   }
   
-  
-  i {
-    cursor: pointer;
-    transition: all 0.1s ease;
-  }
-  
-  i:hover {
-    color:#eaa5ff;
-  }
-  
   .play-pause:hover{
     transform: scale(1.1);
     color: black;
@@ -130,7 +120,9 @@
   
   .active-icon {
     fill:#eaa5ff;
+    stroke: #eaa5ff;
   }
+
 
   @media (max-width: 768px) {
     .progress-controller,

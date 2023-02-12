@@ -197,6 +197,15 @@ main {
   outline: none;
 }
 
+.btn-album-like svg{
+  fill: transparent;
+}
+
+.btn-album-like.active svg{
+  fill: #eaa5ff;
+  stroke: #eaa5ff;
+}
+
 .changing-icon.heart-icon.btn-like-icon {
   width: 100%;
   height: 100%;

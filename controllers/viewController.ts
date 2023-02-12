@@ -135,11 +135,33 @@ const getAlbum = catchAsync(
     const albumTracks = await spotyApi.getAlbumTracks(id);
     const artistId = album.artists[0].id;
     const artistAlbums = await spotyApi.getArtistAlbums(artistId);
+    const checkSavedAlbums = await spotyApi.checkUserSavedAlbums(id);
     res.status(200).render('album', {
       album,
       albumTracks,
       artistAlbums,
+      checkSavedAlbums,
       state: 'btnLibrary',
+    });
+  }
+);
+
+const delAlbum = catchAsync(
+  async (req: IReq, res: IRes, next: NextFunction) => {
+    const id = req.body.albumId as string;
+    await spotyApi.removeUserSavedAlbums(id);
+    res.status(202).json({
+      status: 'album was deleted',
+    });
+  }
+);
+
+const saveAlbum = catchAsync(
+  async (req: IReq, res: IRes, next: NextFunction) => {
+    const id = req.body.albumId as string;
+    await spotyApi.saveAlbumsForUser(id);
+    res.status(202).json({
+      status: 'album was saved',
     });
   }
 );
@@ -176,6 +198,8 @@ const callback = catchAsync(
 );
 
 export default {
+  delAlbum,
+  saveAlbum,
   getOverview,
   getPlaylists,
   getFavoriteTracks,

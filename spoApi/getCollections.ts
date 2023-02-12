@@ -138,7 +138,7 @@ const getNewReleases = async () => {
 
 const getUserSavedAlbums = async () => {
   const limit = 50;
-  const offset = 5;
+  const offset = 0;
   const result = await fetch(
     `https://api.spotify.com/v1/me/albums?limit=${limit}&offset=${offset}&market=ES`,
     {
@@ -402,6 +402,51 @@ const getSeveralAlbums = async (ids: string) => {
   return data;
 };
 
+const checkUserSavedAlbums = async (ids: string) => {
+  const result = await fetch(
+    `https://api.spotify.com/v1/me/albums/contains?ids=${ids}`,
+    {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
+  const data = await result.json();
+  return data;
+};
+
+const removeUserSavedAlbums = async (ids: string) => {
+  const result = await fetch(
+    `https://api.spotify.com/v1/me/albums?ids=${ids}`,
+    {
+      method: 'DELETE',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+};
+
+const saveAlbumsForUser = async (ids: string) => {
+  const result = await fetch(
+    `https://api.spotify.com/v1/me/albums?ids=${ids}`,
+    {
+      method: 'PUT',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+};
+
 export default {
   getOneAlbum,
   getGenres,
@@ -417,6 +462,9 @@ export default {
   getRelatedArtist,
   getAlbumTracks,
   getSeveralAlbums,
+  checkUserSavedAlbums,
+  removeUserSavedAlbums,
+  saveAlbumsForUser,
   login,
   callback,
   getUserTopItems,
@@ -425,3 +473,4 @@ export default {
   removeUserSavedTrack,
   getCurrentUser,
 };
+

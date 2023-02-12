@@ -31,6 +31,7 @@ export interface IBody {
   passwordConfirm?: string;
   name?: string;
   photo?: string;
+  albumId?: string;
 }
 export interface IReq extends Request {
   body: IBody;
