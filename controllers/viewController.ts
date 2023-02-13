@@ -115,14 +115,16 @@ const getArtist = catchAsync(
   async (req: IReq, res: IRes, next: NextFunction) => {
     const id = req.params.id;
     const artist = await spotyApi.getArtist(id);
-    const artistAlbums = await spotyApi.getArtistAlbums(id);
+    const artistAlbums = await spotyApi.getArtistAlbums(id, 10);
     const artistTopTracks = await spotyApi.getArtistTopTracks(id);
     const relatedArtist = await spotyApi.getRelatedArtist(id);
+    const checkFollowArtist = await spotyApi.checkUserFollowArtist(id);
     res.status(200).render('artist', {
       artist,
       artistTopTracks,
       artistAlbums,
       relatedArtist,
+      checkFollowArtist,
       state: 'btnLibrary',
     });
   }
@@ -134,7 +136,7 @@ const getAlbum = catchAsync(
     const album = await spotyApi.getOneAlbum(id);
     const albumTracks = await spotyApi.getAlbumTracks(id);
     const artistId = album.artists[0].id;
-    const artistAlbums = await spotyApi.getArtistAlbums(artistId);
+    const artistAlbums = await spotyApi.getArtistAlbums(artistId, 10);
     const checkSavedAlbums = await spotyApi.checkUserSavedAlbums(id);
     res.status(200).render('album', {
       album,
@@ -169,10 +171,30 @@ const saveAlbum = catchAsync(
 const getDiscography = catchAsync(
   async (req: IReq, res: IRes, next: NextFunction) => {
     const id = req.params.id;
-    const artistAlbums = await spotyApi.getArtistAlbums(id);
+    const artistAlbums = await spotyApi.getArtistAlbums(id, 50);
     res.status(200).render('discography', {
       artistAlbums,
       state: 'btnLibrary',
+    });
+  }
+);
+
+const followArtist = catchAsync(
+  async (req: IReq, res: IRes, next: NextFunction) => {
+    const id = req.body.artistId as string;
+    await spotyApi.followArtist(id);
+    res.status(202).json({
+      status: 'artist was followed',
+    });
+  }
+);
+
+const unfollowArtist = catchAsync(
+  async (req: IReq, res: IRes, next: NextFunction) => {
+    const id = req.body.artistId as string;
+    await spotyApi.unfollowArtist(id);
+    res.status(202).json({
+      status: 'artist was unfollowed',
     });
   }
 );
@@ -213,6 +235,8 @@ export default {
   getArtist,
   getAlbum,
   getDiscography,
+  followArtist,
+  unfollowArtist,
   login,
   callback,
 };

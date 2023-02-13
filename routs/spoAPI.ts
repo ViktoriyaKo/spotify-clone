@@ -7,4 +7,8 @@ router.delete('/deleteAlbum', viewController.delAlbum);
 
 router.put('/saveAlbum', viewController.saveAlbum);
 
+router.put('/followArtist', viewController.followArtist);
+
+router.delete('/unfollowArtist', viewController.unfollowArtist);
+
 export default router;

@@ -40,6 +40,51 @@
   box-shadow: 0 14px 30px -15px rgb(0 0 0 / 75%);
 }
 
-/* .main-card {
-  height: auto;
-} */
+.btn-album-like {
+  width: 70px;
+  height: 70px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
+
+.btn-album-like svg{
+  fill: transparent;
+}
+
+.btn-album-like.active svg{
+  fill: #eaa5ff;
+  stroke: #eaa5ff;
+}
+
+.changing-icon.heart-icon.btn-like-icon {
+  width: 100%;
+  height: 100%;
+}
+
+.main-card:hover .btn-play {
+  opacity: 1;
+  transition: 0.4s;
+}
+
+.btn-play:hover {
+  scale: 1.1;
+}
+
+.btn-follow-artist,
+.btn-follow-artist.active:hover {
+  border: 1px solid #ffffff;
+  background-color: transparent;
+  letter-spacing: 1px;
+  color: #ffffff;
+}
+
+.btn-follow-artist:hover,
+.btn-follow-artist.active {
+  border: 1px solid #eaa5ff;
+  color: #eaa5ff;
+}
+
+.btn-play-playlist {
+  margin-right: 20px;
+}
