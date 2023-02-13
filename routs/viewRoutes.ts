@@ -10,6 +10,8 @@ router.get('/home/', viewsController.getPlaylists);
 
 router.get('/home/:id', viewsController.getMoreInfo);
 
+router.get('/search/', viewsController.searchItems);
+
 router.get('/favorite/', viewsController.getFavoriteTracks);
 
 router.get('/profile/', authController.protect, viewsController.getProfileMain);

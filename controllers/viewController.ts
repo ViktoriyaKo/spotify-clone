@@ -200,6 +200,17 @@ const deleteTrack = catchAsync(
   }
 );
 
+const searchItems = catchAsync(
+  async (req: IReq, res: IRes, next: NextFunction) => {
+    const inputSearch = 'test';
+    const tracks = await spotyApi.searchForItem(inputSearch);
+    res.status(200).render('search', {
+      tracks,
+      state: 'btnSearch',
+    });
+  }
+);
+
 const saveAlbum = catchAsync(
   async (req: IReq, res: IRes, next: NextFunction) => {
     const id = req.body.albumId as string;
@@ -272,5 +283,6 @@ export default {
   getTrack,
   getMoreInfo,
   deleteTrack,
+  searchItems,
   // saveTrack,
 };

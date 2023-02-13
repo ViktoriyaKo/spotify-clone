@@ -461,6 +461,25 @@ const saveAlbumsForUser = async (ids: string) => {
 //   });
 // };
 
+const searchForItem = async (search: string) => {
+  const offset = 0;
+  const limit = 20;
+  const type = 'track,artist';
+  const result = await fetch(
+    `https://api.spotify.com/v1/search?q=${search}type=${type}&market=ES&limit=${limit}&offset=${offset}`,
+    {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  const data = await result.json();
+  return data;
+};
+
 export default {
   getOneAlbum,
   getGenres,
@@ -487,5 +506,6 @@ export default {
   removeUserSavedTrack,
   getCurrentUser,
   getSingleTrack,
+  searchForItem,
   // saveTracksForCurrentUser,
 };
