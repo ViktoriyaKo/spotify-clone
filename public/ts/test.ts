@@ -1,9 +1,10 @@
 import { login, signup } from './login';
 import './home';
 import './account';
-import './player'
-import './album'
 import './artist'
+import './player';
+import './album';
+import './favorite';
 
 console.log('hello spoty');
 // DOM ELEMENTS

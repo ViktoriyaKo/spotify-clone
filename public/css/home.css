@@ -478,6 +478,12 @@ thead {
   object-fit: cover;
 }
 
+/* track */
+
+.text-track {
+  font-size: 40px;
+}
+
 /* finish profile */
 
 @media (max-width: 992px) {
