@@ -11,7 +11,7 @@ const multerStorage = multer.memoryStorage();
 const multerFilter = (
   req: any,
   file: Express.Multer.File,
-  cb: multer.FileFilterCallback,
+  cb: multer.FileFilterCallback
 ) => {
   if (file.mimetype.startsWith('image')) {
     cb(null, true);
@@ -28,23 +28,25 @@ const upload = multer({
 
 const uploadPhoto = upload.single('photo');
 
-const resizePhoto = catchAsync(async (req: IReq, res: IRes, next: NextFunction) => {
-  if (!req.file) return next();
+const resizePhoto = catchAsync(
+  async (req: IReq, res: IRes, next: NextFunction) => {
+    if (!req.file) return next();
 
-  req.file.filename = `user-${req.user.id}-${Date.now()}.jpeg`;
+    req.file.filename = `user-${req.user.id}-${Date.now()}.jpeg`;
 
-  await sharp(req.file.buffer)
-    .resize(500, 500)
-    .toFormat('jpeg')
-    .jpeg({ quality: 90 })
-    .toFile(`public/img/users/${req.file.filename}`);
+    await sharp(req.file.buffer)
+      .resize(500, 500)
+      .toFormat('jpeg')
+      .jpeg({ quality: 90 })
+      .toFile(`public/img/users/${req.file.filename}`);
 
-  next();
-});
+    next();
+  }
+);
 
 const filterObj = (obj: IBody, ...allowedFields: string[]) => {
   const newObj: IBody = {};
-  Object.keys(obj).forEach(el => {
+  Object.keys(obj).forEach((el) => {
     //@ts-ignore
     if (allowedFields.includes(el)) newObj[el] = obj[el];
   });
@@ -57,7 +59,7 @@ const update = catchAsync(async (req: IReq, res: IRes, next: NextFunction) => {
     return next(
       new AppError(
         'This route is not for password updates. Please use /updateMyPassword.',
-        400,
+        400
       )
     );
   }

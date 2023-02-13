@@ -25,6 +25,7 @@ export interface IRes extends Response {
 
 export interface IBody {
   email?: string;
+  passwordCurrent?: string;
   passwordChangedAt?: string;
   role?: string;
   password?: string;

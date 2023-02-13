@@ -15,13 +15,11 @@ const getPlaylists = catchAsync(
   async (req: IReq, res: IRes, next: NextFunction) => {
     const userTopTracks = await spotyApi.getUserTopItems('tracks');
     const userTopArtists = await spotyApi.getUserTopItems('artists');
-    const topCategory = await spotyApi.getGenres();
     const trackRecommendations = await spotyApi.getRecommendations();
     const newReleases = await spotyApi.getNewReleases();
     res.status(200).render('home', {
       userTopTracks,
       userTopArtists,
-      topCategory,
       newReleases,
       trackRecommendations,
       state: 'btnHome',
@@ -44,9 +42,10 @@ const getFavoriteTracks = catchAsync(
 // profile:
 const getProfileMain = catchAsync(
   async (req: IReq, res: IRes, next: NextFunction) => {
-    const account = await spotyApi.getCurrentUser();
     res.status(200).render('profile/profile-account', {
-      account,
+      name: req.user.name,
+      email: req.user.email,
+      photo: req.user.photo,
       state: 'btnAcc',
     });
   }
@@ -64,6 +63,7 @@ const changeProfile = catchAsync(
   async (req: IReq, res: IRes, next: NextFunction) => {
     res.status(200).render('profile/account', {
       state: 'btnChange',
+      photo: req.user.photo,
     });
   }
 );
@@ -148,6 +148,22 @@ const getAlbum = catchAsync(
   }
 );
 
+const getTrack = catchAsync(
+  async (req: IReq, res: IRes, next: NextFunction) => {
+    const id = req.params.id;
+    const track = await spotyApi.getSingleTrack(id);
+    const artistId = track.artists[0].id;
+    const artist = await spotyApi.getArtist(artistId);
+    const artistAlbums = await spotyApi.getArtistAlbums(artistId, 10);
+    res.status(200).render('track', {
+      track,
+      artist,
+      artistId,
+      artistAlbums,
+    });
+  }
+);
+
 const delAlbum = catchAsync(
   async (req: IReq, res: IRes, next: NextFunction) => {
     const id = req.body.albumId as string;
@@ -215,7 +231,7 @@ const callback = catchAsync(
   async (req: IReq, res: IRes, next: NextFunction) => {
     await spotyApi.callback(req, res);
 
-    res.redirect('http://localhost:7999/home');
+    res.redirect('http://localhost:7999');
   }
 );
 
@@ -239,4 +255,5 @@ export default {
   unfollowArtist,
   login,
   callback,
+  getTrack,
 };

@@ -5,8 +5,10 @@ import userController from '../controllers/userController';
 const router = express.Router();
 router.post('/signup', authController.signup);
 router.post('/login', authController.login);
-
+//@ts-ignore
+router.get('/logout', authController.logout);
 router.use(authController.protect);
+router.patch('/updateMyPassword', authController.updatePassword);
 
 router.patch(
   '/updateMe',

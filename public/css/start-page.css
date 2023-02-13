@@ -66,3 +66,13 @@ body {
 .form-floating small {
   font-size: 12px;
 }
+
+.error1,
+.error2 {
+  color: red;
+  display: block;
+}
+
+.hidden {
+  display: none;
+}

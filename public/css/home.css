@@ -13,11 +13,15 @@ body {
 .grid {
   display: grid;
   grid-template-areas:
-    "aside header header"
-    "aside main main"
-    "player player player";
+    'aside header header'
+    'aside main main'
+    'player player player';
   grid-template-columns: var(--width-aside) 1fr 1fr;
-  grid-template-rows: var(--height-header) calc(100vh - var(--height-header) - var(--height-player)) var(--height-player);
+  grid-template-rows:
+    var(--height-header) calc(
+      100vh - var(--height-header) - var(--height-player)
+    )
+    var(--height-player);
 }
 
 li {
@@ -103,6 +107,10 @@ p {
 .logo-profile {
   width: 30px;
   height: 30px;
+}
+
+.img-preview {
+  max-width: 200px;
 }
 
 .color-set {
@@ -197,11 +205,11 @@ main {
   outline: none;
 }
 
-.btn-album-like svg{
+.btn-album-like svg {
   fill: transparent;
 }
 
-.btn-album-like.active svg{
+.btn-album-like.active svg {
   fill: #eaa5ff;
   stroke: #eaa5ff;
 }
@@ -379,6 +387,7 @@ thead {
 /* finish liked tracks */
 
 /* profile account*/
+
 .td-info-table {
   font-size: 20px;
   color: #0000007d;
@@ -395,8 +404,14 @@ thead {
   text-shadow: rgb(162 59 180) 2px 1px 2px;
 }
 
-.btn-set-profile {
+.btn-set-profile,
+.btn-set-password,
+.btn-set-photo {
   background-color: #35830b;
+}
+
+.profile-photo {
+  max-width: 200px;
 }
 
 /* from home: */
@@ -405,8 +420,41 @@ thead {
 }
 
 /* change profile*/
-#sex {
-  color: gray;
+
+.error1,
+.error2 {
+  color: red;
+  display: block;
+}
+
+.wrapper-info {
+  position: fixed;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0px;
+  left: 0px;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(7, 7, 7, 0.232);
+  font-weight: 700;
+}
+
+.info {
+  max-width: 300px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 150px;
+  background: white;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.info h3 {
+  align-self: center;
+  text-shadow: rgb(162 59 180) 2px 1px 2px;
 }
 
 .form-check-input:checked {
@@ -423,6 +471,13 @@ thead {
   background: #7f6187;
 }
 
+.wrapper-img-track img {
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+
 /* finish profile */
 
 @media (max-width: 992px) {
@@ -434,9 +489,9 @@ thead {
 
   .grid {
     grid-template-areas:
-      "header header"
-      "main main"
-      "player player";
+      'header header'
+      'main main'
+      'player player';
     grid-template-columns: 1fr 1fr;
     overflow: hidden;
   }
@@ -460,7 +515,8 @@ thead {
     font-size: 20px;
   }
 
-  .td-info-table {
+  .td-info-table,
+  .info-table-data {
     font-size: 14px;
   }
 }
@@ -477,4 +533,8 @@ thead {
   display: none;
   background-color: #1b1a1b88;
   inset: 0;
+}
+
+.hidden {
+  display: none;
 }
