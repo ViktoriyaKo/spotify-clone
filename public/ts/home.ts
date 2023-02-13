@@ -1,10 +1,7 @@
-import spotyApi from '../../spoApi/getCollections';
-
 const asideBlock = document.querySelector('.aside-block') as HTMLDivElement;
 const shadowAside = document.querySelector('.shadow-aside') as HTMLDivElement;
 const openAside = document.querySelector('.open-aside') as HTMLDivElement;
 const nav = document.querySelectorAll('nav .nav-link');
-const tableLikePlaylist = document.querySelector('.table-like-playlist');
 
 if (openAside) {
   openAside.addEventListener('click', () => {
@@ -32,13 +29,3 @@ if (nav) {
     });
   });
 }
-
-if (tableLikePlaylist) {
-  tableLikePlaylist.addEventListener('click', async (el) => {
-    const target = el.target as HTMLElement;
-    if (target.closest('.heart-svg-table')) {
-      console.log(target.id);
-    }
-  });
-}
-// spotyApi.removeUserSavedTrack()

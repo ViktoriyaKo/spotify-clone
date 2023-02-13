@@ -27,6 +27,24 @@ const getPlaylists = catchAsync(
   }
 );
 
+const getMoreInfo = catchAsync(
+  async (req: IReq, res: IRes, next: NextFunction) => {
+    const id = req.params.id;
+    const userTopTracks = await spotyApi.getUserTopItems('tracks');
+    const userTopArtists = await spotyApi.getUserTopItems('artists');
+    const trackRecommendations = await spotyApi.getRecommendations();
+    const newReleases = await spotyApi.getNewReleases();
+    res.status(200).render('home-more', {
+      id,
+      userTopTracks,
+      userTopArtists,
+      newReleases,
+      trackRecommendations,
+      state: 'btnHome',
+    });
+  }
+);
+
 const getFavoriteTracks = catchAsync(
   async (req: IReq, res: IRes, next: NextFunction) => {
     const tracks = await spotyApi.getUserSavedTracks();
@@ -172,6 +190,27 @@ const delAlbum = catchAsync(
   }
 );
 
+const deleteTrack = catchAsync(
+  async (req: IReq, res: IRes, next: NextFunction) => {
+    const id = req.body.idTrack as string;
+    await spotyApi.removeUserSavedTrack(id);
+    res.status(202).json({
+      status: 'track was deleted',
+    });
+  }
+);
+
+const searchItems = catchAsync(
+  async (req: IReq, res: IRes, next: NextFunction) => {
+    const inputSearch = 'test';
+    const tracks = await spotyApi.searchForItem(inputSearch);
+    res.status(200).render('search', {
+      tracks,
+      state: 'btnSearch',
+    });
+  }
+);
+
 const saveAlbum = catchAsync(
   async (req: IReq, res: IRes, next: NextFunction) => {
     const id = req.body.albumId as string;
@@ -181,6 +220,16 @@ const saveAlbum = catchAsync(
     });
   }
 );
+
+// const saveTrack = catchAsync(
+//   async (req: IReq, res: IRes, next: NextFunction) => {
+//     // const id = req.body.albumId as string;
+//     await spotyApi.saveAlbumsForUser(id);
+//     res.status(202).json({
+//       status: 'track was saved',
+//     });
+//   }
+// );
 
 const getDiscography = catchAsync(
   async (req: IReq, res: IRes, next: NextFunction) => {
@@ -232,4 +281,8 @@ export default {
   login,
   callback,
   getTrack,
+  getMoreInfo,
+  deleteTrack,
+  searchItems,
+  // saveTrack,
 };

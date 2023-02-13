@@ -6,7 +6,7 @@ block content
         img(src=`${track.album.images[1].url}` alt='album')
       .d-flex.flex-column.text-white
         small.text-uppercase track
-        h1.text-main=track.name
+        h1.text-main.text-track=track.name
         small.text-uppercase= track.artists[0].name
           span=` • ${track.album.release_date.split('-')[0]}`          
     .wrapper-table      
