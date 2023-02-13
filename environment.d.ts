@@ -33,6 +33,7 @@ export interface IBody {
   name?: string;
   photo?: string;
   albumId?: string;
+  idTrack?: string;
 }
 export interface IReq extends Request {
   body: IBody;

@@ -8,6 +8,8 @@ router.get('/', viewsController.getOverview);
 
 router.get('/home/', viewsController.getPlaylists);
 
+router.get('/home/:id', viewsController.getMoreInfo);
+
 router.get('/favorite/', viewsController.getFavoriteTracks);
 
 router.get('/profile/', authController.protect, viewsController.getProfileMain);

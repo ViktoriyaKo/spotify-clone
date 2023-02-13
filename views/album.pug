@@ -6,7 +6,7 @@ block content
           img(src= (album.images[0] ? `${album.images[0].url}` : '../img/card-bg.svg') class=(album.images[0] ? '' : 'default-bg') alt='playlist image')
         .d-flex.flex-column.text-white.justify-content-end
           p.text-capitalize= album.album_type
-          h1.text-main= album.name
+          h1.text-main.text-track= album.name
           p= `${album.artists[0].name} • ${album.release_date.split('-')[0]} • ${album.tracks.total} tracks`
       button.btn-play-playlist.align-items-center.justify-content-center.rounded-circle
         svg(viewbox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg')

@@ -277,16 +277,13 @@ const getCurrentUser = async () => {
 //
 
 const removeUserSavedTrack = async (id: string) => {
-  const result = await fetch(`https://api.spotify.com/v1/me/tracks/${id}`, {
+  const result = await fetch(`https://api.spotify.com/v1/me/tracks?ids=${id}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     },
   });
-
-  const data = await result.json();
-  return data;
 };
 
 const getPlaylist = async (id: string) => {
@@ -453,6 +450,17 @@ const saveAlbumsForUser = async (ids: string) => {
   );
 };
 
+// const saveTracksForCurrentUser = async (ids: string) => {
+//   const result = await fetch(`https://api.spotify.com/v1/me/tracks`, {
+//     method: 'PUT',
+//     headers: {
+//       Accept: 'application/json',
+//       'Content-Type': 'application/json',
+//       Authorization: `Bearer ${token}`,
+//     },
+//   });
+// };
+
 export default {
   getOneAlbum,
   getGenres,
@@ -479,4 +487,5 @@ export default {
   removeUserSavedTrack,
   getCurrentUser,
   getSingleTrack,
+  // saveTracksForCurrentUser,
 };
