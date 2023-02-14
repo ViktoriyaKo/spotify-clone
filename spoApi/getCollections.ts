@@ -242,6 +242,25 @@ const getUserSavedTracks = async () => {
   return data;
 };
 
+const checkUserSavedTracks = async (ids: string) => {
+  const result = await fetch(
+    `https://api.spotify.com/v1/me/tracks/contains?ids=${ids}`,
+    {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
+  const data = await result.json();
+  return data;
+};
+
+
+
 const getRecommendations = async () => {
   const track = '0c6xIDDpzE81m2q797ordA';
   const limit = 20;
@@ -449,16 +468,16 @@ const saveAlbumsForUser = async (ids: string) => {
   );
 };
 
-// const saveTracksForCurrentUser = async (ids: string) => {
-//   const result = await fetch(`https://api.spotify.com/v1/me/tracks`, {
-//     method: 'PUT',
-//     headers: {
-//       Accept: 'application/json',
-//       'Content-Type': 'application/json',
-//       Authorization: `Bearer ${token}`,
-//     },
-//   });
-// };
+const saveTracksForUser = async (ids: string) => {
+  const result = await fetch(`https://api.spotify.com/v1/me/tracks?ids=${ids}`, {
+    method: 'PUT',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
 
 const searchForItem = async (search: string) => {
   const offset = 0;
@@ -534,6 +553,7 @@ export default {
   getFollowedArtist,
   getUserPlaylists,
   getUserSavedTracks,
+  checkUserSavedTracks,
   getPlaylistFromGenre,
   getPlaylist,
   getArtist,
@@ -557,5 +577,5 @@ export default {
   getCurrentUser,
   getSingleTrack,
   searchForItem,
-  // saveTracksForCurrentUser,
+  saveTracksForUser,
 };

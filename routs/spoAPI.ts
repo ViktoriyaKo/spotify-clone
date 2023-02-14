@@ -6,7 +6,7 @@ router.delete('/deleteAlbum', viewController.delAlbum);
 
 router.delete('/deleteTrack', viewController.deleteTrack);
 
-// router.put('/saveTrack', viewController.saveTrack);
+router.put('/saveTrack', viewController.saveTrack);
 
 router.put('/saveAlbum', viewController.saveAlbum);
 

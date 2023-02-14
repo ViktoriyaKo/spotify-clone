@@ -36,6 +36,10 @@ p {
   margin: 0;
 }
 
+path {
+  pointer-events: none;
+}
+
 /* aside */
 
 .nav-link {
@@ -273,7 +277,7 @@ main {
 }
 
 /* playlist */
-.table-like-playlist {
+.table-playlist {
   background: transparent;
   color: rgba(240, 248, 255, 0.85);
 }
