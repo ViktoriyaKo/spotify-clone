@@ -15,7 +15,8 @@ function renderPlaylist(data: any) {
   data.forEach((item: any, index: number) => {
     if (index < limit) {
       out += `<table class="table table-like-playlist table-search">             
-    <tbody class="align-middle">                
+    <tbody class="align-middle">    
+    <tr class="chosen-track">            
       <th class="col-1 text-center"><span class="number-track">${
         index + 1
       }</span>
@@ -46,6 +47,7 @@ function renderPlaylist(data: any) {
         </div>
       </td>
       <td class="col-1">${time(item.duration_ms)}</td>
+      </tr>
     </tbody>
   </table>`;
     }
@@ -70,7 +72,7 @@ if (searchForm) {
           if (res.data.tracks.artists.items.length > 0) {
             container.innerHTML = `<div class="row">
         <div class="col-md-5">
-          <h3 class="text-white fs-4 mt-3">The best result
+          <h3 class="text-white fs-4 mt-4">The best result
             <div class="my-3 p-4 rounded-3 search-bg">
             <a class="wrapper-img-track" href="/artist/${
               res.data.tracks.artists.items[0].id
@@ -87,12 +89,12 @@ if (searchForm) {
           </h3>
         </div>
         <div class="col-md-7">
-          <h3 class="text-white fs-4 mt-3">Tracks
+          <h3 class="text-white fs-4 mt-4">Tracks
             <div class="my-3">                     
             ${renderPlaylist(res.data.tracks.tracks.items)}
             </div>
           </h3>
-        </div>
+        </div>        
       </div>`;
           } else {
             container.innerHTML = `<h1 class="text-white text-center my-5">No results found</h1>
@@ -103,7 +105,7 @@ if (searchForm) {
     } catch (err) {
       const container = document.querySelector('.container');
       if (container) {
-        container.innerHTML = `<h1 class="text-white text-center my-5">Your request is wrong</h1>
+        container.innerHTML = `<h1 class="text-white text-center my-5">No results found</h1>
       <p class='text-white text-center'>Please make sure your words are spelled correctly or use less or different keywords.</p>`;
       }
     }
