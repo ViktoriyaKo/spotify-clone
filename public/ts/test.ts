@@ -5,6 +5,7 @@ import './artist'
 import './player';
 import './album';
 import './favorite';
+import './playlist'
 
 console.log('hello spoty');
 // DOM ELEMENTS

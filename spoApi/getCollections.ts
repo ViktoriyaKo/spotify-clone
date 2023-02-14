@@ -545,6 +545,26 @@ const unfollowArtist = async (ids: string) => {
   );
 };
 
+const createPlaylist = async (userId: string, numberPlaylist: number) => {
+  const result = await axios({
+    method: 'POST',
+    url: `https://api.spotify.com/v1/users/${userId}/playlists`,
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    data: {
+      name: `New playlist № ${numberPlaylist}`,
+      description: "New playlist",
+      public: false
+    },
+  })
+
+  const data = result.data;
+  return data;
+};
+
 
 export default {
   getOneAlbum,
@@ -578,4 +598,5 @@ export default {
   getSingleTrack,
   searchForItem,
   saveTracksForUser,
+  createPlaylist
 };
