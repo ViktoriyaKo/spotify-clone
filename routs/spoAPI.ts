@@ -10,4 +10,6 @@ router.delete('/deleteTrack', viewController.deleteTrack);
 
 router.put('/saveAlbum', viewController.saveAlbum);
 
+router.patch('/startSearch', viewController.searchRequest);
+
 export default router;

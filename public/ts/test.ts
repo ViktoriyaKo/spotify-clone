@@ -4,6 +4,7 @@ import './account';
 import './player';
 import './album';
 import './favorite';
+import './search';
 
 console.log('hello spoty');
 // DOM ELEMENTS

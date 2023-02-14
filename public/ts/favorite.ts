@@ -1,8 +1,7 @@
 import axios from 'axios';
 
 const tableLikePlaylist = document.querySelector('.table-like-playlist');
-// const pathname = window.location.pathname.split('/');
-// const albumId = pathname[pathname.length - 1];
+
 function updateNumberTrack() {
   const numberTrack = document.querySelectorAll('.number-track');
   if (numberTrack) {
