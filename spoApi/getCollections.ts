@@ -181,7 +181,7 @@ const getFollowedArtist = async () => {
   );
 
   const data = await result.json();
-  return data.artists.items;
+  return data.artists;
 };
 
 const getUserPlaylists = async () => {
