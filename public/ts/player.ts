@@ -84,6 +84,9 @@ function setVolumeBar(e: MouseEvent) {
   audio.volume = clickX / width;
   const volumePercent = width * audio.volume;
   volumeBar.style.width = `${volumePercent}%`;
+  console.log(clickX);
+  console.log(volumePercent);
+  console.log(width);
 }
 
 // нужен fix:
