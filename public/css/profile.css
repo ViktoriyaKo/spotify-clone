@@ -47,8 +47,7 @@ a {
   width: 300px;
   color: white;
   height: 100vh;
-
-  padding-bottom: 100px;
+  padding-bottom: 10px;
 }
 
 .logo {
@@ -216,6 +215,32 @@ a {
 
 .btn-set {
   background: #7f6187;
+}
+
+/* footer */
+.footer ul {
+  margin: 0;
+  padding: 0;
+  justify-content: space-between;
+}
+
+.footer {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.792);
+}
+
+.logo-footer {
+  width: 50px;
+  height: 30px;
+}
+
+.text-footer {
+  transition: 0.3s;
+}
+
+.text-footer img:hover {
+  scale: 1.1;
+  transition: 0.3s;
 }
 
 @media (max-width: 992px) {

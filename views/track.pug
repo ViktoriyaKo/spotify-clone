@@ -48,15 +48,16 @@ block content
     .d-flex.justify-content-between.align-items-center
       h3.text-light.py-3.fw-bold= `${track.artists[0].name}: other albums`
       a(href=`/artist/${artistId}/discography`).text-light See more
-    .row.recommendation-row 
-      each album in artistAlbums.items
-        .col-xxl-2.col-xl-3.col-md-4.col-sm-6.mb-2
-          a.main-card.p-3.rounded-2(href=`/album/${album.id}`)
-            .wrapper-img
-              img(src=`${album.images[0].url}` alt='category')
-              button.btn-play
-                svg.svg-play(xmlns='http://www.w3.org/2000/svg' fill='none' viewbox='0 0 24 24' stroke-width='1.5' stroke='currentColor')
-                  path(stroke-linecap='round' stroke-linejoin='round' d='M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z')
-            p.mt-2.text-light.title= album.name
-            small.text-light= `${album.type} • ${album.release_date.split('-')[0]}`     
+    .container-fluid  
+      .row.recommendation-row 
+        each album in artistAlbums.items
+          .col-xxl-2.col-xl-3.col-md-4.col-sm-6.mb-2
+            a.main-card.p-3.rounded-2(href=`/album/${album.id}`)
+              .wrapper-img
+                img(src=`${album.images[0].url}` alt='category')
+                button.btn-play
+                  svg.svg-play(xmlns='http://www.w3.org/2000/svg' fill='none' viewbox='0 0 24 24' stroke-width='1.5' stroke='currentColor')
+                    path(stroke-linecap='round' stroke-linejoin='round' d='M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z')
+              p.mt-2.text-light.title= album.name
+              small.text-light= `${album.type} • ${album.release_date.split('-')[0]}`     
       
