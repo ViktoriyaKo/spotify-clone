@@ -18,6 +18,7 @@ import viewRouter from './routs/viewRoutes';
 
 import userRouter from './routs/userRoutes';
 import spoAPI from './routs/spoAPI';
+import reviewRouter from './routs/reviewRouter';
 
 const app = express();
 app.enable('trust proxy');
@@ -55,6 +56,7 @@ app.use(compression());
 
 app.use('/', viewRouter);
 app.use('/api/v1/users', userRouter);
+app.use('/api/v1/reviews', reviewRouter);
 app.use('/api/v1/spotyApi', spoAPI);
 app.all('*', (req, res, next) => {
   next(new AppError(`can't find ${req.originalUrl} on this server!`, 404));
