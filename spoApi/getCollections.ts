@@ -565,6 +565,23 @@ const createPlaylist = async (userId: string, numberPlaylist: number) => {
   return data;
 };
 
+const changePlaylistDetail = async (id: string, newName: string) => {
+  const result = await axios({
+    method: 'PUT',
+    url: `https://api.spotify.com/v1/playlists/${id}`,
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    data: {
+      name: newName,
+      description: '0',
+      public: false
+    },
+  })
+};
+
 
 export default {
   getOneAlbum,
@@ -598,5 +615,6 @@ export default {
   getSingleTrack,
   searchForItem,
   saveTracksForUser,
-  createPlaylist
+  createPlaylist,
+  changePlaylistDetail,
 };

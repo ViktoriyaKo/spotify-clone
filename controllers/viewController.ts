@@ -156,13 +156,28 @@ const createPlaylist = catchAsync(
     const playlists = await spotyApi.getUserPlaylists();
     const newPlaylist = await spotyApi.createPlaylist(user.id, playlists.length + 1);
     const id = newPlaylist.id;
-    
+
     res.status(202).json({
       status: 'playlist was created',
       playlistId: id
     });
   }
 );
+
+const changePlaylistDetail = catchAsync(
+  async (req: IReq, res: IRes, next: NextFunction) => {
+    const id = req.body.playlistId as string;
+    const newName = req.body.playlistName as string;
+    await spotyApi.changePlaylistDetail(id, newName);
+    console.log('ok')
+    res.status(202).json({
+      status: 'success',
+      playlistId: id
+    });
+  }
+);
+
+
 
 const getArtist = catchAsync(
   async (req: IReq, res: IRes, next: NextFunction) => {
@@ -352,4 +367,5 @@ export default {
   searchItems,
   saveTrack,
   createPlaylist,
+  changePlaylistDetail
 };

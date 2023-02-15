@@ -88,3 +88,29 @@
 .btn-play-playlist {
   margin-right: 20px;
 }
+
+.playlist-modal .modal-content {
+  background-color: #1b1a1b;
+}
+
+.playlist-modal input,
+.playlist-modal input:focus {
+  background-color: #444444;
+  border: none;
+  color: #ffffff;
+  outline: none;
+}
+
+.playlist-modal .btn-close {
+  color: #ffffff;
+  --bs-btn-close-color: #ffffff;
+}
+.playlist-modal .modal-header,
+.playlist-modal .modal-body,
+.playlist-modal .modal-footer {
+  border: none;
+}
+
+.playlist-modal .modal-error {
+  display: none;
+}
