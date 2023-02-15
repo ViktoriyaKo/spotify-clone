@@ -114,12 +114,14 @@ playIconBtn.forEach((item) => {
   });
 });
 
-audio.addEventListener('timeupdate', () => {
-  updateProgress();
-});
-progressBar.addEventListener('click', (event) => {
-  setProgress(event);
-});
-volumeBarContainer.addEventListener('click', (event) => {
-  setVolumeBar(event);
-});
+if (progressBar) {
+  audio.addEventListener('timeupdate', () => {
+    updateProgress();
+  });
+  progressBar.addEventListener('click', (event) => {
+    setProgress(event);
+  });
+  volumeBarContainer.addEventListener('click', (event) => {
+    setVolumeBar(event);
+  });
+}
