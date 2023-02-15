@@ -17,7 +17,8 @@ if (tablePlaylist) {
     if (target.closest('.heart-icon')) {
       const idTrack = target.id;
       console.log(target);
-      if(target.classList.contains('active-icon')) {
+      if (target.classList.contains('active-icon')) {
+        console.log('не содержит');
         target.classList.remove('active-icon');
         const res = await axios({
           method: 'DELETE',
@@ -29,15 +30,24 @@ if (tablePlaylist) {
         if (res.data.status === 'success') {
           console.log('removed track');
         }
-        if(tablePlaylist.classList.contains('table-favorite')) {
+        if (tablePlaylist.classList.contains('table-favorite')) {
           const blockTrack = document.querySelectorAll('.chosen-track');
           const blockTrackArr = Array.from(blockTrack);
-          const deleteItem = blockTrackArr.filter((item) => item.id === target.id);
+          const amountLikedTrack = document.querySelector(
+            '.amount-liked-track'
+          );
+          const deleteItem = blockTrackArr.filter(
+            (item) => item.id === target.id
+          );
           deleteItem[0]?.remove();
           updateNumberTrack();
+          if (amountLikedTrack) {
+            amountLikedTrack.innerHTML = `${blockTrackArr.length - 1}`;
+          }
         }
       } else {
         target.classList.add('active-icon');
+        console.log('добавить');
         const res = await axios({
           method: 'PUT',
           url: '/api/v1/spotyApi/saveTrack',

@@ -35,6 +35,7 @@ export interface IBody {
   albumId?: string;
   artistId?: string;
   idTrack?: string;
+  searchValue?: string;
 }
 export interface IReq extends Request {
   body: IBody;
