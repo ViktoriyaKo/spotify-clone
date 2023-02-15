@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const searchForm = document.querySelector('.search-form') as HTMLInputElement;
 
-function time(duration: number) {
+export function time(duration: number) {
   const min = Math.floor(duration / 60000);
   const sec = Math.floor(Math.round(duration % 60000) / 1000);
   return `${min}:${sec < 10 ? '0' : ''}${sec}`;
@@ -14,12 +14,11 @@ function renderPlaylist(data: any) {
 
   data.forEach((item: any, index: number) => {
     if (index < limit) {
-      out += `<tr class="chosen-track">            
+      out += `<tr class="chosen-track" id=${item.id}>            
       <th class="col-1 text-center"><span class="number-track">${
         index + 1
       }</span>
-        <svg class="logo-main play-icon-like" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z"></path>
+        <div class="logo-main play-btn play-icon"></div>
         </svg>
       </th>
       <td class="col-8">

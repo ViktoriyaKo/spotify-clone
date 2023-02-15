@@ -223,8 +223,10 @@ const getTrack = catchAsync(
     const artistId = track.artists[0].id;
     const artist = await spotyApi.getArtist(artistId);
     const artistAlbums = await spotyApi.getArtistAlbums(artistId, 10);
+    const checkTrack = await spotyApi.checkUserSavedTracks(req.params.id);
     res.status(200).render('track', {
       track,
+      checkTrack,
       artist,
       artistId,
       artistAlbums,
@@ -292,6 +294,17 @@ const saveTrack = catchAsync(
     await spotyApi.saveTracksForUser(id);
     res.status(202).json({
       status: 'track was saved',
+    });
+  }
+);
+
+const getCurrentTrack = catchAsync(
+  async (req: IReq, res: IRes, next: NextFunction) => {
+    const id = req.body.idTrack as string;
+    const track = await spotyApi.getSingleTrack(id);
+    res.status(202).json({
+      track,
+      status: 'track was sent',
     });
   }
 );
@@ -374,4 +387,5 @@ export default {
   saveTrack,
   createPlaylist,
   searchRequest,
+  getCurrentTrack,
 };

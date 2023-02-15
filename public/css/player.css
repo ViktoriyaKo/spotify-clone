@@ -1,141 +1,139 @@
 /* player */
 .player {
-    position: relative;
-    grid-area: 'player';
-    grid-column: 1 / 4;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: var(--height-player);
-    z-index: 11;
-  
-    background-color: #121212;
-  }
-  
-  .image-container {
-    width: 50px;
-    height: 50px;
-  }
-  
-  .image-container img {
+  position: relative;
+  grid-area: 'player';
+  grid-column: 1 / 4;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: var(--height-player);
+  z-index: 11;
+
+  background-color: #121212;
+}
+
+.image-container {
+  width: 50px;
+  height: 50px;
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.title,
+.artist {
+  margin: 0;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+}
+
+.title {
+  font-size: 14px;
+}
+.artist,
+.progress-container {
+  font-size: 12px;
+}
+
+.progress-controller {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.play-pause {
+  color: #121212;
+  width: 30px;
+  height: 30px;
+  padding-left: 3px;
+  cursor: pointer;
+  transition: all 0.1s ease;
+}
+
+.play-pause:hover {
+  transform: scale(1.1);
+  color: black;
+}
+
+.progress-bar {
+  position: relative;
+  height: 4px;
+  border-radius: 9px;
+  width: 30vw;
+
+  cursor: pointer;
+}
+
+.progress-bar:hover .progress {
+  background-color: #eaa5ff;
+}
+
+.progress {
+  position: relative;
+  width: 30%;
+}
+
+.volume-bar .progress-bar {
+  width: 100px;
+}
+
+.text-grey {
+  color: #808080;
+}
+
+.bg-grey {
+  background-color: #808080;
+}
+
+.player-icon,
+.heart-icon {
+  width: 30px;
+  height: 30px;
+  padding: 5px;
+  transition: all ease 0.1s;
+  cursor: pointer;
+
+  transform: scale(1.1);
+}
+
+.player-icon {
+  fill: #808080;
+}
+
+.heart-icon {
+  stroke: #808080;
+}
+
+.player-icon:hover {
+  fill: #eaa5ff;
+}
+
+.heart-icon:hover {
+  stroke: #eaa5ff;
+}
+
+.active-icon {
+  fill: #eaa5ff;
+  stroke: #eaa5ff;
+}
+
+@media (max-width: 768px) {
+  .progress-controller,
+  .volume-bar {
+    visibility: hidden;
     width: 100%;
-    height: 100%;
-    object-fit: cover;
   }
-  
-  .title, .artist {
-    margin: 0;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 1;
-    overflow: hidden;
-  }
-  
-  .title {
-    font-size: 14px;
-  }
-  .artist,
-  .progress-container {
-    font-size: 12px;
-  }
-  
-  .progress-controller {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-  
+
   .play-pause {
-    color: #121212;
-    width: 30px;
-    height: 30px;
-    padding-left: 3px;
-  
-    cursor: pointer;
-    transition: all 0.1s ease;
+    visibility: visible;
+    position: absolute;
+    right: 20px;
+    top: 25%;
   }
-  
-  .play-pause:hover{
-    transform: scale(1.1);
-    color: black;
-  }
-  
-  .progress-bar {
-    position: relative;
-    height: 4px;
-    border-radius: 9px;
-    width: 30vw;
-  
-    cursor: pointer;
-  }
-  
-  .progress-bar:hover .progress{
-    background-color: #eaa5ff;
-  }
-  
-  .progress {
-    position: relative;
-    width: 30%;
-  }
-  
-  .volume-bar .progress-bar {
-    width: 100px;
-  }
-  
-  .text-grey {
-    color: #808080;
-  }
-  
-  .bg-grey {
-    background-color: #808080;
-  }
-  
-  .player-icon,
-  .heart-icon {
-    width: 30px;
-    height: 30px;
-    padding: 5px;
-    transition: all ease 0.1s;
-    cursor: pointer;
-  
-    transform: scale(1.1);
-  }
-  
-  .player-icon {
-    fill: #808080;
-  }
-  
-  .heart-icon {
-    stroke: #808080;
-  }
-  
-  .player-icon:hover {
-    fill: #eaa5ff;
-  }
-  
-  .heart-icon:hover {
-    stroke: #eaa5ff;
-  }
-  
-  .active-icon {
-    fill:#eaa5ff;
-    stroke: #eaa5ff;
-  }
-
-
-  @media (max-width: 768px) {
-    .progress-controller,
-    .volume-bar {
-      visibility: hidden;
-      width: 100%;
-    }
-  
-    .play-pause {
-      visibility: visible;
-      position: absolute;
-      right: 20px;
-      top: 25%;
-    }
-  }
-  
+}

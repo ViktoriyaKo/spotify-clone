@@ -18,4 +18,6 @@ router.put('/createPlaylist', viewController.createPlaylist);
 
 router.patch('/startSearch', viewController.searchRequest);
 
+router.patch('/startPlayer', viewController.getCurrentTrack);
+
 export default router;

@@ -319,7 +319,14 @@ main {
   cursor: pointer;
 }
 
-.play-icon-like {
+.play-icon {
+  background: url('../img/svg/play.svg');
+  display: none;
+  margin: 0 auto;
+}
+
+.pause-icon {
+  background: url('../img/svg/pause.svg');
   display: none;
   margin: 0 auto;
 }
@@ -328,7 +335,11 @@ main {
   background: #3e3e3e;
 }
 
-.chosen-track:hover .play-icon-like {
+.chosen-track-active {
+  background: #3e3e3e;
+}
+
+.chosen-track:hover .play-icon {
   display: block;
 }
 
