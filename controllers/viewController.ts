@@ -90,9 +90,11 @@ const changeProfile = catchAsync(
 
 const getUserPlaylists = catchAsync(
   async (req: IReq, res: IRes, next: NextFunction) => {
+    const tracks = await spotyApi.getUserSavedTracks();
     const playlists = await spotyApi.getUserPlaylists();
     res.status(200).render('library-playlists', {
       playlists,
+      tracks,
       state: 'btnLibrary',
     });
   }
