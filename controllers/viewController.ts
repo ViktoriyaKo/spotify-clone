@@ -272,7 +272,7 @@ const delAlbum = catchAsync(
     const id = req.body.albumId as string;
     await spotyApi.removeUserSavedAlbums(id);
     res.status(202).json({
-      status: 'album was deleted',
+      status: 'success',
     });
   }
 );
@@ -282,7 +282,7 @@ const deleteTrack = catchAsync(
     const id = req.body.idTrack as string;
     await spotyApi.removeUserSavedTrack(id);
     res.status(202).json({
-      status: 'track was deleted',
+      status: 'success',
     });
   }
 );
@@ -303,7 +303,7 @@ const saveAlbum = catchAsync(
     const id = req.body.albumId as string;
     await spotyApi.saveAlbumsForUser(id);
     res.status(202).json({
-      status: 'album was saved',
+      status: 'success',
     });
   }
 );
@@ -313,7 +313,7 @@ const saveTrack = catchAsync(
     const id = req.body.idTrack as string;
     await spotyApi.saveTracksForUser(id);
     res.status(202).json({
-      status: 'track was saved',
+      status: 'success',
     });
   }
 );
@@ -334,7 +334,7 @@ const followArtist = catchAsync(
     const id = req.body.artistId as string;
     await spotyApi.followArtist(id);
     res.status(202).json({
-      status: 'artist was followed',
+      status: 'success',
     });
   }
 );
@@ -344,7 +344,7 @@ const unfollowArtist = catchAsync(
     const id = req.body.artistId as string;
     await spotyApi.unfollowArtist(id);
     res.status(202).json({
-      status: 'artist was unfollowed',
+      status: 'success',
     });
   }
 );

@@ -121,6 +121,24 @@ path {
   background: #7f6187;
 }
 
+.popup-message {
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  padding: 10px;
+  border-radius: 10px;
+  transform: translate(-50%);
+  background-color: #7f6187;
+  color: #ffffff;
+  opacity: 0;
+
+  transition: all 0.3s ease;
+}
+
+.popup-message.active {
+  opacity: 1;
+}
+
 /* main */
 main {
   grid-area: 'main';

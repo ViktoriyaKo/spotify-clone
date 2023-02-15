@@ -11,6 +11,19 @@ function updateNumberTrack() {
   }
 }
 
+function showMessage(message: string) {
+  const messageBlock = document.createElement('div');
+  messageBlock.className = 'popup-message active';
+  messageBlock.textContent = message;
+  document.body.append(messageBlock);
+  window.setTimeout(() => {
+    messageBlock.classList.remove('active');
+  }, 3000)
+  window.setTimeout(() => {
+    messageBlock.remove();
+  }, 6000)
+}
+
 if (tablePlaylist) {
   tablePlaylist.addEventListener('click', async (el) => {
     const target = el.target as HTMLElement;
@@ -26,6 +39,7 @@ if (tablePlaylist) {
           },
         });
         if (res.data.status === 'success') {
+          showMessage('Deleted from favorite tracks');
         }
         if(tablePlaylist.classList.contains('table-favorite')) {
           const blockTrack = document.querySelectorAll('.chosen-track');
@@ -44,6 +58,7 @@ if (tablePlaylist) {
           },
         });
         if (res.data.status === 'success') {
+          showMessage('Added to favorite tracks');
         }
       }
     }

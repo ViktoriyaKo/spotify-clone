@@ -24,6 +24,19 @@ function updateNumberTrack() {
     }
 }
 
+function showMessage(message: string) {
+    const messageBlock = document.createElement('div');
+    messageBlock.className = 'popup-message active';
+    messageBlock.textContent = message;
+    document.body.append(messageBlock);
+    window.setTimeout(() => {
+      messageBlock.classList.remove('active');
+    }, 3000)
+    window.setTimeout(() => {
+      messageBlock.remove();
+    }, 6000)
+  }
+
 async function createPlaylist() {
     const res = await axios({
         method: 'PUT',
@@ -68,6 +81,7 @@ async function addTrackToPlaylist(event: Event) {
         }
       });
       if (res.data.status === 'success') {
+        showMessage('Added to playlist');
       }
 }
 
@@ -82,6 +96,7 @@ async function removeTrackFromPlaylist(event: Event) {
         }
       });
       if (res.data.status === 'success') {
+        showMessage('Deleted from playlist');
       }
       const blockTrack = document.querySelectorAll('.chosen-track');
       const blockTrackArr = Array.from(blockTrack);
