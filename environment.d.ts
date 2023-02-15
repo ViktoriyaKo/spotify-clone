@@ -33,6 +33,7 @@ export interface IBody {
   name?: string;
   photo?: string;
   albumId?: string;
+  artistId?: string;
   idTrack?: string;
   searchValue?: string;
 }

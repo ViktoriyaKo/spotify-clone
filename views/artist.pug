@@ -11,8 +11,9 @@ block content
       button.btn-play-playlist.align-items-center.justify-content-center.rounded-circle
         svg(viewbox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg')
           path(d='M16.1378 10.5689L9.60498 7.30252C8.40816 6.70411 7 7.5744 7 8.91249V15.0876C7 16.4257 8.40816 17.2959 9.60498 16.6975L16.1378 13.4311C17.3171 12.8415 17.3171 11.1586 16.1378 10.5689Z' fill='#222222')
+      button(class=(checkFollowArtist[0] === true ? 'active' : '')).btn-follow-artist.py-2.px-4= (checkFollowArtist[0] === true ? 'Follow' : 'Unfollow')
       h3.text-light.py-3.fw-bold Popular tracks
-      table.table.table-like-playlist
+      table.table.table-playlist
         tbody.align-middle
           -
             let rowNum = 1;
@@ -20,7 +21,7 @@ block content
             -
               let min = Math.floor(item.duration_ms / 60000);
               let sec = Math.floor(Math.round(item.duration_ms % 60000) / 1000);
-            tr.chosen-track
+            tr(class= savedTracks.get(item.id) ? 'liked' : '').chosen-track
               th.col-1.text-center
                 span.number-track= `${rowNum++}`
                 svg.logo-main.play-icon-like.changing-icon(xmlns='http://www.w3.org/2000/svg' fill='none' viewbox='0 0 24 24' stroke-width='1.5' stroke='currentColor')
@@ -35,7 +36,7 @@ block content
                 .d-flex.justify-content-between
                   span= item.album.name
                   .heart-svg-table
-                    svg.changing-icon.heart-icon(xmlns='http://www.w3.org/2000/svg' fill='transparent' viewbox='-20 0 850 850' stroke-width='30' stroke='none')
+                    svg(class= savedTracks.get(item.id) ? 'active-icon' : '').heart-icon(id=item.id xmlns='http://www.w3.org/2000/svg' fill='transparent' viewbox='-20 0 850 850' stroke-width='30' stroke='none')
                       path(d='M459,19.28c-63.743,0-115.094,35.209-153.593,80.995C267.999,52.94,216.744,19.28,153,19.28 C63.227,19.28,0,96.469,0,180.638c0,45.154,18.494,77.686,38.747,108.229l237.781,285.078c26.699,25.033,31.729,25.033,58.427,0 l238.316-285.078C597.082,258.324,612,225.792,612,180.638C612,96.469,548.772,19.28,459,19.28z')
               td.col-1= `${min}:${(sec < 10 ? '0' : '')}${sec}`
       .d-flex.justify-content-between.align-items-center

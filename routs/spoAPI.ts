@@ -6,9 +6,15 @@ router.delete('/deleteAlbum', viewController.delAlbum);
 
 router.delete('/deleteTrack', viewController.deleteTrack);
 
-// router.put('/saveTrack', viewController.saveTrack);
+router.put('/saveTrack', viewController.saveTrack);
 
 router.put('/saveAlbum', viewController.saveAlbum);
+
+router.put('/followArtist', viewController.followArtist);
+
+router.delete('/unfollowArtist', viewController.unfollowArtist);
+
+router.put('/createPlaylist', viewController.createPlaylist);
 
 router.patch('/startSearch', viewController.searchRequest);
 

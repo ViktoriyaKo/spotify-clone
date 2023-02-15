@@ -242,6 +242,25 @@ const getUserSavedTracks = async () => {
   return data;
 };
 
+const checkUserSavedTracks = async (ids: string) => {
+  const result = await fetch(
+    `https://api.spotify.com/v1/me/tracks/contains?ids=${ids}`,
+    {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
+  const data = await result.json();
+  return data;
+};
+
+
+
 const getRecommendations = async () => {
   const track = '0c6xIDDpzE81m2q797ordA';
   const limit = 20;
@@ -333,8 +352,7 @@ const getArtistTopTracks = async (id: string) => {
   return data;
 };
 
-const getArtistAlbums = async (id: string) => {
-  const limit = 50;
+const getArtistAlbums = async (id: string, limit: number) => {
   const offset = 0;
   const result = await fetch(
     `https://api.spotify.com/v1/artists/${id}/albums?&market=ES&limit=${limit}&offset=${offset}`,
@@ -450,16 +468,16 @@ const saveAlbumsForUser = async (ids: string) => {
   );
 };
 
-// const saveTracksForCurrentUser = async (ids: string) => {
-//   const result = await fetch(`https://api.spotify.com/v1/me/tracks`, {
-//     method: 'PUT',
-//     headers: {
-//       Accept: 'application/json',
-//       'Content-Type': 'application/json',
-//       Authorization: `Bearer ${token}`,
-//     },
-//   });
-// };
+const saveTracksForUser = async (ids: string) => {
+  const result = await fetch(`https://api.spotify.com/v1/me/tracks?ids=${ids}`, {
+    method: 'PUT',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
 
 const searchForItem = async (search: string) => {
   const offset = 0;
@@ -476,9 +494,77 @@ const searchForItem = async (search: string) => {
       },
     }
   );
+
+  const data = result.json();
+  return data;
+};
+
+const checkUserFollowArtist = async (ids: string) => {
+  const type = 'artist';
+  const result = await fetch(
+    `https://api.spotify.com/v1/me/following/contains?type=${type}&ids=${ids}`,
+    {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
   const data = await result.json();
   return data;
 };
+
+const followArtist = async (ids: string) => {
+  const type = 'artist';
+  const result = await fetch(
+    `https://api.spotify.com/v1/me/following?type=${type}&ids=${ids}`,
+    {
+      method: 'PUT',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+};
+
+const unfollowArtist = async (ids: string) => {
+  const type = 'artist';
+  const result = await fetch(
+    `https://api.spotify.com/v1/me/following?type=${type}&ids=${ids}`,
+    {
+      method: 'DELETE',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+};
+
+const createPlaylist = async (userId: string, numberPlaylist: number) => {
+  const result = await axios({
+    method: 'POST',
+    url: `https://api.spotify.com/v1/users/${userId}/playlists`,
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    data: {
+      name: `New playlist № ${numberPlaylist}`,
+      description: "New playlist",
+      public: false
+    },
+  })
+
+  const data = result.data;
+  return data;
+};
+
 
 export default {
   getOneAlbum,
@@ -487,6 +573,7 @@ export default {
   getFollowedArtist,
   getUserPlaylists,
   getUserSavedTracks,
+  checkUserSavedTracks,
   getPlaylistFromGenre,
   getPlaylist,
   getArtist,
@@ -498,6 +585,9 @@ export default {
   checkUserSavedAlbums,
   removeUserSavedAlbums,
   saveAlbumsForUser,
+  checkUserFollowArtist,
+  followArtist,
+  unfollowArtist,
   login,
   callback,
   getUserTopItems,
@@ -507,5 +597,6 @@ export default {
   getCurrentUser,
   getSingleTrack,
   searchForItem,
-  // saveTracksForCurrentUser,
+  saveTracksForUser,
+  createPlaylist
 };
