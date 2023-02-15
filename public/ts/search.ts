@@ -18,7 +18,7 @@ function renderPlaylist(data: any) {
       <th class="col-1 text-center"><span class="number-track">${
         index + 1
       }</span>
-        <div class="logo-main play-btn play-icon"></div>
+        <a class="logo-main play-btn play-icon" href="/track/${item.id}"></a>
         </svg>
       </th>
       <td class="col-8">
