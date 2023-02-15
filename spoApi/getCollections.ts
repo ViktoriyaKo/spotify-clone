@@ -466,7 +466,7 @@ const searchForItem = async (search: string) => {
   const limit = 20;
   const type = 'track,artist';
   const result = await fetch(
-    `https://api.spotify.com/v1/search?q=${search}type=${type}&market=ES&limit=${limit}&offset=${offset}`,
+    `https://api.spotify.com/v1/search?q=${search}&type=${type}&market=ES&limit=${limit}&offset=${offset}`,
     {
       method: 'GET',
       headers: {

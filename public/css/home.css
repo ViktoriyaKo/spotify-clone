@@ -478,13 +478,48 @@ thead {
   object-fit: cover;
 }
 
+.search-bg span {
+  background-color: black;
+  padding: 3px 13px 3px 13px;
+  border-radius: 20px;
+  font-size: 18px;
+}
+
+.table-search {
+  font-size: 16px;
+  margin: 0;
+}
+
+.icon-album-search {
+  width: 40px;
+  height: 40px;
+}
+
+.artist-name-table {
+  color: rgb(169, 163, 163);
+}
+
 /* track */
 
 .text-track {
   font-size: 40px;
 }
 
+.text-search {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.search-bg {
+  background: #292929;
+  color: white;
+}
+
 /* finish profile */
+
+.search-form {
+  border-radius: 20px;
+}
 
 @media (max-width: 992px) {
   .aside-block {

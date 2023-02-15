@@ -90,9 +90,11 @@ const changeProfile = catchAsync(
 
 const getUserPlaylists = catchAsync(
   async (req: IReq, res: IRes, next: NextFunction) => {
+    const tracks = await spotyApi.getUserSavedTracks();
     const playlists = await spotyApi.getUserPlaylists();
     res.status(200).render('library-playlists', {
       playlists,
+      tracks,
       state: 'btnLibrary',
     });
   }
@@ -202,10 +204,23 @@ const deleteTrack = catchAsync(
 
 const searchItems = catchAsync(
   async (req: IReq, res: IRes, next: NextFunction) => {
-    const inputSearch = 'test';
+    const inputSearch = req.body.searchValue as string;
     const tracks = await spotyApi.searchForItem(inputSearch);
     res.status(200).render('search', {
       tracks,
+      inputSearch,
+      state: 'btnSearch',
+    });
+  }
+);
+
+const searchRequest = catchAsync(
+  async (req: IReq, res: IRes, next: NextFunction) => {
+    const inputSearch = req.body.searchValue as string;
+    const tracks = await spotyApi.searchForItem(inputSearch);
+    res.status(200).json({
+      tracks,
+      inputSearch,
       state: 'btnSearch',
     });
   }
@@ -285,4 +300,5 @@ export default {
   deleteTrack,
   searchItems,
   // saveTrack,
+  searchRequest,
 };
