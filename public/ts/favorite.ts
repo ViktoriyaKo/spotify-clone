@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const tablePlaylist = document.querySelector('.table-playlist');
+const popupMessage = document.querySelector('.popup-message') as HTMLElement;
 
 function updateNumberTrack() {
   const numberTrack = document.querySelectorAll('.number-track');
@@ -26,6 +27,11 @@ if (tablePlaylist) {
           },
         });
         if (res.data.status === 'success') {
+          popupMessage.textContent = 'Deleted from favorite tracks';
+          popupMessage?.classList.add('active');
+          window.setTimeout(() => {
+            popupMessage?.classList.remove('active');
+          }, 3000)
         }
         if(tablePlaylist.classList.contains('table-favorite')) {
           const blockTrack = document.querySelectorAll('.chosen-track');
@@ -44,6 +50,11 @@ if (tablePlaylist) {
           },
         });
         if (res.data.status === 'success') {
+          popupMessage.textContent = 'Added to favorite tracks';
+          popupMessage?.classList.add('active');
+          window.setTimeout(() => {
+            popupMessage?.classList.remove('active');
+          }, 3000)
         }
       }
     }

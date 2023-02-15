@@ -7,6 +7,7 @@ const error = document.querySelector('.modal-error');
 const name = document.querySelector('.playlist-name');
 const playlists = document.querySelectorAll('.dropdown-menu-playlists');
 const removeTrackBtn = document.querySelectorAll('.remove-item');
+const popupMessage = document.querySelector('.popup-message') as HTMLElement;
 
 if(name?.textContent) {
     (<HTMLInputElement>inputName)!.value = name.textContent;
@@ -68,6 +69,11 @@ async function addTrackToPlaylist(event: Event) {
         }
       });
       if (res.data.status === 'success') {
+        popupMessage.textContent = 'Added to playlist';
+        popupMessage?.classList.add('active');
+        window.setTimeout(() => {
+            popupMessage?.classList.remove('active')
+        }, 3000)
       }
 }
 
@@ -82,6 +88,11 @@ async function removeTrackFromPlaylist(event: Event) {
         }
       });
       if (res.data.status === 'success') {
+        popupMessage.textContent = 'Deleted from playlist';
+        popupMessage?.classList.add('active');
+        window.setTimeout(() => {
+            popupMessage?.classList.remove('active')
+        }, 3000)
       }
       const blockTrack = document.querySelectorAll('.chosen-track');
       const blockTrackArr = Array.from(blockTrack);
