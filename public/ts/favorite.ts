@@ -12,9 +12,10 @@ function updateNumberTrack() {
 }
 
 if (tableLikePlaylist) {
-  tableLikePlaylist.addEventListener('click', async (el) => {
-    const target = el.target as HTMLElement;
-    if (target.closest('.heart-icon')) {
+  const heartIcon = document.querySelectorAll('.heart-icon');
+  heartIcon.forEach((item) => {
+    item.addEventListener('click', async (e) => {
+      const target = e.currentTarget as HTMLElement;
       const idTrack = target.id;
       console.log(idTrack);
       const res = await axios({
@@ -27,12 +28,16 @@ if (tableLikePlaylist) {
       if (res.data.status === 'success') {
         console.log('removed track');
       }
-    }
-    const blockTrack = document.querySelectorAll('.chosen-track');
-    const blockTrackArr = Array.from(blockTrack);
-    const deleteItem = blockTrackArr.filter((item) => item.id === target.id);
-    deleteItem[0].remove();
-    updateNumberTrack();
-    console.log(deleteItem);
+
+      const blockTrack = document.querySelectorAll('.chosen-track');
+      const blockTrackArr = Array.from(blockTrack);
+      const deleteItem = blockTrackArr.filter((it) => it.id === target.id);
+      const amountLikedTrack = document.querySelector(
+        '.amount-liked-track'
+      ) as HTMLElement;
+      deleteItem[0].remove();
+      updateNumberTrack();
+      amountLikedTrack.innerHTML = `${blockTrackArr.length - 1}`;
+    });
   });
 }
