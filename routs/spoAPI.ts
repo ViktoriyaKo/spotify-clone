@@ -16,6 +16,10 @@ router.delete('/unfollowArtist', viewController.unfollowArtist);
 
 router.put('/createPlaylist', viewController.createPlaylist);
 
-router.put('/changePlaylist', viewController.changePlaylistDetail)
+router.put('/changePlaylist', viewController.changePlaylistDetail);
+
+router.put('/addTrackToPlaylist', viewController.addTracksToPlaylist);
+
+router.delete('/deleteTrackFromPlaylist', viewController.deleteTracksFromPlaylist)
 
 export default router;

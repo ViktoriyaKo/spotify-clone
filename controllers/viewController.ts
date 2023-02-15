@@ -50,9 +50,11 @@ const getFavoriteTracks = catchAsync(
   async (req: IReq, res: IRes, next: NextFunction) => {
     const tracks = await spotyApi.getUserSavedTracks();
     const account = await spotyApi.getCurrentUser();
+    const playlists = await spotyApi.getUserPlaylists();
     res.status(200).render('favorite', {
       tracks,
       account,
+      playlists,
       state: 'btnFavorite',
     });
   }
@@ -142,9 +144,11 @@ const getPlaylist = catchAsync(
     const id = req.params.id;
     const playlist = await spotyApi.getPlaylist(id);
     const savedTracks = await checkSavedTracks(playlist.tracks.items);
+    const playlists = await spotyApi.getUserPlaylists();
     res.status(200).render('playlist', {
       playlist,
       savedTracks,
+      playlists,
       state: 'btnLibrary',
     });
   }
@@ -169,15 +173,33 @@ const changePlaylistDetail = catchAsync(
     const id = req.body.playlistId as string;
     const newName = req.body.playlistName as string;
     await spotyApi.changePlaylistDetail(id, newName);
-    console.log('ok')
     res.status(202).json({
       status: 'success',
-      playlistId: id
     });
   }
 );
 
+const addTracksToPlaylist = catchAsync(
+  async (req: IReq, res: IRes, next: NextFunction) => {
+    const id = req.body.playlistId as string;
+    const trackUri = req.body.trackUri as string;
+    await spotyApi.addTracksToPlaylist(id, trackUri);
+    res.status(202).json({
+      status: 'success',
+    });
+  }
+);
 
+const deleteTracksFromPlaylist = catchAsync(
+  async (req: IReq, res: IRes, next: NextFunction) => {
+    const id = req.body.playlistId as string;
+    const trackUri = req.body.trackUri as string;
+    await spotyApi.removeTracksFromPlaylist(id, trackUri);
+    res.status(202).json({
+      status: 'success',
+    });
+  }
+);
 
 const getArtist = catchAsync(
   async (req: IReq, res: IRes, next: NextFunction) => {
@@ -188,6 +210,7 @@ const getArtist = catchAsync(
     const relatedArtist = await spotyApi.getRelatedArtist(id);
     const checkFollowArtist = await spotyApi.checkUserFollowArtist(id);
     const savedTracks = await checkSavedTracks(artistTopTracks.tracks);
+    const playlists = await spotyApi.getUserPlaylists();
     
     res.status(200).render('artist', {
       artist,
@@ -197,6 +220,7 @@ const getArtist = catchAsync(
       checkFollowArtist,
       savedTracks,
       state: 'btnLibrary',
+      playlists
     });
   }
 );
@@ -211,6 +235,7 @@ const getAlbum = catchAsync(
     const artistAlbums = await spotyApi.getArtistAlbums(artistId, 10);
     const checkSavedAlbums = await spotyApi.checkUserSavedAlbums(id);
     const savedTracks = await checkSavedTracks(albumTracks.items);
+    const playlists = await spotyApi.getUserPlaylists();
 
     res.status(200).render('album', {
       album,
@@ -218,6 +243,7 @@ const getAlbum = catchAsync(
       artistAlbums,
       checkSavedAlbums,
       savedTracks,
+      playlists,
       state: 'btnLibrary',
     });
   }
@@ -230,11 +256,13 @@ const getTrack = catchAsync(
     const artistId = track.artists[0].id;
     const artist = await spotyApi.getArtist(artistId);
     const artistAlbums = await spotyApi.getArtistAlbums(artistId, 10);
+    const playlists = await spotyApi.getUserPlaylists();
     res.status(200).render('track', {
       track,
       artist,
       artistId,
       artistAlbums,
+      playlists
     });
   }
 );
@@ -367,5 +395,7 @@ export default {
   searchItems,
   saveTrack,
   createPlaylist,
-  changePlaylistDetail
+  changePlaylistDetail,
+  addTracksToPlaylist,
+  deleteTracksFromPlaylist
 };

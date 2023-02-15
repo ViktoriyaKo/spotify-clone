@@ -16,7 +16,6 @@ if (tablePlaylist) {
     const target = el.target as HTMLElement;
     if (target.closest('.heart-icon')) {
       const idTrack = target.id;
-      console.log(target);
       if(target.classList.contains('active-icon')) {
         target.classList.remove('active-icon');
         const res = await axios({
@@ -27,7 +26,6 @@ if (tablePlaylist) {
           },
         });
         if (res.data.status === 'success') {
-          console.log('removed track');
         }
         if(tablePlaylist.classList.contains('table-favorite')) {
           const blockTrack = document.querySelectorAll('.chosen-track');
@@ -46,7 +44,6 @@ if (tablePlaylist) {
           },
         });
         if (res.data.status === 'success') {
-          console.log('removed track');
         }
       }
     }

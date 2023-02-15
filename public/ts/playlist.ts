@@ -5,6 +5,8 @@ const inputName = document.querySelector('.input-name');
 const btnSave = document.querySelector('.btn-save-details');
 const error = document.querySelector('.modal-error');
 const name = document.querySelector('.playlist-name');
+const playlists = document.querySelectorAll('.dropdown-menu-playlists');
+const removeTrackBtn = document.querySelectorAll('.remove-item');
 
 if(name?.textContent) {
     (<HTMLInputElement>inputName)!.value = name.textContent;
@@ -12,6 +14,15 @@ if(name?.textContent) {
 
 const pathname = window.location.pathname.split('/');
 const playlistId = pathname[pathname.length - 1];
+
+function updateNumberTrack() {
+    const numberTrack = document.querySelectorAll('.number-track');
+    if (numberTrack) {
+      numberTrack.forEach((item, index) => {
+        item.innerHTML = `${index + 1}`;
+      });
+    }
+}
 
 async function createPlaylist() {
     const res = await axios({
@@ -45,6 +56,40 @@ async function changeDetails() {
           }
     }
 }
+
+async function addTrackToPlaylist(event: Event) {
+    const target = event.target as HTMLElement;
+    const res = await axios({
+        method: 'PUT',
+        url: '/api/v1/spotyApi/addTrackToPlaylist',
+        data: {
+            playlistId: target.getAttribute('playlist-id'),
+            trackUri: target.getAttribute('track-uri'),
+        }
+      });
+      if (res.data.status === 'success') {
+      }
+}
+
+async function removeTrackFromPlaylist(event: Event) {
+    const target = event.target as HTMLElement;
+    const res = await axios({
+        method: 'DELETE',
+        url: '/api/v1/spotyApi/deleteTrackFromPlaylist',
+        data: {
+            playlistId,
+            trackUri: target.getAttribute('track-uri'),
+        }
+      });
+      if (res.data.status === 'success') {
+      }
+      const blockTrack = document.querySelectorAll('.chosen-track');
+      const blockTrackArr = Array.from(blockTrack);
+      const deleteItem = blockTrackArr.filter((item) => item.id === target.getAttribute('track-uri'));
+      deleteItem[0]?.remove();
+      updateNumberTrack();
+}
+
 btnCreatePlaylist?.addEventListener('click', createPlaylist);
 btnSave?.addEventListener('click', changeDetails);
 
@@ -54,3 +99,11 @@ inputName?.addEventListener('input', function() {
         (<HTMLInputElement>inputName)!.value = value.slice(0, 99);
     }
 })
+
+for(let playlist of playlists) {
+    playlist?.addEventListener('click', addTrackToPlaylist)
+}
+
+for(let btn of removeTrackBtn) {
+    btn.addEventListener('click', removeTrackFromPlaylist);
+}

@@ -582,6 +582,32 @@ const changePlaylistDetail = async (id: string, newName: string) => {
   })
 };
 
+const addTracksToPlaylist = async (id: string, trackUri: string) => {
+  const result = await axios({
+    method: 'POST',
+    url: `https://api.spotify.com/v1/playlists/${id}/tracks?uris=${trackUri}`,
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  })
+};
+
+const removeTracksFromPlaylist = async (id: string, trackUri: string) => {
+  const result = await axios({
+    method: 'DELETE',
+    url: `https://api.spotify.com/v1/playlists/${id}/tracks`,
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    data: {
+      tracks: [{uri: trackUri}]
+    }
+  })
+};
 
 export default {
   getOneAlbum,
@@ -617,4 +643,6 @@ export default {
   saveTracksForUser,
   createPlaylist,
   changePlaylistDetail,
+  addTracksToPlaylist,
+  removeTracksFromPlaylist
 };
