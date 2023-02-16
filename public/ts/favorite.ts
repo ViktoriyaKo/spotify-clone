@@ -46,15 +46,24 @@ if (tablePlaylist) {
           }
           showMessage('Deleted from favorite tracks');
         }
-        if(tablePlaylist.classList.contains('table-favorite')) {
+        if (tablePlaylist.classList.contains('table-favorite')) {
           const blockTrack = document.querySelectorAll('.chosen-track');
           const blockTrackArr = Array.from(blockTrack);
-          const deleteItem = blockTrackArr.filter((item) => item.id === target.id);
+          const amountLikedTrack = document.querySelector(
+            '.amount-liked-track'
+          );
+          const deleteItem = blockTrackArr.filter(
+            (item) => item.id === target.id
+          );
           deleteItem[0]?.remove();
           updateNumberTrack();
+          if (amountLikedTrack) {
+            amountLikedTrack.innerHTML = `${blockTrackArr.length - 1}`;
+          }
         }
       } else {
         target.classList.add('active-icon');
+        console.log('добавить');
         const res = await axios({
           method: 'PUT',
           url: '/api/v1/spotyApi/saveTrack',
