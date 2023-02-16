@@ -218,7 +218,7 @@ const getArtist = catchAsync(
     const artist = await spotyApi.getArtist(id);
     const artistAlbums = await spotyApi.getArtistAlbums(id, 10);
     const artistTopTracks = await spotyApi.getArtistTopTracks(id);
-    const relatedArtist = await spotyApi.getRelatedArtist(id);
+    const relatedArtist = await spotyApi.getRelatedArtists(id);
     const checkFollowArtist = await spotyApi.checkUserFollowArtist(id);
     const savedTracks = await checkSavedTracks(artistTopTracks.tracks);
     const playlists = await spotyApi.getUserPlaylists();
@@ -340,6 +340,17 @@ const getDiscography = catchAsync(
   }
 );
 
+const getRelatedArtists = catchAsync(
+  async (req: IReq, res: IRes, next: NextFunction) => {
+    const id = req.params.id;
+    const relatedArtists = await spotyApi.getRelatedArtists(id);
+    res.status(200).render('related-artist', {
+      relatedArtists,
+      state: 'btnLibrary',
+    });
+  }
+);
+
 const followArtist = catchAsync(
   async (req: IReq, res: IRes, next: NextFunction) => {
     const id = req.body.artistId as string;
@@ -396,6 +407,7 @@ export default {
   getArtist,
   getAlbum,
   getDiscography,
+  getRelatedArtists,
   followArtist,
   unfollowArtist,
   login,

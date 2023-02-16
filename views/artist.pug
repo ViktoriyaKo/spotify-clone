@@ -68,7 +68,7 @@ block content
               small.text-light= `${album.type} • ${album.release_date.split('-')[0]}`
       .d-flex.justify-content-between.align-items-center
         h3.text-light.py-3.fw-bold Related Artist
-        a(href='#').text-light See more
+        a(href=`/artist/${artist.id}/related-artist`).text-light See more
       .row.recommendation-row
         each artist in relatedArtist.artists
           .col-xxl-2.col-xl-3.col-md-4.col-sm-6.mb-2

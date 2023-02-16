@@ -370,7 +370,7 @@ const getArtistAlbums = async (id: string, limit: number) => {
   return data;
 };
 
-const getRelatedArtist = async (id: string) => {
+const getRelatedArtists = async (id: string) => {
   const result = await fetch(
     `https://api.spotify.com/v1/artists/${id}/related-artists`,
     {
@@ -637,7 +637,7 @@ export default {
   getArtist,
   getArtistTopTracks,
   getArtistAlbums,
-  getRelatedArtist,
+  getRelatedArtists,
   getAlbumTracks,
   getSeveralAlbums,
   checkUserSavedAlbums,
