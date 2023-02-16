@@ -36,6 +36,8 @@ router.get(`/track/:id`, viewsController.getTrack);
 
 router.get(`/artist/:id/discography`, viewsController.getDiscography);
 
+router.get(`/artist/:id/related-artist`, viewsController.getRelatedArtists);
+
 router.get(`/artist/:id`, viewsController.getArtist);
 
 router.get(`/album/:id`, viewsController.getAlbum);

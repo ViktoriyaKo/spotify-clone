@@ -35,6 +35,9 @@ export interface IBody {
   albumId?: string;
   artistId?: string;
   idTrack?: string;
+  playlistId?: string;
+  playlistName?: string;
+  trackUri?: string;
   searchValue?: string;
 }
 export interface IReq extends Request {
