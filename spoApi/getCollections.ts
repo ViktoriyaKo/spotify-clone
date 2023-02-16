@@ -181,7 +181,7 @@ const getFollowedArtist = async () => {
   );
 
   const data = await result.json();
-  return data.artists.items;
+  return data.artists;
 };
 
 const getUserPlaylists = async () => {
@@ -370,7 +370,7 @@ const getArtistAlbums = async (id: string, limit: number) => {
   return data;
 };
 
-const getRelatedArtist = async (id: string) => {
+const getRelatedArtists = async (id: string) => {
   const result = await fetch(
     `https://api.spotify.com/v1/artists/${id}/related-artists`,
     {
@@ -565,6 +565,64 @@ const createPlaylist = async (userId: string, numberPlaylist: number) => {
   return data;
 };
 
+const deletePlaylist = async (playlistId: string) => {
+  const result = await axios({
+    method: 'DELETE',
+    url: `https://api.spotify.com/v1/playlists/${playlistId}/followers`,
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    }
+  })
+
+  const data = result.data;
+  return data;
+};
+
+const changePlaylistDetail = async (id: string, newName: string) => {
+  const result = await axios({
+    method: 'PUT',
+    url: `https://api.spotify.com/v1/playlists/${id}`,
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    data: {
+      name: newName,
+      description: '0',
+      public: false
+    },
+  })
+};
+
+const addTracksToPlaylist = async (id: string, trackUri: string) => {
+  const result = await axios({
+    method: 'POST',
+    url: `https://api.spotify.com/v1/playlists/${id}/tracks?uris=${trackUri}`,
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  })
+};
+
+const removeTracksFromPlaylist = async (id: string, trackUri: string) => {
+  const result = await axios({
+    method: 'DELETE',
+    url: `https://api.spotify.com/v1/playlists/${id}/tracks`,
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    data: {
+      tracks: [{uri: trackUri}]
+    }
+  })
+};
 
 export default {
   getOneAlbum,
@@ -579,7 +637,7 @@ export default {
   getArtist,
   getArtistTopTracks,
   getArtistAlbums,
-  getRelatedArtist,
+  getRelatedArtists,
   getAlbumTracks,
   getSeveralAlbums,
   checkUserSavedAlbums,
@@ -598,5 +656,9 @@ export default {
   getSingleTrack,
   searchForItem,
   saveTracksForUser,
-  createPlaylist
+  createPlaylist,
+  deletePlaylist,
+  changePlaylistDetail,
+  addTracksToPlaylist,
+  removeTracksFromPlaylist
 };

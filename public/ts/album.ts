@@ -4,6 +4,19 @@ const btnAlbumLike = document.querySelector('.btn-album-like');
 const pathname = window.location.pathname.split('/');
 const albumId = pathname[pathname.length - 1];
 
+function showMessage(message: string) {
+  const messageBlock = document.createElement('div');
+  messageBlock.className = 'popup-message active';
+  messageBlock.textContent = message;
+  document.body.append(messageBlock);
+  window.setTimeout(() => {
+    messageBlock.classList.remove('active');
+  }, 3000)
+  window.setTimeout(() => {
+    messageBlock.remove();
+  }, 6000)
+}
+
 async function toggleSavedAlbum() {
     if(btnAlbumLike?.classList.contains('active')) {
         btnAlbumLike.classList.remove('active');
@@ -15,9 +28,7 @@ async function toggleSavedAlbum() {
             },
           });
           if (res.data.status === 'success') {
-            window.setTimeout(() => {
-              location.assign('/');
-            }, 1500);
+            showMessage('Deleted from library')
           }
     } else {
         btnAlbumLike?.classList.add('active');
@@ -29,9 +40,7 @@ async function toggleSavedAlbum() {
             },
           });
           if (res.data.status === 'success') {
-            window.setTimeout(() => {
-              location.assign('/');
-            }, 1500);
+            showMessage('Added to library')
           }
     }
 }

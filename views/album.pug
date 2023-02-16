@@ -37,8 +37,20 @@ block content
                   .heart-svg-table
                     svg(class= savedTracks.get(item.id) ? 'active-icon' : '').heart-icon(id=item.id xmlns='http://www.w3.org/2000/svg' fill='transparent' viewbox='-20 0 850 850' stroke-width='30' stroke='none')
                       path(d='M459,19.28c-63.743,0-115.094,35.209-153.593,80.995C267.999,52.94,216.744,19.28,153,19.28 C63.227,19.28,0,96.469,0,180.638c0,45.154,18.494,77.686,38.747,108.229l237.781,285.078c26.699,25.033,31.729,25.033,58.427,0 l238.316-285.078C597.082,258.324,612,225.792,612,180.638C612,96.469,548.772,19.28,459,19.28z')
-              td.col-1= `${min}:${(sec < 10 ? '0' : '')}${sec}`
-      
+              td.col-1
+                  .d-flex.justify-content-start.align-items-center
+                    .track-duration.me-2= `${min}:${(sec < 10 ? '0' : '')}${sec}`
+                    .dropdown
+                      svg.menu-icon(id="dropdownMenu" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside" width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#808080" stroke-width="1" stroke-linecap="round" stroke-linejoin="miter")
+                        line(x1="6.99" y1="12" x2="7" y2="12" stroke-linecap="round" stroke-width="4")
+                        line(x1="13.99" y1="12" x2="14" y2="12" stroke-linecap="round" stroke-width="4")
+                        line(x1="20.99" y1="12" x2="21" y2="12" stroke-linecap="round" stroke-width="4")
+                      ul.dropdown-menu.dropdown-menu-dark(aria-labelledby="dropdownMenu")
+                        li.dropdown-item.d-flex.justify-content-between.align-items-center ◀
+                          span Add to playlist
+                          ul.dropdown-menu.dropdown-menu-playlists.dropdown-menu-dark
+                            each playlist in playlists
+                              li.dropdown-item(playlist-id=`${playlist.id}` track-uri= `${item.uri}`)= playlist.name
       .d-flex.justify-content-between.align-items-center
         h3.text-light.py-3.fw-bold= `${album.artists[0].name}: other albums`
         a(href=`/artist/${album.artists[0].id}/discography`).text-light See more
