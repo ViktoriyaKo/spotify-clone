@@ -19,10 +19,10 @@ function showMessage(message: string) {
   document.body.append(messageBlock);
   window.setTimeout(() => {
     messageBlock.classList.remove('active');
-  }, 3000)
+  }, 3000);
   window.setTimeout(() => {
     messageBlock.remove();
-  }, 6000)
+  }, 6000);
 }
 
 if (tablePlaylist) {
@@ -30,7 +30,7 @@ if (tablePlaylist) {
     const target = el.target as HTMLElement;
     if (target.closest('.heart-icon')) {
       const idTrack = target.id;
-      if(target.classList.contains('active-icon')) {
+      if (target.classList.contains('active-icon')) {
         target.classList.remove('active-icon');
         const res = await axios({
           method: 'DELETE',
@@ -40,9 +40,9 @@ if (tablePlaylist) {
           },
         });
         if (res.data.status === 'success') {
-          if(amountTracks) {
+          if (amountTracks) {
             const text = amountTracks!.textContent as string;
-            amountTracks!.textContent = `${parseInt(text) - 1}`
+            amountTracks!.textContent = `${parseInt(text) - 1}`;
           }
           showMessage('Deleted from favorite tracks');
         }

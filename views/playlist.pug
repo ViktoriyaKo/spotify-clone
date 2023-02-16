@@ -35,11 +35,11 @@ block content
             -
               let min = Math.floor(item.track.duration_ms / 60000);
               let sec = Math.floor(Math.round(item.track.duration_ms % 60000) / 1000);
-            tr(class= savedTracks.get(item.track.id) ? 'liked' : '').chosen-track(id=item.track.uri)
+            tr(class= savedTracks.get(item.track.id) ? 'liked' : '').chosen-track(id=item.track.id)
               th.col-1.text-center
                 span.number-track= `${rowNum++}`
-                svg.logo-main.play-icon-like(xmlns='http://www.w3.org/2000/svg' fill='none' viewbox='0 0 24 24' stroke-width='1.5' stroke='currentColor')
-                  path(stroke-linecap='round' stroke-linejoin='round' d='M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z')
+                div.logo-main.play-btn.play-icon
+
               td.col-4
                 .d-flex.gap-3
                   img.icon-album(src=`${item.track.album.images[0].url}` alt='album')

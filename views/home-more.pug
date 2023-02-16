@@ -4,6 +4,23 @@ block content
     div
       .mb-5
         .mb-5        
+          if (id === 'recentTracks')
+            h3.text-uppercase.m-0
+              a.text-ref-main(href='#') Recently played
+            .d-flex.align-items-center.justify-content-between.mb-3
+              small.text-muted Your recent tracks          
+            .row
+              each recentlyTrack, index in recentlyTracks           
+                .col-xxl-2.col-xl-3.col-md-4.col-sm-6.mb-2(id=recentlyTrack.track.id)
+                  a.main-card.p-3.rounded-2(href=`/track/${recentlyTrack.track.id}`)
+                    .wrapper-img
+                      img(src=`${recentlyTrack.track.album.images[1].url}` alt='album')
+                      button.btn-play
+                        svg.svg-play(xmlns='http://www.w3.org/2000/svg' fill='none' viewbox='0 0 24 24' stroke-width='1.5' stroke='currentColor')
+                          path(stroke-linecap='round' stroke-linejoin='round' d='M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z')
+                    h4.mt-2= recentlyTrack.track.artists[0].name 
+                    p.text-muted= recentlyTrack.track.name
+        .mb-5        
           if (id === 'bestTracks')
             h3.text-uppercase.m-0
               a.text-ref-main(href='#') Your best tracks

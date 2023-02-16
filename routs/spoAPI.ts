@@ -22,9 +22,13 @@ router.put('/changePlaylist', viewController.changePlaylistDetail);
 
 router.put('/addTrackToPlaylist', viewController.addTracksToPlaylist);
 
-router.delete('/deleteTrackFromPlaylist', viewController.deleteTracksFromPlaylist)
+router.delete(
+  '/deleteTrackFromPlaylist',
+  viewController.deleteTracksFromPlaylist
+);
 
 router.patch('/startSearch', viewController.searchRequest);
 
+router.patch('/startPlayer', viewController.getCurrentTrack);
 
 export default router;
