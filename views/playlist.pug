@@ -35,7 +35,7 @@ block content
             -
               let min = Math.floor(item.track.duration_ms / 60000);
               let sec = Math.floor(Math.round(item.track.duration_ms % 60000) / 1000);
-            tr(class= savedTracks.get(item.track.id) ? 'liked' : '').chosen-track(id=item.track.uri)
+            tr(class= savedTracks.get(item.track.id) ? 'liked' : '').chosen-track(id=item.track.id)
               th.col-1.text-center
                 span.number-track= `${rowNum++}`
                 div.logo-main.play-btn.play-icon
