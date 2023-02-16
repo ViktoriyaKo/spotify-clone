@@ -9,8 +9,8 @@ block content
       .row
         h3.col-12.py-4 Artists
       .row
-        if +artists.total > 0
-        each artist in artists
+        if +artists.items.total > 0
+        each artist in artists.items
           .col-xxl-2.col-xl-3.col-md-4.col-sm-6.mb-4
             a.main-card.p-3.rounded-2(href=`/artist/${artist.id}`)
               .wrapper-img

@@ -85,11 +85,24 @@
   color: #eaa5ff;
 }
 
+.playlist-name {
+  cursor: pointer;
+}
+
+.menu-icon {
+  transition: all ease 0.1s;
+}
+
+.menu-icon:hover {
+  stroke: #ffffff;
+}
+
 .btn-play-playlist {
   margin-right: 20px;
 }
 
-.playlist-modal .modal-content {
+.playlist-modal .modal-content,
+.delete-playlist-modal .modal-content {
   background-color: #1b1a1b;
 }
 
@@ -107,7 +120,10 @@
 }
 .playlist-modal .modal-header,
 .playlist-modal .modal-body,
-.playlist-modal .modal-footer {
+.playlist-modal .modal-footer,
+.delete-playlist-modal .modal-header,
+.delete-playlist-modal .modal-body,
+.delete-playlist-modal .modal-footer{
   border: none;
 }
 

@@ -168,6 +168,17 @@ const createPlaylist = catchAsync(
   }
 );
 
+const deletePlaylist = catchAsync(
+  async (req: IReq, res: IRes, next: NextFunction) => {
+    const playlistId = req.body.playlistId as string;
+    await spotyApi.deletePlaylist(playlistId);
+    console.log('ok')
+    res.status(202).json({
+      status: 'success',
+    });
+  }
+);
+
 const changePlaylistDetail = catchAsync(
   async (req: IReq, res: IRes, next: NextFunction) => {
     const id = req.body.playlistId as string;
@@ -395,6 +406,7 @@ export default {
   searchItems,
   saveTrack,
   createPlaylist,
+  deletePlaylist,
   changePlaylistDetail,
   addTracksToPlaylist,
   deleteTracksFromPlaylist

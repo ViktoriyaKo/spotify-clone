@@ -7,6 +7,7 @@ const error = document.querySelector('.modal-error');
 const name = document.querySelector('.playlist-name');
 const playlists = document.querySelectorAll('.dropdown-menu-playlists');
 const removeTrackBtn = document.querySelectorAll('.remove-item');
+const deletePlaylistBtn = document.querySelector('.btn-delete-playlist');
 
 if(name?.textContent) {
     (<HTMLInputElement>inputName)!.value = name.textContent;
@@ -49,6 +50,21 @@ async function createPlaylist() {
       }
 }
 
+async function deletePlaylist() {
+    const res = await axios({
+        method: 'DELETE',
+        url: '/api/v1/spotyApi/deletePlaylist',
+        data: {
+            playlistId
+        }
+      });
+      if (res.data.status === 'success') {
+        window.setTimeout(() => {
+            location.assign(`/library/playlists`);
+          }, 200);
+      }
+}
+
 async function changeDetails() {
     const playlistName = (<HTMLInputElement>inputName)?.value;
     if(playlistName.length < 1) {
@@ -66,6 +82,7 @@ async function changeDetails() {
             }
           });
           if (res.data.status === 'success') {
+            showMessage('Playlist renamed');
           }
     }
 }
@@ -122,3 +139,5 @@ for(let playlist of playlists) {
 for(let btn of removeTrackBtn) {
     btn.addEventListener('click', removeTrackFromPlaylist);
 }
+
+deletePlaylistBtn?.addEventListener('click', deletePlaylist);
