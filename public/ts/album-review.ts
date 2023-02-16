@@ -59,14 +59,12 @@ function renderComment(data: []) {
 
 if (btnSendComment) {
   btnSendComment.addEventListener('click', async () => {
-    const reviewBody = textarea.value;
-    console.log('review: ', reviewBody);
+    const review = textarea.value;
     const res = await axios({
       method: 'POST',
       url: '/api/v1/reviews/addReview',
       data: {
-      
-        reviewBody,
+        review,
       },
     });
     if (res.data.status === 'success') {

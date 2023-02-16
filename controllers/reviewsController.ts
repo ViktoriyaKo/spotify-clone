@@ -6,20 +6,16 @@ import { IBody, IReq, IRes } from '../environment';
 
 const setUser = catchAsync(async (req: IReq, res: IRes, next: NextFunction) => {
   req.body.user = req.user.id;
+  req.body.albumId = req.headers.referer?.split('/').at(-1);
+  req.body.name = req.user.name;
+  req.body.photo = req.user.photo;
   //req.body.photo =
   next();
 });
 
 const addReview = catchAsync(
   async (req: IReq, res: IRes, next: NextFunction) => {
-    const review = 'testReview';
-    const albumId = 'testID';
-
-    const newReview = await Review.create({
-      review,
-      albumId,
-      user: req.body.user,
-    });
+    const newReview = await Review.create(req.body);
 
     res.status(200).json({
       status: 'success',
