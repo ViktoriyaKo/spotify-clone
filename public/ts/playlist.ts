@@ -8,6 +8,7 @@ const name = document.querySelector('.playlist-name');
 const playlists = document.querySelectorAll('.dropdown-menu-playlists');
 const removeTrackBtn = document.querySelectorAll('.remove-item');
 const deletePlaylistBtn = document.querySelector('.btn-delete-playlist');
+const amountTracks = document.querySelector('.amount-liked-track');
 
 if(name?.textContent) {
     (<HTMLInputElement>inputName)!.value = name.textContent;
@@ -113,6 +114,10 @@ async function removeTrackFromPlaylist(event: Event) {
         }
       });
       if (res.data.status === 'success') {
+        if(amountTracks) {
+          const text = amountTracks!.textContent as string;
+          amountTracks!.textContent = `${parseInt(text) - 1} songs`
+        }
         showMessage('Deleted from playlist');
       }
       const blockTrack = document.querySelectorAll('.chosen-track');

@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const tablePlaylist = document.querySelector('.table-playlist');
+const amountTracks = document.querySelector('.amount-liked-track');
 
 function updateNumberTrack() {
   const numberTrack = document.querySelectorAll('.number-track');
@@ -39,6 +40,10 @@ if (tablePlaylist) {
           },
         });
         if (res.data.status === 'success') {
+          if(amountTracks) {
+            const text = amountTracks!.textContent as string;
+            amountTracks!.textContent = `${parseInt(text) - 1}`
+          }
           showMessage('Deleted from favorite tracks');
         }
         if(tablePlaylist.classList.contains('table-favorite')) {

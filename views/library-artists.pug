@@ -2,12 +2,12 @@ extends base.pug
 block content
   main
     nav.library-nav.d-flex.gap-4
-      a#playlists.p-2.rounded(href='./playlists') Playlists
-      a#artists.text-light.color-active.p-2.rounded(href='./artists') Artists
-      a#albums.p-2.rounded(href='./albums') Albums
+      a#playlists.py-2.px-4.rounded(href='./playlists') Playlists
+      a#artists.text-light.color-active.py-2.px-4.rounded(href='./artists') Artists
+      a#albums.py-2.px-4.rounded(href='./albums') Albums
     div
       .row
-        h3.col-12.py-4 Artists
+        h3.col-12.mb-3.text-ref-main.library-title Artists
       .row
         if +artists.items.total > 0
         each artist in artists.items

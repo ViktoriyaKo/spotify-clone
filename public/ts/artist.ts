@@ -19,7 +19,7 @@ function showMessage(message: string) {
 
 async function toggleFollowArtist() {
     if(btnFollowArtist?.classList.contains('active')) {
-        btnFollowArtist.textContent = 'Unfollow';
+        btnFollowArtist.textContent = 'Follow';
         btnFollowArtist.classList.remove('active');
         const res = await axios({
             method: 'DELETE',
@@ -32,7 +32,7 @@ async function toggleFollowArtist() {
             showMessage('Deleted from library');
           }
     } else {
-        (<Element>btnFollowArtist).textContent = 'Follow';
+        (<Element>btnFollowArtist).textContent = 'Following';
         btnFollowArtist?.classList.add('active');
         const res = await axios({
             method: 'PUT',

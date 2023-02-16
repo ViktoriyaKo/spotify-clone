@@ -94,8 +94,10 @@ const changeProfile = catchAsync(
 const getUserPlaylists = catchAsync(
   async (req: IReq, res: IRes, next: NextFunction) => {
     const playlists = await spotyApi.getUserPlaylists();
+    const totalTracks = await spotyApi.getUserSavedTracks();
     res.status(200).render('library-playlists', {
       playlists,
+      totalTracks,
       state: 'btnLibrary',
     });
   }
@@ -132,7 +134,7 @@ async function checkSavedTracks(tracksArray: [ITrack | IPlaylistTrack]): Promise
   }
   const checkSavedTracks = await spotyApi.checkUserSavedTracks(idsSavedTracks.join(','));
   let savedTracks = new Map();
-  for(let i = 0; i < idsSavedTracks.length - 1; i ++) {
+  for(let i = 0; i < idsSavedTracks.length; i ++) {
     savedTracks.set(idsSavedTracks[i], checkSavedTracks[i]);
   }
 

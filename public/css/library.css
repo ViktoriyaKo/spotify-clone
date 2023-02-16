@@ -1,9 +1,17 @@
+.library-nav {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translate(-50%);
+}
+
 .library-nav a {
-  color: #444444;
+  color: #ffffff;
+  letter-spacing: 1px;
 }
 
 .library-nav a:hover {
-  color: black;
+  color: #eaa5ff;
 }
 
 .favorite-card {
@@ -129,4 +137,27 @@
 
 .playlist-modal .modal-error {
   display: none;
+}
+
+@media(max-width: 992px) {
+  .library-nav {
+    left: 50px;
+    transform: translate(0, 0);
+    font-size: 14px;
+  }
+}
+
+@media(max-width: 580px) {
+  .library-title {
+    margin-top: 70px;
+  }
+
+  .library-nav {
+    background-color: black;
+    top: var(--height-header);
+    left: 0;
+    right: 0;
+    padding: 10px 0;
+    z-index: 9;
+  }
 }
