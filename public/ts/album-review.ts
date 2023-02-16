@@ -1,4 +1,9 @@
+import axios from 'axios';
+
 const btnSendComment = document.querySelector('.btn-send-comment');
+const textarea = document.querySelector(
+  '.textarea-comment'
+) as HTMLInputElement;
 
 function renderComment(data: []) {
   let out = '';
@@ -50,4 +55,22 @@ function renderComment(data: []) {
     }
   });
   return out;
+}
+
+if (btnSendComment) {
+  btnSendComment.addEventListener('click', async () => {
+    const reviewBody = textarea.value;
+    console.log('review: ', reviewBody);
+    const res = await axios({
+      method: 'POST',
+      url: '/api/v1/reviews/addReview',
+      data: {
+      
+        reviewBody,
+      },
+    });
+    if (res.data.status === 'success') {
+      console.log('review was added');
+    }
+  });
 }
