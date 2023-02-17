@@ -20,4 +20,22 @@ router.patch('/startSearch', viewController.searchRequest);
 
 router.patch('/startPlayer', viewController.getCurrentTrack);
 
+router.put('/startPlayback', viewController.startPlayback);
+
+router.put('/startPlaylistPlayback', viewController.startPlaylistPlayback);
+
+router.put('/pausePlayback', viewController.pausePlayback);
+
+router.put('/skipToNextTrack', viewController.skipToNextTrack);
+
+router.put('/skipToPreviousTrack', viewController.skipToPreviousTrack);
+
+router.put('/getToken', viewController.getToken);
+
+router.patch('/setDeviceId', viewController.setDeviceId);
+
+router.put('/changeDevice', viewController.changeDevice);
+
+router.get('/getCurrentlyTrack', viewController.getCurrentlyTrack);
+
 export default router;

@@ -7,6 +7,7 @@ import './album';
 import './favorite';
 import './playlist';
 import './search';
+import './spotyPlayer'
 
 console.log('hello spoty');
 // DOM ELEMENTS

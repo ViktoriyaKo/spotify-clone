@@ -340,6 +340,99 @@ const unfollowArtist = catchAsync(
   }
 );
 
+const startPlayback = catchAsync(
+  async (req: IReq, res: IRes, next: NextFunction) => {
+    const contextUri = req.body.contextUri as string;
+    const offset = req.body.offset as string;
+    const positionMs = req.body.positionMs;
+    await spotyApi.startPlayback(contextUri, offset, positionMs);
+    console.log('ok')
+    res.status(202).json({
+    });
+  }
+);
+
+const startPlaylistPlayback = catchAsync(
+  async (req: IReq, res: IRes, next: NextFunction) => {
+    const contextUri = req.body.tracksUris as string[];
+    const positionMs = req.body.positionMs as number;
+    // await spotyApi.startPlaylistPlayback(contextUri, positionMs);
+    console.log('ok')
+    res.status(202).json({
+    });
+  }
+);
+
+const pausePlayback = catchAsync(
+  async (req: IReq, res: IRes, next: NextFunction) => {
+    await spotyApi.pausePlayback();
+    res.status(202).json({
+    });
+  }
+);
+
+const getCurrentlyTrack = catchAsync(
+  async (req: IReq, res: IRes, next: NextFunction) => {
+    const currentlyTrack = await spotyApi.getCurrentlyTrack();
+    res.status(202).json({
+      currentlyTrack,
+      status: 'success'
+    });
+  }
+);
+
+const skipToNextTrack= catchAsync(
+  async (req: IReq, res: IRes, next: NextFunction) => {
+    await spotyApi.skipToNextTrack();
+    const currentlyTrack = await spotyApi.getCurrentlyTrack();
+    res.status(202).json({
+      currentlyTrack,
+      status: 'success'
+    });
+  }
+);
+
+const skipToPreviousTrack= catchAsync(
+  async (req: IReq, res: IRes, next: NextFunction) => {
+    await spotyApi.skipToPreviousTrack();
+    const currentlyTrack = await spotyApi.getCurrentlyTrack();
+    res.status(202).json({
+      currentlyTrack,
+      status: 'success'
+    });
+  }
+);
+
+const getToken = catchAsync(
+  async (req: IReq, res: IRes, next: NextFunction) => {
+    const token = await spotyApi.getToken();
+    res.status(202).json({
+      status: 'success',
+      token
+    });
+  }
+);
+
+const setDeviceId = catchAsync(
+  async (req: IReq, res: IRes, next: NextFunction) => {
+    const deviceId = req.body.deviceId as string;
+    await spotyApi.setDeviceId(deviceId);
+    res.status(202).json({
+      status: 'success',
+    });
+  }
+);
+
+const changeDevice = catchAsync(
+  async (req: IReq, res: IRes, next: NextFunction) => {
+    const deviceId = req.body.deviceId as string;
+    await spotyApi.changeDevice(deviceId);
+    res.status(202).json({
+      status: 'success'
+    })
+  }
+)
+
 const login = catchAsync(async (req: IReq, res: IRes, next: NextFunction) => {
   const queryParams = await spotyApi.login();
   const stateKey = 'spotify_auth_state';
@@ -388,4 +481,13 @@ export default {
   createPlaylist,
   searchRequest,
   getCurrentTrack,
+  startPlayback,
+  startPlaylistPlayback,
+  pausePlayback,
+  getToken,
+  changeDevice,
+  getCurrentlyTrack,
+  skipToNextTrack,
+  skipToPreviousTrack,
+  setDeviceId,
 };

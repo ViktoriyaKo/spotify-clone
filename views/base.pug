@@ -10,15 +10,16 @@ html
       link(rel='stylesheet' href='/css/library.css')
       title SPOTY_COPY
   
-  .grid
-    include ./_aside
-    include ./_header
-      // CONTENT
-    block content 
-      h1 This is a placeholder heading
+    .grid
+      include ./_aside
+      include ./_header
+        // CONTENT
+      block content 
+        h1 This is a placeholder heading
 
-      // PLAYER
-    include ./_player
+        // PLAYER
+      include ./_player
 
     script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js')
+    script(src="https://sdk.scdn.co/spotify-player.js" async)
     script(src='../dist/index.js')

@@ -36,6 +36,13 @@ export interface IBody {
   artistId?: string;
   idTrack?: string;
   searchValue?: string;
+  token?: string;
+  tracksUris?: string[];
+  deviceId?: string;
+  positionMs?: number;
+  contextUri?: string;
+  offset?: string;
+  currentlyTrack?: {};
 }
 export interface IReq extends Request {
   body: IBody;
