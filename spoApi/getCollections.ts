@@ -60,7 +60,6 @@ const callback = async (req: IReq, res: IRes) => {
       token = response.data.access_token;
     }
   });
-  
 };
 
 const getOneAlbum = async (id: string) => {
@@ -183,7 +182,7 @@ const getFollowedArtist = async () => {
   );
 
   const data = await result.json();
-  return data.artists.items;
+  return data.artists;
 };
 
 const getUserPlaylists = async () => {
@@ -260,8 +259,6 @@ const checkUserSavedTracks = async (ids: string) => {
   const data = await result.json();
   return data;
 };
-
-
 
 const getRecommendations = async () => {
   const track = '0c6xIDDpzE81m2q797ordA';
@@ -372,7 +369,7 @@ const getArtistAlbums = async (id: string, limit: number) => {
   return data;
 };
 
-const getRelatedArtist = async (id: string) => {
+const getRelatedArtists = async (id: string) => {
   const result = await fetch(
     `https://api.spotify.com/v1/artists/${id}/related-artists`,
     {
@@ -471,14 +468,17 @@ const saveAlbumsForUser = async (ids: string) => {
 };
 
 const saveTracksForUser = async (ids: string) => {
-  const result = await fetch(`https://api.spotify.com/v1/me/tracks?ids=${ids}`, {
-    method: 'PUT',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  const result = await fetch(
+    `https://api.spotify.com/v1/me/tracks?ids=${ids}`,
+    {
+      method: 'PUT',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
 };
 
 const searchForItem = async (search: string) => {
@@ -512,7 +512,8 @@ const checkUserFollowArtist = async (ids: string) => {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
-    });
+    }
+  );
   const data = await result.json();
   return data;
 };
@@ -558,18 +559,22 @@ const createPlaylist = async (userId: string, numberPlaylist: number) => {
     },
     data: {
       name: `New playlist № ${numberPlaylist}`,
-      description: "New playlist",
-      public: false
+      description: 'New playlist',
+      public: false,
     },
-  })
+  });
 
   const data = result.data;
   return data;
 };
 
-const startPlayback = async (context_uri: string, offset: string, positionMs: number = 0) => {
+const startPlayback = async (
+  context_uri: string,
+  offset: string,
+  positionMs: number = 0
+) => {
   // let urisString = uris.join(',');
-  console.log(context_uri, offset, positionMs)
+  console.log(context_uri, offset, positionMs);
   const result = await axios({
     method: 'PUT',
     url: `https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`,
@@ -580,13 +585,28 @@ const startPlayback = async (context_uri: string, offset: string, positionMs: nu
     },
     data: {
       context_uri,
-      offset: {uri: offset},
+      offset: { uri: offset },
       position_ms: positionMs,
     },
-  })
+  });
 
   const data = result.data;
-  console.log(data)
+  console.log(data);
+  return data;
+};
+
+const deletePlaylist = async (playlistId: string) => {
+  const result = await axios({
+    method: 'DELETE',
+    url: `https://api.spotify.com/v1/playlists/${playlistId}/followers`,
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  const data = result.data;
   return data;
 };
 
@@ -603,10 +623,10 @@ const startPlaylistPlayback = async (uri: string, positionMs: number) => {
       context_uri: uri,
       position_ms: positionMs,
     },
-  })
+  });
 
   const data = result.data;
-  console.log(data)
+  console.log(data);
   return data;
 };
 
@@ -618,8 +638,8 @@ const pausePlayback = async () => {
       Accept: 'application/json',
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
-    }
-  })
+    },
+  });
 
   const data = result.data;
   return data;
@@ -628,13 +648,13 @@ const pausePlayback = async () => {
 const getCurrentlyTrack = async () => {
   const result = await axios({
     method: 'GET',
-    url: "https://api.spotify.com/v1/me/player/currently-playing?market=ES",
+    url: 'https://api.spotify.com/v1/me/player/currently-playing?market=ES',
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
-    }
-  })
+    },
+  });
 
   const data = result.data;
   return data;
@@ -643,37 +663,37 @@ const getCurrentlyTrack = async () => {
 const skipToNextTrack = async () => {
   const result = await axios({
     method: 'POST',
-    url: "https://api.spotify.com/v1/me/player/next",
+    url: 'https://api.spotify.com/v1/me/player/next',
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
-    }
-  })
+    },
+  });
 };
 
 const skipToPreviousTrack = async () => {
   const result = await axios({
     method: 'POST',
-    url: "https://api.spotify.com/v1/me/player/previous",
+    url: 'https://api.spotify.com/v1/me/player/previous',
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
-    }
-  })
+    },
+  });
 };
 
 const getToken = async () => {
   return token;
 };
 
-const setDeviceId = (newDeviceId: string)=> {
+const setDeviceId = (newDeviceId: string) => {
   deviceId = newDeviceId;
-}
+};
 
 const changeDevice = async (deviceId: string) => {
-  console.log(token)
+  console.log(token);
   const result = await axios({
     method: 'PUT',
     url: `https://api.spotify.com/v1/me/player`,
@@ -686,9 +706,67 @@ const changeDevice = async (deviceId: string) => {
       device_ids: [deviceId],
       play: false,
     },
-  })
+  });
   console.log(result.status);
-}
+};
+
+const changePlaylistDetail = async (id: string, newName: string) => {
+  const result = await axios({
+    method: 'PUT',
+    url: `https://api.spotify.com/v1/playlists/${id}`,
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    data: {
+      name: newName,
+      description: '0',
+      public: false,
+    },
+  });
+};
+
+const addTracksToPlaylist = async (id: string, trackUri: string) => {
+  const result = await axios({
+    method: 'POST',
+    url: `https://api.spotify.com/v1/playlists/${id}/tracks?uris=${trackUri}`,
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+const removeTracksFromPlaylist = async (id: string, trackUri: string) => {
+  const result = await axios({
+    method: 'DELETE',
+    url: `https://api.spotify.com/v1/playlists/${id}/tracks`,
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    data: {
+      tracks: [{ uri: trackUri }],
+    },
+  });
+};
+
+const getRecentlyPlayedTracks = async () => {
+  const limit = 20;
+  const result = await fetch(
+    `https://api.spotify.com/v1/me/player/recently-played?limit=${limit}`,
+    {
+      method: 'GET',
+      headers: { Authorization: `Bearer ${token}` },
+    }
+  );
+
+  const data = await result.json();
+  return data.items;
+};
 
 export default {
   getOneAlbum,
@@ -703,7 +781,7 @@ export default {
   getArtist,
   getArtistTopTracks,
   getArtistAlbums,
-  getRelatedArtist,
+  getRelatedArtists,
   getAlbumTracks,
   getSeveralAlbums,
   checkUserSavedAlbums,
@@ -732,4 +810,9 @@ export default {
   skipToNextTrack,
   skipToPreviousTrack,
   setDeviceId,
+  deletePlaylist,
+  changePlaylistDetail,
+  addTracksToPlaylist,
+  removeTracksFromPlaylist,
+  getRecentlyPlayedTracks,
 };

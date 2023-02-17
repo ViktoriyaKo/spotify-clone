@@ -1,12 +1,13 @@
 import { login, signup } from './login';
+import './album';
 import './home';
 import './account';
 import './artist';
 import './player';
-import './album';
 import './favorite';
 import './playlist';
 import './search';
+import './album-review';
 import './spotyPlayer'
 
 console.log('hello spoty');

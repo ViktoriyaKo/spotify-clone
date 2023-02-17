@@ -354,6 +354,12 @@ async function skipToPrevious() {
 
 playBtn?.addEventListener('click', clickPlayerBtn);
 btnPlayPlaylist?.addEventListener('click', clickPlayerBtn);
+playNext?.addEventListener('click', skipToNext);
+playPrev?.addEventListener('click', skipToPrevious);
+// btnPlayPlaylist?.addEventListener('click', togglePlaylistPlayback.bind(this, btnPlayPlaylist?.getAttribute('uri'), btnPlayPlaylist));
+
+playBtn?.addEventListener('click', clickPlayerBtn);
+btnPlayPlaylist?.addEventListener('click', clickPlayerBtn);
 playNext?.addEventListener('click', skipToNext)
 playPrev?.addEventListener('click', skipToPrevious);
 // btnPlayPlaylist?.addEventListener('click', togglePlaylistPlayback.bind(this, btnPlayPlaylist?.getAttribute('uri'), btnPlayPlaylist));

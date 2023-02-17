@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const tablePlaylist = document.querySelector('.table-playlist');
+const amountTracks = document.querySelector('.amount-liked-track');
 
 function updateNumberTrack() {
   const numberTrack = document.querySelectorAll('.number-track');
@@ -11,14 +12,25 @@ function updateNumberTrack() {
   }
 }
 
+function showMessage(message: string) {
+  const messageBlock = document.createElement('div');
+  messageBlock.className = 'popup-message active';
+  messageBlock.textContent = message;
+  document.body.append(messageBlock);
+  window.setTimeout(() => {
+    messageBlock.classList.remove('active');
+  }, 3000);
+  window.setTimeout(() => {
+    messageBlock.remove();
+  }, 6000);
+}
+
 if (tablePlaylist) {
   tablePlaylist.addEventListener('click', async (el) => {
     const target = el.target as HTMLElement;
     if (target.closest('.heart-icon')) {
       const idTrack = target.id;
-      console.log(target);
       if (target.classList.contains('active-icon')) {
-        console.log('не содержит');
         target.classList.remove('active-icon');
         const res = await axios({
           method: 'DELETE',
@@ -28,7 +40,11 @@ if (tablePlaylist) {
           },
         });
         if (res.data.status === 'success') {
-          console.log('removed track');
+          if (amountTracks) {
+            const text = amountTracks!.textContent as string;
+            amountTracks!.textContent = `${parseInt(text) - 1}`;
+          }
+          showMessage('Deleted from favorite tracks');
         }
         if (tablePlaylist.classList.contains('table-favorite')) {
           const blockTrack = document.querySelectorAll('.chosen-track');
@@ -56,7 +72,7 @@ if (tablePlaylist) {
           },
         });
         if (res.data.status === 'success') {
-          console.log('removed track');
+          showMessage('Added to favorite tracks');
         }
       }
     }
