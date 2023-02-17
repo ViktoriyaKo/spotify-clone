@@ -19,7 +19,16 @@ const reviewSchema = new mongoose.Schema(
       type: String,
       required: [true, 'Review must belong to album.'],
     },
+    photo: {
+      type: String,
+      default: 'default.jpg',
+    },
+    name: {
+      type: String,
+      default: 'anonimus',
+    },
     user: {
+      //@ts-ignore
       type: mongoose.Schema.ObjectId,
       ref: 'User',
       required: [true, 'Review must belong to a user.'],
@@ -40,6 +49,7 @@ reviewSchema.pre(/^find/, function (next) {
 });
 
 reviewSchema.pre(/^findOneAnd/, async function (next) {
+  //@ts-ignore
   this.r = await this.findOne();
   next();
 });

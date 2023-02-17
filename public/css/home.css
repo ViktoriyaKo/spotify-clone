@@ -259,7 +259,7 @@ main {
   left: -100%;
   height: 300px;
   overflow-y: scroll;
- } 
+}
 
 .main-card:hover .btn-play {
   opacity: 1;
@@ -582,7 +582,7 @@ thead {
   border-bottom: 2px solid gray;
   border-radius: 0;
   width: 100%;
-  height: 50px;
+  height: 40px;
   resize: none;
   outline: 0;
   color: white;
@@ -617,6 +617,11 @@ thead {
 .icon-like-com:hover {
   scale: 1.1;
   transition: 0.5s;
+}
+
+.time-comment {
+  color: #b4b4b4;
+  font-size: 13px;
 }
 /*  */
 

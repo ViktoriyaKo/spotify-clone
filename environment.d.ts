@@ -39,6 +39,8 @@ export interface IBody {
   playlistName?: string;
   trackUri?: string;
   searchValue?: string;
+  user?: string;
+  review?: string;
 }
 export interface IReq extends Request {
   body: IBody;

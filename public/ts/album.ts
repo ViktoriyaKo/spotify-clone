@@ -11,38 +11,38 @@ function showMessage(message: string) {
   document.body.append(messageBlock);
   window.setTimeout(() => {
     messageBlock.classList.remove('active');
-  }, 3000)
+  }, 3000);
   window.setTimeout(() => {
     messageBlock.remove();
-  }, 6000)
+  }, 6000);
 }
 
 async function toggleSavedAlbum() {
-    if(btnAlbumLike?.classList.contains('active')) {
-        btnAlbumLike.classList.remove('active');
-        const res = await axios({
-            method: 'DELETE',
-            url: '/api/v1/spotyApi/deleteAlbum',
-            data: {
-              albumId
-            },
-          });
-          if (res.data.status === 'success') {
-            showMessage('Deleted from library')
-          }
-    } else {
-        btnAlbumLike?.classList.add('active');
-        const res = await axios({
-            method: 'PUT',
-            url: '/api/v1/spotyApi/saveAlbum',
-            data: {
-              albumId
-            },
-          });
-          if (res.data.status === 'success') {
-            showMessage('Added to library')
-          }
+  if (btnAlbumLike?.classList.contains('active')) {
+    btnAlbumLike.classList.remove('active');
+    const res = await axios({
+      method: 'DELETE',
+      url: '/api/v1/spotyApi/deleteAlbum',
+      data: {
+        albumId,
+      },
+    });
+    if (res.data.status === 'success') {
+      showMessage('Deleted from library');
     }
+  } else {
+    btnAlbumLike?.classList.add('active');
+    const res = await axios({
+      method: 'PUT',
+      url: '/api/v1/spotyApi/saveAlbum',
+      data: {
+        albumId,
+      },
+    });
+    if (res.data.status === 'success') {
+      showMessage('Added to library');
+    }
+  }
 }
 
-btnAlbumLike?.addEventListener('click', toggleSavedAlbum)
+btnAlbumLike?.addEventListener('click', toggleSavedAlbum);

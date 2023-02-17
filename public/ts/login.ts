@@ -165,6 +165,9 @@ export const changePassword = async (
     });
     if (res.data.status === 'success') {
       const info = document.querySelector('.wrapper-info');
+      const form = document.querySelector(
+        '#formChangePassword'
+      ) as HTMLFormElement;
       if (error2) {
         error2.classList.add('hidden');
       }
@@ -172,6 +175,7 @@ export const changePassword = async (
         info.classList.remove('hidden');
         info.innerHTML =
           '<div class="info"><h3>Your password was updated</h3></div>';
+        form.reset();
         setTimeout(() => {
           info.classList.add('hidden');
         }, 2000);
