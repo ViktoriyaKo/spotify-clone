@@ -136,7 +136,7 @@ for (let icon of changingIcons) {
 //     } else {
 //       player.pause();
 //       item.classList.add('play-icon');
-//     } 
+//     }
 //   }
 // }
 
@@ -162,7 +162,7 @@ for (let icon of changingIcons) {
 //     console.log('Device ID has gone offline', device_id);
 //   });
 // // @ts-ignore
-//   player.addListener('initialization_error', ({ message }) => { 
+//   player.addListener('initialization_error', ({ message }) => {
 //     console.error(message);
 //   });
 // // @ts-ignore
@@ -174,7 +174,6 @@ for (let icon of changingIcons) {
 //       console.error(message);
 //   });
 
-  
 //   playBtn?.addEventListener('click', () => {
 //     player.play("spotify:album:5ht7ItJgpBH7W6vJ5BqpPr");
 //   })
@@ -210,42 +209,48 @@ for (let icon of changingIcons) {
 
 const contextUri = btnPlayPlaylist?.getAttribute('uri');
 let currentlyTrackTime = 0;
-let indexCurrentlyTrack:number = 0;
+let indexCurrentlyTrack: number = 0;
 
 function setActiveTrack() {
-  Array.from(chosenTracks)[indexCurrentlyTrack]?.classList.add('chosen-track-active');
+  Array.from(chosenTracks)[indexCurrentlyTrack]?.classList.add(
+    'chosen-track-active'
+  );
   chosenTracks.forEach((item, index) => {
-    if(index !== indexCurrentlyTrack) {
+    if (index !== indexCurrentlyTrack) {
       item.classList.remove('chosen-track-active');
     }
-  })
+  });
 }
 
 //CHANGE
 function setInfoInPlayer() {
   chosenTracks.forEach((item, index) => {
-    if(index === indexCurrentlyTrack) {
+    if (index === indexCurrentlyTrack) {
       title.textContent = item.querySelector('.name-liked-track')!.textContent;
-      artist.textContent = item.querySelector('.singer-liked-track')!.textContent;
-      imgPlayer.src = (<HTMLIFrameElement>item.querySelector('.icon-album'))!.src;
+      artist.textContent = item.querySelector(
+        '.singer-liked-track'
+      )!.textContent;
+      imgPlayer.src = (<HTMLIFrameElement>(
+        item.querySelector('.icon-album')
+      ))!.src;
     }
-  })
+  });
 }
 
 async function startPlayback(offset: string, time: number = 0) {
   const res = await axios({
-        method: 'PUT',
-        url: '/api/v1/spotyApi/startPlayback',
-        data: {
-          contextUri,
-          offset,
-          positionMs: time,
-        },
-      });
-      if (res.status === 202) {
-        console.log(`play: ${contextUri}`);
-        // currentlyTrackUri = tracksUris;
-      }
+    method: 'PUT',
+    url: '/api/v1/spotyApi/startPlayback',
+    data: {
+      contextUri,
+      offset,
+      positionMs: time,
+    },
+  });
+  if (res.status === 202) {
+    console.log(`play: ${contextUri}`);
+    // currentlyTrackUri = tracksUris;
+  }
 }
 
 async function pausePlayback() {
@@ -272,38 +277,37 @@ async function getCurrentlyTrack() {
 
 function removePauseIcons() {
   playTrackBtn?.forEach((btn) => {
-      btn.classList.remove('pause-icon');
+    btn.classList.remove('pause-icon');
   });
 }
 
 function addPauseIcon() {
   playTrackBtn?.forEach((btn, index) => {
-    if(index === indexCurrentlyTrack) {
+    if (index === indexCurrentlyTrack) {
       btn.classList.add('pause-icon');
     }
   });
 }
 
 function clickPlayerBtn() {
-  if(!playBtn?.classList.contains('pause')) {
+  if (!playBtn?.classList.contains('pause')) {
     startPlayback(playTrackBtn[indexCurrentlyTrack].id, currentlyTrackTime);
     playBtn?.classList.add('pause');
     btnPlayPlaylist?.classList.add('pause');
-    addPauseIcon()
+    addPauseIcon();
     setActiveTrack();
   } else {
     pausePlayback();
     playBtn?.classList.remove('pause');
     btnPlayPlaylist?.classList.remove('pause');
     removePauseIcons();
-  } 
+  }
 }
-
 
 playTrackBtn.forEach((item, index) => {
   item.addEventListener('click', (el) => {
     indexCurrentlyTrack = index;
-    if(!item.classList.contains('pause-icon')) {
+    if (!item.classList.contains('pause-icon')) {
       startPlayback(playTrackBtn[indexCurrentlyTrack].id);
       playBtn?.classList.add('pause');
       btnPlayPlaylist?.classList.add('pause');
@@ -316,7 +320,7 @@ playTrackBtn.forEach((item, index) => {
       playBtn?.classList.remove('pause');
       btnPlayPlaylist?.classList.remove('pause');
       removePauseIcons();
-    } 
+    }
   });
 });
 
@@ -330,8 +334,8 @@ async function skipToNext() {
   const res = await axios({
     method: 'PUT',
     url: '/api/v1/spotyApi/skipToNextTrack',
-  })
-  if(res.status === 202) {
+  });
+  if (res.status === 202) {
     console.log('next');
   }
 }
@@ -346,8 +350,8 @@ async function skipToPrevious() {
   const res = await axios({
     method: 'PUT',
     url: '/api/v1/spotyApi/skipToPreviousTrack',
-  })
-  if(res.status === 202) {
+  });
+  if (res.status === 202) {
     console.log('previous');
   }
 }
@@ -355,11 +359,5 @@ async function skipToPrevious() {
 playBtn?.addEventListener('click', clickPlayerBtn);
 btnPlayPlaylist?.addEventListener('click', clickPlayerBtn);
 playNext?.addEventListener('click', skipToNext);
-playPrev?.addEventListener('click', skipToPrevious);
-// btnPlayPlaylist?.addEventListener('click', togglePlaylistPlayback.bind(this, btnPlayPlaylist?.getAttribute('uri'), btnPlayPlaylist));
-
-playBtn?.addEventListener('click', clickPlayerBtn);
-btnPlayPlaylist?.addEventListener('click', clickPlayerBtn);
-playNext?.addEventListener('click', skipToNext)
 playPrev?.addEventListener('click', skipToPrevious);
 // btnPlayPlaylist?.addEventListener('click', togglePlaylistPlayback.bind(this, btnPlayPlaylist?.getAttribute('uri'), btnPlayPlaylist));
