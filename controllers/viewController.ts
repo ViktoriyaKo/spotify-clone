@@ -262,17 +262,19 @@ const getAlbum = catchAsync(
     const checkSavedAlbums = await spotyApi.checkUserSavedAlbums(id);
     const savedTracks = await checkSavedTracks(albumTracks.items);
     const playlists = await spotyApi.getUserPlaylists();
+    const photoUser = req.user.photo;
     const reviews = await Review.aggregate([
       {
         $match: { albumId: id },
       },
       {
-        $sort: { createdAt: 1 },
+        $sort: { createdAt: -1 },
       },
-    ])
+    ]);
 
     res.status(200).render('album', {
       album,
+      photoUser,
       albumTracks,
       artistAlbums,
       checkSavedAlbums,

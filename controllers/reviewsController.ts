@@ -6,7 +6,9 @@ import { IBody, IReq, IRes } from '../environment';
 
 const setUser = catchAsync(async (req: IReq, res: IRes, next: NextFunction) => {
   req.body.user = req.user.id;
-  req.body.albumId = req.headers.referer?.split('/').at(-1);
+  if (req.headers.referer) {
+    req.body.albumId = req.headers.referer.split('/').at(-1);
+  }
   req.body.name = req.user.name;
   req.body.photo = req.user.photo;
   //req.body.photo =
