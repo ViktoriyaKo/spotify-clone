@@ -230,14 +230,12 @@ function setInfoInPlayer() {
       artist.textContent = item.querySelector(
         '.singer-liked-track'
       )!.textContent;
-      imgPlayer.src = (<HTMLIFrameElement>(
-        item.querySelector('.icon-album')
-      ))!.src;
     }
   });
 }
 
 async function startPlayback(offset: string, time: number = 0) {
+  console.log('contextUri:', contextUri)
   const res = await axios({
     method: 'PUT',
     url: '/api/v1/spotyApi/startPlayback',
@@ -356,8 +354,26 @@ async function skipToPrevious() {
   }
 }
 
+async function changeVolume() {
+
+  //front redraw
+
+  console.log('change Volume pre');
+  const res = await axios({
+    method: 'PUT',
+    url: '/api/v1/spotyApi/changeVolume', 
+    data: {
+      volume: 100,
+    },
+  });
+  if (res.status === 202) {
+    console.log('change Volume');
+  }
+}
+
 playBtn?.addEventListener('click', clickPlayerBtn);
 btnPlayPlaylist?.addEventListener('click', clickPlayerBtn);
 playNext?.addEventListener('click', skipToNext);
 playPrev?.addEventListener('click', skipToPrevious);
+volumeBar?.addEventListener('click', changeVolume);
 // btnPlayPlaylist?.addEventListener('click', togglePlaylistPlayback.bind(this, btnPlayPlaylist?.getAttribute('uri'), btnPlayPlaylist));

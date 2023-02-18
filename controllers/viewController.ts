@@ -425,7 +425,7 @@ const unfollowArtist = catchAsync(
 
 const startPlayback = catchAsync(
   async (req: IReq, res: IRes, next: NextFunction) => {
-    const contextUri = req.body.contextUri as string;
+    let contextUri = req.body.contextUri as string //? req.body.contextUri as string : 'spotify:album:186bb3vDk1yzNK5u3e7h7O';
     const offset = req.body.offset as string;
     const positionMs = req.body.positionMs;
     await spotyApi.startPlayback(contextUri, offset, positionMs);
@@ -536,6 +536,20 @@ const callback = catchAsync(
   }
 );
 
+const changeVolume = catchAsync(
+  async (req: IReq, res: IRes, next: NextFunction) => {
+    if( req.body.volume){
+      await spotyApi.changeVolume(+req.body.volume);
+      res.status(204).json({
+        status: 'success',
+      });
+    }
+    res.status(401).json({
+      status: 'error',
+    });
+  }
+);
+
 export default {
   delAlbum,
   saveAlbum,
@@ -578,4 +592,5 @@ export default {
   skipToNextTrack,
   skipToPreviousTrack,
   setDeviceId,
+  changeVolume,
 };
