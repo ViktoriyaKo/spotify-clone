@@ -26,6 +26,7 @@ block content
                 span.number-track= `${rowNum++}`
                 div.logo-main.play-btn.play-icon(id=item.uri)
               td.col-4
+                img.icon-album.d-none(src=`${album.images[0].url}` alt='album')
                 .d-flex.gap-3
                   .d-flex.flex-column
                     small.d-block.name-liked-track= item.name

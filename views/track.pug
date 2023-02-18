@@ -32,6 +32,7 @@ block content
                 span.number-track 1
                 div.logo-main.play-icon.play-btn(id=track.uri)
               td.col-4
+                img.icon-album.d-none(src=`${track.album.images[1].url}` alt='album')
                 .d-flex.gap-3(id=track.album.id)                 
                   .d-flex.flex-column
                     small.text-uppercase.d-block.singer-liked-track= track.artists[0].name
