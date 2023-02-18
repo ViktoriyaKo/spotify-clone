@@ -584,6 +584,7 @@ const startPlayback = async (
       Authorization: `Bearer ${token}`,
     },
     data: {
+      uris: [offset],
       context_uri,
       offset: { uri: offset },
       position_ms: positionMs,
