@@ -10,9 +10,7 @@ block content
         small.text-uppercase= track.artists[0].name
           span=` • ${track.album.release_date.split('-')[0]}`          
     .wrapper-table      
-      button.btn-play-like
-        svg.svg-play(xmlns='http://www.w3.org/2000/svg' fill='black' viewbox='0 0 24 24' stroke-width='1.5' stroke='currentColor')
-          path(stroke-linecap='round' stroke-linejoin='round' d='M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z')
+      button.btn-play-playlist.align-items-center.justify-content-center.rounded-circle        
       table.table.table-like-playlist.table-playlist.mb-3.text-light
         thead
           tr
@@ -27,12 +25,13 @@ block content
             -
               let min = Math.floor(track.duration_ms / 60000);
               let sec = Math.floor(Math.round(track.duration_ms % 60000) / 1000);
-            tr.chosen-track(id= track.id)
+            tr.chosen-track(id= track.preview_url)
               th.col-1.text-center
                 span.number-track 1
                 div.logo-main.play-icon.play-btn
               td.col-4
-                .d-flex.gap-3(id=track.album.id)                 
+                .d-flex.gap-3(id=track.album.id)
+                  img.icon-album.d-none(src=`${track.album.images[1].url}` alt='album')                 
                   .d-flex.flex-column
                     small.text-uppercase.d-block.singer-liked-track= track.artists[0].name
                     small.text-uppercase.d-block.name-liked-track= track.name

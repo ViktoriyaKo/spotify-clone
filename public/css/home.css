@@ -420,16 +420,27 @@ thead {
 }
 
 .btn-play-playlist {
+  background: url(../img/svg/play.svg);
+  background-size: 30px 30px;
+  background-repeat: no-repeat;
+  background-position: center;
   width: 50px;
   height: 50px;
   border: none;
   background-color: #eaa5ff;
-
   transition: all ease 0.1s;
 }
 
 .btn-play-playlist:hover {
   transform: scale(1.1);
+}
+
+.btn-play-playlist.pause {
+  background: url(../img/svg/pause.svg);
+  background-size: 30px 30px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: #eaa5ff;
 }
 
 .recommendation-row {

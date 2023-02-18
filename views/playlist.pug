@@ -10,9 +10,7 @@ block content
         small= `${playlist.owner.display_name} • `
           span.amount-liked-track= `${playlist.tracks.total} songs • `
     .wrapper-table
-      button.btn-play-playlist.align-items-center.justify-content-center.rounded-circle
-        svg(viewbox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg')
-          path(d='M16.1378 10.5689L9.60498 7.30252C8.40816 6.70411 7 7.5744 7 8.91249V15.0876C7 16.4257 8.40816 17.2959 9.60498 16.6975L16.1378 13.4311C17.3171 12.8415 17.3171 11.1586 16.1378 10.5689Z' fill='#222222')
+      button.btn-play-playlist.align-items-center.justify-content-center.rounded-circle        
       svg.menu-icon(id="dropdownPlaylistMenu" data-bs-toggle="dropdown" aria-expanded="false" width="30px" height="30px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#808080" stroke-width="1" stroke-linecap="round" stroke-linejoin="miter")
         line(x1="6.99" y1="12" x2="7" y2="12" stroke-linecap="round" stroke-width="3")
         line(x1="13.99" y1="12" x2="14" y2="12" stroke-linecap="round" stroke-width="3")

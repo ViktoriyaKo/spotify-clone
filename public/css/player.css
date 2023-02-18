@@ -1,4 +1,3 @@
-/* player */
 .player {
   position: relative;
   grid-area: 'player';
@@ -47,18 +46,27 @@
   transform: translate(-50%, -50%);
 }
 
-.play-pause {
-  color: #121212;
+.play-btn-player {
+  background: url('../img/svg/play.svg');
+  background-size: 20px 20px;
+  background-repeat: no-repeat;
+  background-position: center center;
   width: 30px;
   height: 30px;
-  padding-left: 3px;
+  padding-left: 5px;
   cursor: pointer;
   transition: all 0.1s ease;
 }
 
-.play-pause:hover {
+.play-btn-player:hover {
   transform: scale(1.1);
-  color: black;
+}
+
+.play-btn-player.pause {
+  background: url('../img/svg/pause.svg');
+  background-size: 20px 20px;
+  background-repeat: no-repeat;
+  background-position: center center;
 }
 
 .progress-bar {
