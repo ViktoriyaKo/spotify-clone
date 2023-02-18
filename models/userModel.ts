@@ -1,3 +1,4 @@
+// @ts-nocheck
 import crypto from 'crypto';
 import mongoose, { Document } from 'mongoose';
 import validator from 'validator';
@@ -48,6 +49,9 @@ const userSchema = new mongoose.Schema<IUser>({
     required: [true, 'Please provide a password'],
     minlength: [8, 'The user name must have more or equal then 8 characters.'],
     select: false,
+  },
+  deviceId: {
+    type: String,
   },
   passwordConfirm: {
     type: String,

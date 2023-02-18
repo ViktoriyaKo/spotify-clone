@@ -290,6 +290,8 @@ function addPauseIcon() {
   });
 }
 
+    //setTimeout 
+
 function clickPlayerBtn() {
   if (!playBtn?.classList.contains('pause')) {
     startPlayback(playTrackBtn[indexCurrentlyTrack].id, currentlyTrackTime);

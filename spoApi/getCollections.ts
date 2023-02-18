@@ -2,9 +2,9 @@ import fetch from 'cross-fetch';
 import querystring from 'querystring';
 import axios from 'axios';
 import { IReq, IRes } from '../environment';
+import User from '../models/userModel';
 
 let token: string;
-let deviceId: string | null;
 
 const generateRandomString = (length: number) => {
   let text = '';
@@ -571,22 +571,23 @@ const createPlaylist = async (userId: string, numberPlaylist: number) => {
 const startPlayback = async (
   context_uri: string,
   offset: string,
-  positionMs: number = 0
+  positionMs: number = 0,
+  deviceIdFromDb: string
 ) => {
   console.log(context_uri, offset, positionMs);
-  console.log(JSON.stringify({ uris: [offset] }))
-  console.log([offset])
+  console.log(JSON.stringify({ uris: [offset] }));
+  console.log([offset]);
   const uris = context_uri ? undefined : [offset];
   const result = await axios({
     method: 'PUT',
-    url: `https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`,
+    url: `https://api.spotify.com/v1/me/player/play?device_id=${deviceIdFromDb}`,
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     },
     data: {
-      uris: [offset],
+      uris,
       context_uri,
       offset: { uri: offset },
       position_ms: positionMs,
@@ -633,7 +634,7 @@ const startPlaylistPlayback = async (uri: string, positionMs: number) => {
   return data;
 };
 
-const changeVolume = async (volumePercent: number) => {
+const changeVolume = async (volumePercent: number, deviceId: string) => {
   const result = await axios({
     method: 'PUT',
     url: `https://api.spotify.com/v1/me/player/volume?volume_percent=${volumePercent}&device_id=${deviceId}`,
@@ -641,12 +642,12 @@ const changeVolume = async (volumePercent: number) => {
       Accept: 'application/json',
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
-    }
+    },
   });
   return result;
 };
 
-const pausePlayback = async () => {
+const pausePlayback = async (deviceId: string) => {
   const result = await axios({
     method: 'PUT',
     url: `https://api.spotify.com/v1/me/player/pause?device_id=${deviceId}`,
@@ -704,8 +705,9 @@ const getToken = async () => {
   return token;
 };
 
-const setDeviceId = (newDeviceId: string) => {
-  deviceId = newDeviceId;
+const setDeviceId = async (newDeviceId: string) => {
+  //await User.findByIdAndUpdate(req.user.id)
+  console.log('Бомба');
 };
 
 const changeDevice = async (deviceId: string) => {

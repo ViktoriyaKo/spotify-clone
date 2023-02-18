@@ -425,13 +425,14 @@ const unfollowArtist = catchAsync(
 
 const startPlayback = catchAsync(
   async (req: IReq, res: IRes, next: NextFunction) => {
-    let contextUri = req.body.contextUri as string //? req.body.contextUri as string : 'spotify:album:186bb3vDk1yzNK5u3e7h7O';
+    let contextUri = req.body.contextUri as string; //? req.body.contextUri as string : 'spotify:album:186bb3vDk1yzNK5u3e7h7O';
     const offset = req.body.offset as string;
     const positionMs = req.body.positionMs;
-    await spotyApi.startPlayback(contextUri, offset, positionMs);
-    console.log('ok')
-    res.status(202).json({
-    });
+    //@ts-ignore
+    const { deviceId } = await User.findById(req.user.id);
+    await spotyApi.startPlayback(contextUri, offset, 30000, deviceId);
+    console.log('ok');
+    res.status(202).json({});
   }
 );
 
@@ -440,17 +441,17 @@ const startPlaylistPlayback = catchAsync(
     const contextUri = req.body.tracksUris as string[];
     const positionMs = req.body.positionMs as number;
     // await spotyApi.startPlaylistPlayback(contextUri, positionMs);
-    console.log('ok')
-    res.status(202).json({
-    });
+    console.log('ok');
+    res.status(202).json({});
   }
 );
 
 const pausePlayback = catchAsync(
   async (req: IReq, res: IRes, next: NextFunction) => {
-    await spotyApi.pausePlayback();
-    res.status(202).json({
-    });
+    //@ts-ignore
+    const { deviceId } = await User.findById(req.user.id);
+    await spotyApi.pausePlayback(deviceId);
+    res.status(202).json({});
   }
 );
 
@@ -459,29 +460,29 @@ const getCurrentlyTrack = catchAsync(
     const currentlyTrack = await spotyApi.getCurrentlyTrack();
     res.status(202).json({
       currentlyTrack,
-      status: 'success'
+      status: 'success',
     });
   }
 );
 
-const skipToNextTrack= catchAsync(
+const skipToNextTrack = catchAsync(
   async (req: IReq, res: IRes, next: NextFunction) => {
     await spotyApi.skipToNextTrack();
     const currentlyTrack = await spotyApi.getCurrentlyTrack();
     res.status(202).json({
       currentlyTrack,
-      status: 'success'
+      status: 'success',
     });
   }
 );
 
-const skipToPreviousTrack= catchAsync(
+const skipToPreviousTrack = catchAsync(
   async (req: IReq, res: IRes, next: NextFunction) => {
     await spotyApi.skipToPreviousTrack();
     const currentlyTrack = await spotyApi.getCurrentlyTrack();
     res.status(202).json({
       currentlyTrack,
-      status: 'success'
+      status: 'success',
     });
   }
 );
@@ -491,13 +492,14 @@ const getToken = catchAsync(
     const token = await spotyApi.getToken();
     res.status(202).json({
       status: 'success',
-      token
+      token,
     });
   }
 );
 
 const setDeviceId = catchAsync(
   async (req: IReq, res: IRes, next: NextFunction) => {
+    await User.findByIdAndUpdate(req.user.id, { deviceId: req.body.deviceId });
     const deviceId = req.body.deviceId as string;
     await spotyApi.setDeviceId(deviceId);
     res.status(202).json({
@@ -508,13 +510,14 @@ const setDeviceId = catchAsync(
 
 const changeDevice = catchAsync(
   async (req: IReq, res: IRes, next: NextFunction) => {
+    await User.findByIdAndUpdate(req.user.id, { deviceId: req.body.deviceId });
     const deviceId = req.body.deviceId as string;
     await spotyApi.changeDevice(deviceId);
     res.status(202).json({
-      status: 'success'
-    })
+      status: 'success',
+    });
   }
-)
+);
 
 const login = catchAsync(async (req: IReq, res: IRes, next: NextFunction) => {
   const queryParams = await spotyApi.login();
@@ -538,8 +541,10 @@ const callback = catchAsync(
 
 const changeVolume = catchAsync(
   async (req: IReq, res: IRes, next: NextFunction) => {
-    if( req.body.volume){
-      await spotyApi.changeVolume(+req.body.volume);
+    if (req.body.volume) {
+      //@ts-ignore
+      const { deviceId } = await User.findById(req.user.id);
+      await spotyApi.changeVolume(+req.body.volume, deviceId);
       res.status(204).json({
         status: 'success',
       });
