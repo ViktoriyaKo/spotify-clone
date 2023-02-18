@@ -1,6 +1,12 @@
 import express from 'express';
 import viewController from '../controllers/viewController';
+import authController from '../controllers/authController';
+
 const router = express.Router();
+
+router.put('/getToken', viewController.getToken);
+
+router.use(authController.protect);
 
 router.delete('/deleteAlbum', viewController.delAlbum);
 
@@ -30,5 +36,22 @@ router.delete(
 router.patch('/startSearch', viewController.searchRequest);
 
 router.patch('/startPlayer', viewController.getCurrentTrack);
+
+router.put('/startPlayback', viewController.startPlayback);
+
+router.put('/startPlaylistPlayback', viewController.startPlaylistPlayback);
+
+router.put('/pausePlayback', viewController.pausePlayback);
+
+router.put('/skipToNextTrack', viewController.skipToNextTrack);
+
+router.put('/skipToPreviousTrack', viewController.skipToPreviousTrack);
+
+router.patch('/setDeviceId', viewController.setDeviceId);
+
+router.put('/changeDevice', viewController.changeDevice);
+
+router.get('/getCurrentlyTrack', viewController.getCurrentlyTrack);
+router.put('/changeVolume', viewController.changeVolume);
 
 export default router;

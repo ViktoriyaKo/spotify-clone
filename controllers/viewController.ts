@@ -423,6 +423,102 @@ const unfollowArtist = catchAsync(
   }
 );
 
+const startPlayback = catchAsync(
+  async (req: IReq, res: IRes, next: NextFunction) => {
+    let contextUri = req.body.contextUri as string; //? req.body.contextUri as string : 'spotify:album:186bb3vDk1yzNK5u3e7h7O';
+    const offset = req.body.offset as string;
+    const positionMs = req.body.positionMs;
+    //@ts-ignore
+    const { deviceId } = await User.findById(req.user.id);
+    await spotyApi.startPlayback(contextUri, offset, positionMs, deviceId);
+    console.log('ok');
+    res.status(202).json({});
+  }
+);
+
+const startPlaylistPlayback = catchAsync(
+  async (req: IReq, res: IRes, next: NextFunction) => {
+    const contextUri = req.body.tracksUris as string[];
+    const positionMs = req.body.positionMs as number;
+    // await spotyApi.startPlaylistPlayback(contextUri, positionMs);
+    console.log('ok');
+    res.status(202).json({});
+  }
+);
+
+const pausePlayback = catchAsync(
+  async (req: IReq, res: IRes, next: NextFunction) => {
+    //@ts-ignore
+    const { deviceId } = await User.findById(req.user.id);
+    await spotyApi.pausePlayback(deviceId);
+    res.status(202).json({});
+  }
+);
+
+const getCurrentlyTrack = catchAsync(
+  async (req: IReq, res: IRes, next: NextFunction) => {
+    const currentlyTrack = await spotyApi.getCurrentlyTrack();
+    res.status(202).json({
+      currentlyTrack,
+      status: 'success',
+    });
+  }
+);
+
+const skipToNextTrack = catchAsync(
+  async (req: IReq, res: IRes, next: NextFunction) => {
+    await spotyApi.skipToNextTrack();
+    const currentlyTrack = await spotyApi.getCurrentlyTrack();
+    res.status(202).json({
+      currentlyTrack,
+      status: 'success',
+    });
+  }
+);
+
+const skipToPreviousTrack = catchAsync(
+  async (req: IReq, res: IRes, next: NextFunction) => {
+    await spotyApi.skipToPreviousTrack();
+    const currentlyTrack = await spotyApi.getCurrentlyTrack();
+    res.status(202).json({
+      currentlyTrack,
+      status: 'success',
+    });
+  }
+);
+
+const getToken = catchAsync(
+  async (req: IReq, res: IRes, next: NextFunction) => {
+    const token = await spotyApi.getToken();
+    res.status(202).json({
+      status: 'success',
+      token,
+    });
+  }
+);
+
+const setDeviceId = catchAsync(
+  async (req: IReq, res: IRes, next: NextFunction) => {
+    await User.findByIdAndUpdate(req.user.id, { deviceId: req.body.deviceId });
+    const deviceId = req.body.deviceId as string;
+    await spotyApi.setDeviceId(deviceId);
+    res.status(202).json({
+      status: 'success',
+    });
+  }
+);
+
+const changeDevice = catchAsync(
+  async (req: IReq, res: IRes, next: NextFunction) => {
+    await User.findByIdAndUpdate(req.user.id, { deviceId: req.body.deviceId });
+    const deviceId = req.body.deviceId as string;
+    await spotyApi.changeDevice(deviceId);
+    res.status(202).json({
+      status: 'success',
+    });
+  }
+);
+
 const login = catchAsync(async (req: IReq, res: IRes, next: NextFunction) => {
   const queryParams = await spotyApi.login();
   const stateKey = 'spotify_auth_state';
@@ -439,7 +535,23 @@ const callback = catchAsync(
   async (req: IReq, res: IRes, next: NextFunction) => {
     await spotyApi.callback(req, res);
 
-    res.redirect('http://localhost:7999/home');
+    res.redirect(`${process.env.BASE_URL}:${process.env.PORT}/home`);
+  }
+);
+
+const changeVolume = catchAsync(
+  async (req: IReq, res: IRes, next: NextFunction) => {
+    if (req.body.volume) {
+      //@ts-ignore
+      const { deviceId } = await User.findById(req.user.id);
+      await spotyApi.changeVolume(+req.body.volume, deviceId);
+      res.status(204).json({
+        status: 'success',
+      });
+    }
+    res.status(401).json({
+      status: 'error',
+    });
   }
 );
 
@@ -476,4 +588,14 @@ export default {
   deleteTracksFromPlaylist,
   searchRequest,
   getCurrentTrack,
+  startPlayback,
+  startPlaylistPlayback,
+  pausePlayback,
+  getToken,
+  changeDevice,
+  getCurrentlyTrack,
+  skipToNextTrack,
+  skipToPreviousTrack,
+  setDeviceId,
+  changeVolume,
 };

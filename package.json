@@ -68,6 +68,7 @@
     "nodemon": "^2.0.20",
     "pug": "^3.0.2",
     "sharp": "^0.31.3",
+    "spotify-web-playback": "^1.4.0",
     "validator": "^13.9.0",
     "webpack-dev-server": "^4.11.1",
     "webpack-merge": "^5.8.0",

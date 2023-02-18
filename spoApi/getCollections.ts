@@ -2,6 +2,7 @@ import fetch from 'cross-fetch';
 import querystring from 'querystring';
 import axios from 'axios';
 import { IReq, IRes } from '../environment';
+import User from '../models/userModel';
 
 let token: string;
 
@@ -19,7 +20,7 @@ const login = async () => {
   const clientId = process.env.CLIENT_ID;
   const scope =
     'user-read-private user-read-email ugc-image-upload user-library-read user-follow-read user-read-playback-state user-modify-playback-state user-read-currently-playing app-remote-control streaming playlist-read-private playlist-read-collaborative playlist-modify-private playlist-modify-public user-follow-modify user-read-playback-position user-top-read user-read-recently-played user-library-modify user-read-email user-read-private';
-  const redirectUri = 'http://localhost:7999/callback';
+  const redirectUri = `${process.env.BASE_URL}:${process.env.PORT}/callback`;
 
   const state = generateRandomString(16);
 
@@ -38,7 +39,7 @@ const callback = async (req: IReq, res: IRes) => {
   const clientId = process.env.CLIENT_ID;
   const clientSecret = process.env.CLIENT_SECRET;
   const code = req.query.code || null;
-  const redirectUri = 'http://localhost:7999/callback';
+  const redirectUri = `${process.env.BASE_URL}:${process.env.PORT}/callback`;
 
   await axios({
     method: 'post',
@@ -567,6 +568,37 @@ const createPlaylist = async (userId: string, numberPlaylist: number) => {
   return data;
 };
 
+const startPlayback = async (
+  context_uri: string,
+  offset: string,
+  positionMs: number = 0,
+  deviceIdFromDb: string
+) => {
+  console.log(context_uri, offset, positionMs);
+  console.log(JSON.stringify({ uris: [offset] }));
+  console.log([offset]);
+  const uris = context_uri ? undefined : [offset];
+  const result = await axios({
+    method: 'PUT',
+    url: `https://api.spotify.com/v1/me/player/play?device_id=${deviceIdFromDb}`,
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    data: {
+      uris,
+      context_uri,
+      offset: { uri: offset },
+      position_ms: positionMs,
+    },
+  });
+
+  const data = result.data;
+  console.log(data);
+  return data;
+};
+
 const deletePlaylist = async (playlistId: string) => {
   const result = await axios({
     method: 'DELETE',
@@ -580,6 +612,120 @@ const deletePlaylist = async (playlistId: string) => {
 
   const data = result.data;
   return data;
+};
+
+const startPlaylistPlayback = async (uri: string, positionMs: number) => {
+  const result = await axios({
+    method: 'PUT',
+    url: `https://api.spotify.com/v1/me/player/volume`,
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    data: {
+      context_uri: uri,
+      position_ms: positionMs,
+    },
+  });
+
+  const data = result.data;
+  console.log(data);
+  return data;
+};
+
+const changeVolume = async (volumePercent: number, deviceId: string) => {
+  const result = await axios({
+    method: 'PUT',
+    url: `https://api.spotify.com/v1/me/player/volume?volume_percent=${volumePercent}&device_id=${deviceId}`,
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return result;
+};
+
+const pausePlayback = async (deviceId: string) => {
+  const result = await axios({
+    method: 'PUT',
+    url: `https://api.spotify.com/v1/me/player/pause?device_id=${deviceId}`,
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  const data = result.data;
+  return data;
+};
+
+const getCurrentlyTrack = async () => {
+  const result = await axios({
+    method: 'GET',
+    url: 'https://api.spotify.com/v1/me/player/currently-playing?market=ES',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  const data = result.data;
+  return data;
+};
+
+const skipToNextTrack = async () => {
+  const result = await axios({
+    method: 'POST',
+    url: 'https://api.spotify.com/v1/me/player/next',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+const skipToPreviousTrack = async () => {
+  const result = await axios({
+    method: 'POST',
+    url: 'https://api.spotify.com/v1/me/player/previous',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+const getToken = async () => {
+  return token;
+};
+
+const setDeviceId = async (newDeviceId: string) => {
+  //await User.findByIdAndUpdate(req.user.id)
+  console.log('Бомба');
+};
+
+const changeDevice = async (deviceId: string) => {
+  console.log(token);
+  const result = await axios({
+    method: 'PUT',
+    url: `https://api.spotify.com/v1/me/player`,
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    data: {
+      device_ids: [deviceId],
+      play: false,
+    },
+  });
+  console.log(result.status);
 };
 
 const changePlaylistDetail = async (id: string, newName: string) => {
@@ -673,9 +819,19 @@ export default {
   searchForItem,
   saveTracksForUser,
   createPlaylist,
+  startPlayback,
+  startPlaylistPlayback,
+  pausePlayback,
+  getToken,
+  changeDevice,
+  getCurrentlyTrack,
+  skipToNextTrack,
+  skipToPreviousTrack,
+  setDeviceId,
   deletePlaylist,
   changePlaylistDetail,
   addTracksToPlaylist,
   removeTracksFromPlaylist,
   getRecentlyPlayedTracks,
+  changeVolume,
 };

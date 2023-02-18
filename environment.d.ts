@@ -39,8 +39,16 @@ export interface IBody {
   playlistName?: string;
   trackUri?: string;
   searchValue?: string;
+  token?: string;
+  tracksUris?: string[];
+  deviceId?: string;
+  positionMs?: number;
+  contextUri?: string;
+  offset?: string;
+  currentlyTrack?: {};
   user?: string;
   review?: string;
+  volume?: string;
 }
 export interface IReq extends Request {
   body: IBody;

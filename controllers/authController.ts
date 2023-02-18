@@ -32,7 +32,6 @@ const createSendToken = (
   // remove the password from the responce
   user.password = '';
   console.log('redirectTo:');
-  console.log(`${process.env.BASE_URL + process.env.PORT}/home`);
   res.status(200).json({
     status: 'success',
   });
