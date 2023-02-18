@@ -314,6 +314,7 @@ playTrackBtn.forEach((item, index) => {
       startPlayback(playTrackBtn[indexCurrentlyTrack].id);
       playBtn?.classList.add('pause');
       btnPlayPlaylist?.classList.add('pause');
+      removePauseIcons();
       addPauseIcon();
       setActiveTrack();
       setInfoInPlayer();
