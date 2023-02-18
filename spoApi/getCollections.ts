@@ -20,7 +20,7 @@ const login = async () => {
   const clientId = process.env.CLIENT_ID;
   const scope =
     'user-read-private user-read-email ugc-image-upload user-library-read user-follow-read user-read-playback-state user-modify-playback-state user-read-currently-playing app-remote-control streaming playlist-read-private playlist-read-collaborative playlist-modify-private playlist-modify-public user-follow-modify user-read-playback-position user-top-read user-read-recently-played user-library-modify user-read-email user-read-private';
-  const redirectUri = 'http://localhost:7999/callback';
+  const redirectUri = `${process.env.BASE_URL}:${process.env.PORT}/callback`;
 
   const state = generateRandomString(16);
 
@@ -39,7 +39,7 @@ const callback = async (req: IReq, res: IRes) => {
   const clientId = process.env.CLIENT_ID;
   const clientSecret = process.env.CLIENT_SECRET;
   const code = req.query.code || null;
-  const redirectUri = 'http://localhost:7999/callback';
+  const redirectUri = `${process.env.BASE_URL}:${process.env.PORT}/callback`;
 
   await axios({
     method: 'post',
