@@ -21,195 +21,114 @@ const volumeBarContainer = document.querySelector(
 const volumeBar = document.querySelector('.volume-bar-progress') as HTMLElement;
 const progress = document.querySelector('.progress') as HTMLElement;
 
-const audio = new Audio();
-let isPlay = false;
-let playNum = 0; //current track
-
-for (let icon of changingIcons) {
-  icon.addEventListener('click', () => {
-    icon.classList.toggle('active-icon');
-  });
-}
-
-//TEST:
-// function playAudio(track: any) {
-//   audio.src = track.preview_url;
-//   if (isPlay === false) {
-//     audio.play();
-//     isPlay = true;
-//     // play.classList.add('pause');
-//   } else {
-//     audio.pause();
-//     isPlay = false;
-//     // play.classList.remove('pause');
-//   }
-//   audio.play();
-//   isPlay = true;
-// }
-
-// async function playPlayer(idTrack: string) {
-//   const res = await axios({
-//     method: 'PATCH',
-//     url: '/api/v1/spotyApi/startPlayer',
-//     data: {
-//       idTrack,
-//     },
-//   });
-//   if (res.status === 202) {
-//     title.innerHTML = res.data.track.name;
-//     artist.innerHTML = res.data.track.artists[0].name;
-//     imgPlayer.src = res.data.track.album.images[1].url;
-//     totalDuration.innerHTML = time(+res.data.track.duration_ms);
-//     playAudio(res.data.track);
-//   }
-// }
-
-// // Progress-bar for time
-// function updateProgress() {
-//   const { duration, currentTime } = audio;
-//   const progressPercent = (currentTime / duration) * 100;
-//   progress.style.width = `${progressPercent}%`;
-// }
-
-// // set progress
-// function setProgress(event: MouseEvent) {
-//   const width = progressBar.clientWidth;
-//   const clickX = event.offsetX; // click
-//   const duration = audio.duration;
-//   audio.currentTime = (clickX / width) * duration;
-// }
-
-// // set volume
-// function setVolumeBar(e: MouseEvent) {
-//   const width = volumeBarContainer.clientWidth;
-//   const clickX = e.offsetX;
-//   audio.volume = clickX / width;
-//   const volumePercent = width * audio.volume;
-//   volumeBar.style.width = `${volumePercent}%`;
-//   console.log(clickX);
-//   console.log(volumePercent);
-//   console.log(width);
-// }
-
-// // нужен fix:
-// playIconBtn.forEach((item) => {
-//   item.addEventListener('click', (el) => {
-//     const idTrack = item.parentElement?.parentElement?.id;
-//     if (idTrack) {
-//       playPlayer(idTrack);
-//     }
-//     playIconBtn.forEach((btn) => {
-//       btn.classList.remove('pause-icon');
-//     });
-//     item.classList.toggle('pause-icon');
-//     if (item.classList.contains('pause-icon')) {
-//       document.querySelectorAll('.chosen-track').forEach((value) => {
-//         value.classList.remove('chosen-track-active');
-//       });
-//       item.parentElement?.parentElement?.classList.add('chosen-track-active');
-//     } else {
-//       item.parentElement?.parentElement?.classList.remove(
-//         'chosen-track-active'
-//       );
-//     }
-//     console.log(idTrack);
-//   });
-// });
-
-// if (progressBar) {
-//   audio.addEventListener('timeupdate', () => {
-//     updateProgress();
-//   });
-//   progressBar.addEventListener('click', (event) => {
-//     setProgress(event);
-//   });
-//   volumeBarContainer.addEventListener('click', (event) => {
-//     setVolumeBar(event);
-//   });
-// }
-
-// function toggleTrack(uriTrack: string, player: SpotifyPlayer, item: Element) {
-//   if (uriTrack){
-//     if(!item.classList.contains('pause-icon')) {
-//       player.play([uriTrack]);
-//       item.classList.add('pause-icon');
-//     } else {
-//       player.pause();
-//       item.classList.add('play-icon');
-//     }
-//   }
-// }
-
-// //@ts-ignore
-// window.onSpotifyWebPlaybackSDKReady = async () => {
-//   let token;
-//   console.log(token)
-//   const res = await axios({
-//     method: 'PUT',
-//     url: '/api/v1/spotyApi/getToken',
-//   })
-//   if(res.data.status === 'success') {
-//     token = res.data.token;
-//   }
-// //@ts-ignore
-//   const player = new SpotifyPlayer('player');
-//   // @ts-ignore
-//   player.addListener('ready', ({ device_id }) => {
-//     console.log('Ready with Device ID', device_id);
-//   });
-//   // @ts-ignore
-//   player.addListener('not_ready', ({ device_id }) => {
-//     console.log('Device ID has gone offline', device_id);
-//   });
-// // @ts-ignore
-//   player.addListener('initialization_error', ({ message }) => {
-//     console.error(message);
-//   });
-// // @ts-ignore
-//   player.addListener('authentication_error', ({ message }) => {
-//       console.error(message);
-//   });
-// // @ts-ignore
-//   player.addListener('account_error', ({ message }) => {
-//       console.error(message);
-//   });
-
-//   playBtn?.addEventListener('click', () => {
-//     player.play("spotify:album:5ht7ItJgpBH7W6vJ5BqpPr");
-//   })
-
-//   console.log('player')
-//   playIconBtn.forEach((item) => {
-//       item.addEventListener('click', (el) => {
-
-//         // playIconBtn.forEach((btn) => {
-//         //   if(btn !== item) {
-//         //     btn.classList.remove('pause-icon');
-//         //   }
-//         // });
-//         console.log(el.target)
-//         const uriTrack = item.id;
-//         toggleTrack(uriTrack, player, item);
-//         // if (item.classList.contains('pause-icon')) {
-//         //   document.querySelectorAll('.chosen-track').forEach((value) => {
-//         //     value.classList.remove('chosen-track-active');
-//         //   });
-//         //   item.parentElement?.parentElement?.classList.add('chosen-track-active');
-//         // } else {
-//         //   item.parentElement?.parentElement?.classList.remove(
-//         //     'chosen-track-active'
-//         //   );
-//         // }
-//         console.log(uriTrack);
-//       });
-//     });
-
-//   player.connect(token);
-// }
-
 const contextUri = btnPlayPlaylist?.getAttribute('uri');
 let currentlyTrackTime = 0;
+let progressInterval;
 let indexCurrentlyTrack: number = 0;
+let trackIsPlaying = false;
+//СДК
+async function getToken() {
+  let token;
+  console.log(token);
+  const res = await axios({
+    method: 'PUT',
+    url: '/api/v1/spotyApi/getToken',
+  });
+  if (res.data.status === 'success') {
+    token = res.data.token;
+  }
+
+  return token;
+}
+
+async function setDeviceId(deviceId) {
+  const res = await axios({
+    method: 'PATCH',
+    url: '/api/v1/spotyApi/setDeviceId',
+    data: {
+      deviceId,
+    },
+  });
+  if (res.data.status === 'success') {
+  }
+}
+
+window.onSpotifyWebPlaybackSDKReady = async () => {
+  const token = await getToken();
+
+  const player = new Spotify.Player({
+    name: 'Spotify Copy',
+    getOAuthToken: (cb) => {
+      cb(token);
+    },
+    volume: 0.5,
+  });
+  console.log('player', player);
+  player.addListener('ready', async ({ device_id }) => {
+    console.log('Ready with Device ID', device_id);
+    const res = await axios({
+      method: 'PUT',
+      url: '/api/v1/spotyApi/changeDevice',
+      data: {
+        deviceId: device_id,
+      },
+    });
+    if (res.data.status === 'success') {
+      console.log('device changed');
+      await setDeviceId(device_id);
+    }
+  });
+
+  player.addListener('not_ready', ({ device_id }) => {
+    console.log('Device ID has gone offline', device_id);
+  });
+
+  player.addListener('initialization_error', ({ message }) => {
+    console.error('initialization_error', message);
+  });
+
+  player.addListener('authentication_error', ({ message }) => {
+    console.error(message);
+  });
+
+  player.addListener('account_error', ({ message }) => {
+    console.error(message);
+  });
+
+  player.addListener(
+    'player_state_changed',
+    ({ position, duration, track_window: { current_track } }) => {
+      updateTrackDuration(duration);
+      //setCurrentTrackPosition();
+      //@ts-ignore
+      console.log('current state:', trackIsPlaying);
+      console.log('Currently Playing', current_track);
+      console.log('Position in Song', position);
+      console.log('Duration of Song', duration);
+      progressInterval = window.setInterval(function () {
+        if (trackIsPlaying) {
+          currentlyTrackTime += 500;
+          console.log('track playing......', currentlyTrackTime);
+        }
+      }, 500);
+    }
+  );
+
+  player.connect();
+};
+
+////////////////////////////SDK END
+function handleTrackPause() {
+  trackIsPlaying = false;
+  console.log('current statePause:', trackIsPlaying);
+  clearInterval(progressInterval);
+  console.log('interval cleared, track time :', currentlyTrackTime);
+
+  //stopProgressBar()
+}
+function updateTrackDuration(duration: number) {
+  totalDuration.innerHTML = `${time(duration)}`;
+}
 
 function setActiveTrack() {
   Array.from(chosenTracks)[indexCurrentlyTrack]?.classList.add(
@@ -238,6 +157,7 @@ function setInfoInPlayer() {
 }
 
 async function startPlayback(offset: string, time: number = 0) {
+  trackIsPlaying = true;
   console.log('contextUri:', contextUri);
   const res = await axios({
     method: 'PUT',
@@ -261,6 +181,7 @@ async function pausePlayback() {
   });
   if (res.status === 202) {
     console.log(`pause`);
+    handleTrackPause();
     await getCurrentlyTrack();
   }
 }
@@ -271,9 +192,10 @@ async function getCurrentlyTrack() {
     url: '/api/v1/spotyApi/getCurrentlyTrack',
   });
   if (res.status === 202) {
-    console.log(`get currently track`);
+    console.log(res.data.currentlyTrack);
   }
   currentlyTrackTime = res.data.currentlyTrack.progress_ms;
+  // return res.data.currentlyTrack.item.duration_ms;
 }
 
 function removePauseIcons() {
@@ -290,9 +212,18 @@ function addPauseIcon() {
   });
 }
 
-    //setTimeout 
+// function progressPlayer(duration: number, trackTime: number) {
+//   let timeTrack = trackTime;
+//   setInterval(() => {
+//     timeTrack += 1000;
+//     const progressPercent = (timeTrack / duration) * 100;
+//     progress.style.width = `${progressPercent}%`;
+//     console.log('progressPercent', progressPercent);
+//     console.log('currenttimeTrack', timeTrack);
+//   }, 1000);
+// }
 
-function clickPlayerBtn() {
+async function clickPlayerBtn() {
   if (!playBtn?.classList.contains('pause')) {
     startPlayback(playTrackBtn[indexCurrentlyTrack].id, currentlyTrackTime);
     playBtn?.classList.add('pause');
@@ -307,6 +238,7 @@ function clickPlayerBtn() {
   }
 }
 
+// здесь
 playTrackBtn.forEach((item, index) => {
   item.addEventListener('click', (el) => {
     indexCurrentlyTrack = index;
@@ -381,4 +313,3 @@ playPrev?.addEventListener('click', skipToPrevious);
 volumeBarContainer?.addEventListener('click', (event) => {
   changeVolume(event);
 });
-// btnPlayPlaylist?.addEventListener('click', togglePlaylistPlayback.bind(this, btnPlayPlaylist?.getAttribute('uri'), btnPlayPlaylist));

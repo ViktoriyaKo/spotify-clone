@@ -430,7 +430,7 @@ const startPlayback = catchAsync(
     const positionMs = req.body.positionMs;
     //@ts-ignore
     const { deviceId } = await User.findById(req.user.id);
-    await spotyApi.startPlayback(contextUri, offset, 30000, deviceId);
+    await spotyApi.startPlayback(contextUri, offset, positionMs, deviceId);
     console.log('ok');
     res.status(202).json({});
   }
