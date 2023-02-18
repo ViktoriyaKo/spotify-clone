@@ -48,6 +48,7 @@ export interface IBody {
   currentlyTrack?: {};
   user?: string;
   review?: string;
+  volume?: string;
 }
 export interface IReq extends Request {
   body: IBody;

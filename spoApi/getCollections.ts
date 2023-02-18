@@ -573,8 +573,10 @@ const startPlayback = async (
   offset: string,
   positionMs: number = 0
 ) => {
-  // let urisString = uris.join(',');
   console.log(context_uri, offset, positionMs);
+  console.log(JSON.stringify({ uris: [offset] }))
+  console.log([offset])
+  const uris = context_uri ? undefined : [offset];
   const result = await axios({
     method: 'PUT',
     url: `https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`,
@@ -584,6 +586,7 @@ const startPlayback = async (
       Authorization: `Bearer ${token}`,
     },
     data: {
+      uris,
       context_uri,
       offset: { uri: offset },
       position_ms: positionMs,
@@ -613,7 +616,7 @@ const deletePlaylist = async (playlistId: string) => {
 const startPlaylistPlayback = async (uri: string, positionMs: number) => {
   const result = await axios({
     method: 'PUT',
-    url: `https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`,
+    url: `https://api.spotify.com/v1/me/player/volume`,
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
@@ -628,6 +631,19 @@ const startPlaylistPlayback = async (uri: string, positionMs: number) => {
   const data = result.data;
   console.log(data);
   return data;
+};
+
+const changeVolume = async (volumePercent: number) => {
+  const result = await axios({
+    method: 'PUT',
+    url: `https://api.spotify.com/v1/me/player/volume?volume_percent=${volumePercent}&device_id=${deviceId}`,
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    }
+  });
+  return result;
 };
 
 const pausePlayback = async () => {
@@ -815,4 +831,5 @@ export default {
   addTracksToPlaylist,
   removeTracksFromPlaylist,
   getRecentlyPlayedTracks,
+  changeVolume,
 };

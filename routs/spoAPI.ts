@@ -48,5 +48,6 @@ router.patch('/setDeviceId', viewController.setDeviceId);
 router.put('/changeDevice', viewController.changeDevice);
 
 router.get('/getCurrentlyTrack', viewController.getCurrentlyTrack);
+router.put('/changeVolume', viewController.changeVolume);
 
 export default router;
