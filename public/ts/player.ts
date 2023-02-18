@@ -1,4 +1,5 @@
 import axios from 'axios';
+import EventEmmiter from './EventEmmitter';
 import { time } from './search';
 
 const btnPlayPlaylist = document.querySelector('.btn-play-playlist');
@@ -20,6 +21,7 @@ const volumeBarContainer = document.querySelector(
 ) as HTMLElement;
 const volumeBar = document.querySelector('.volume-bar-progress') as HTMLElement;
 const progress = document.querySelector('.progress') as HTMLElement;
+const eventEmmitter = new EventEmmiter();
 
 const contextUri = btnPlayPlaylist?.getAttribute('uri');
 let currentlyTrackTime = 0;
@@ -106,10 +108,13 @@ window.onSpotifyWebPlaybackSDKReady = async () => {
       console.log('Position in Song', position);
       console.log('Duration of Song', duration);
       progressInterval = window.setInterval(function () {
-        if (trackIsPlaying) {
-          currentlyTrackTime += 500;
-          console.log('track playing......', currentlyTrackTime);
-        }
+        // if (trackIsPlaying) {
+        //   currentlyTrackTime += 1000;
+        //   let progressPercent = (currentlyTrackTime / duration) * 100;
+        //   progress.style.width = `${progressPercent}%`;
+        //   console.log('track playing......', currentlyTrackTime);
+        // }
+        eventEmmitter.emmit();
       }, 500);
     }
   );
@@ -195,7 +200,6 @@ async function getCurrentlyTrack() {
     console.log(res.data.currentlyTrack);
   }
   currentlyTrackTime = res.data.currentlyTrack.progress_ms;
-  // return res.data.currentlyTrack.item.duration_ms;
 }
 
 function removePauseIcons() {
@@ -211,17 +215,6 @@ function addPauseIcon() {
     }
   });
 }
-
-// function progressPlayer(duration: number, trackTime: number) {
-//   let timeTrack = trackTime;
-//   setInterval(() => {
-//     timeTrack += 1000;
-//     const progressPercent = (timeTrack / duration) * 100;
-//     progress.style.width = `${progressPercent}%`;
-//     console.log('progressPercent', progressPercent);
-//     console.log('currenttimeTrack', timeTrack);
-//   }, 1000);
-// }
 
 async function clickPlayerBtn() {
   if (!playBtn?.classList.contains('pause')) {
