@@ -86,30 +86,30 @@ function setVolumeBar(e: MouseEvent) {
   volumeBar.style.width = `${volumePercent}%`;
 }
 
-// нужен fix:
-playIconBtn.forEach((item) => {
-  item.addEventListener('click', (el) => {
-    const idTrack = item.parentElement?.parentElement?.id;
-    if (idTrack) {
-      playPlayer(idTrack);
-    }
-    playIconBtn.forEach((btn) => {
-      btn.classList.remove('pause-icon');
-    });
-    item.classList.toggle('pause-icon');
-    if (item.classList.contains('pause-icon')) {
-      document.querySelectorAll('.chosen-track').forEach((value) => {
-        value.classList.remove('chosen-track-active');
-      });
-      item.parentElement?.parentElement?.classList.add('chosen-track-active');
-    } else {
-      item.parentElement?.parentElement?.classList.remove(
-        'chosen-track-active'
-      );
-    }
-    console.log(idTrack);
-  });
-});
+// // нужен fix:
+// playIconBtn.forEach((item) => {
+//   item.addEventListener('click', (el) => {
+//     const idTrack = item.parentElement?.parentElement?.id;
+//     if (idTrack) {
+//       playPlayer(idTrack);
+//     }
+//     playIconBtn.forEach((btn) => {
+//       btn.classList.remove('pause-icon');
+//     });
+//     item.classList.toggle('pause-icon');
+//     if (item.classList.contains('pause-icon')) {
+//       document.querySelectorAll('.chosen-track').forEach((value) => {
+//         value.classList.remove('chosen-track-active');
+//       });
+//       item.parentElement?.parentElement?.classList.add('chosen-track-active');
+//     } else {
+//       item.parentElement?.parentElement?.classList.remove(
+//         'chosen-track-active'
+//       );
+//     }
+//     console.log(idTrack);
+//   });
+// });
 
 if (progressBar) {
   audio.addEventListener('timeupdate', () => {
