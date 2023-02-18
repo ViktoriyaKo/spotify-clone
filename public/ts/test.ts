@@ -8,7 +8,6 @@ import './favorite';
 import './playlist';
 import './search';
 import './album-review';
-import './spotyPlayer'
 
 console.log('hello spoty');
 // DOM ELEMENTS
