@@ -57,7 +57,6 @@ function addTrackToFavorite() {
       const target = el.target as HTMLElement;
       if (target.closest('.heart-icon')) {
         const idTrack = target.id;
-        console.log(target);
         if (target.classList.contains('active-icon')) {
           target.classList.remove('active-icon');
           const res = await axios({

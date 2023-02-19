@@ -188,7 +188,6 @@ const deletePlaylist = catchAsync(
   async (req: IReq, res: IRes, next: NextFunction) => {
     const playlistId = req.body.playlistId as string;
     await spotyApi.deletePlaylist(playlistId);
-    console.log('ok');
     res.status(202).json({
       status: 'success',
     });
@@ -431,7 +430,6 @@ const startPlayback = catchAsync(
     //@ts-ignore
     const { deviceId } = await User.findById(req.user.id);
     await spotyApi.startPlayback(contextUri, offset, positionMs, deviceId);
-    console.log('ok');
     res.status(202).json({});
   }
 );
@@ -441,7 +439,6 @@ const startPlaylistPlayback = catchAsync(
     const contextUri = req.body.tracksUris as string[];
     const positionMs = req.body.positionMs as number;
     // await spotyApi.startPlaylistPlayback(contextUri, positionMs);
-    console.log('ok');
     res.status(202).json({});
   }
 );

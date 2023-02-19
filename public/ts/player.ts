@@ -3,8 +3,8 @@ import EventEmmiter from './EventEmmitter';
 import { time } from './search';
 
 const btnPlayPlaylist = document.querySelector('.btn-play-playlist');
-const changingIcons = document.querySelectorAll('.changing-icon');
-const playTrackBtn = document.querySelectorAll('.play-btn');
+const progressBar = document.querySelector('.progress-bar') as HTMLElement;
+const playTrackBtns = document.querySelectorAll('.play-btn');
 const chosenTracks = document.querySelectorAll('.chosen-track');
 const title = document.querySelector('.song-description .title') as HTMLElement;
 const artist = document.querySelector(
@@ -15,19 +15,25 @@ const totalDuration = document.querySelector('.total-duration') as HTMLElement;
 const playPrev = document.querySelector('.play-prev');
 const playBtn = document.querySelector('.play-btn-player');
 const playNext = document.querySelector('.play-next');
-const progressBar = document.querySelector('.progress-bar') as HTMLElement;
+
+const currentTime = document.querySelector(
+  '.progress-container span'
+) as HTMLElement;
 const volumeBarContainer = document.querySelector(
   '.volume-bar-container'
 ) as HTMLElement;
 const volumeBar = document.querySelector('.volume-bar-progress') as HTMLElement;
 const progress = document.querySelector('.progress') as HTMLElement;
-const eventEmmitter = new EventEmmiter();
-
 const contextUri = btnPlayPlaylist?.getAttribute('uri');
-let currentlyTrackTime = 0;
+
+let currentTrackName;
+let currentlyTrackTime = 0; // ???
 let progressInterval;
 let indexCurrentlyTrack: number = 0;
 let trackIsPlaying = false;
+let trackPositionMs = 0;
+let totalDurationMs;
+
 //СДК
 async function getToken() {
   let token;
@@ -77,6 +83,7 @@ window.onSpotifyWebPlaybackSDKReady = async () => {
     });
     if (res.data.status === 'success') {
       console.log('device changed');
+      trackPositionMs = 0;
       await setDeviceId(device_id);
     }
   });
@@ -106,36 +113,66 @@ window.onSpotifyWebPlaybackSDKReady = async () => {
       console.log('current state:', trackIsPlaying);
       console.log('Currently Playing', current_track);
       console.log('Position in Song', position);
-      console.log('Duration of Song', duration);
+
       progressInterval = window.setInterval(function () {
-        // if (trackIsPlaying) {
-        //   currentlyTrackTime += 1000;
-        //   let progressPercent = (currentlyTrackTime / duration) * 100;
-        //   progress.style.width = `${progressPercent}%`;
-        //   console.log('track playing......', currentlyTrackTime);
-        // }
-        eventEmmitter.emmit();
-      }, 500);
+        player.getCurrentState().then((state) => {
+          if (playBtn?.classList.contains('pause')) {
+            const stateTrack = state.track_window.current_track;
+            // if(!currentTrackName || currentTrackName != stateTrack) {
+            //   totalDurationMs = 0;
+            currentTrackName = state.track_window.current_track.uri;
+            // }
+            console.log('track ms: ', state.position, currentTrackName);
+            trackPositionMs = state.position as number;
+          }
+        });
+        updateProgressTime(trackPositionMs);
+        updateProgressBar(trackPositionMs / totalDurationMs);
+      }, 1000);
     }
   );
 
   player.connect();
 };
 
-////////////////////////////SDK END
+function updateProgressBar(progressTime: number) {
+  if (!progressTime) return;
+  const progressPercent = progressTime * 100;
+  console.log('track progress: ', progressTime * 100, '%');
+  progress.style.width = `${progressPercent}%`;
+}
+
+function updateProgressTime(duration: number) {
+  currentTime.innerHTML = `${time(duration)}`;
+}
+//SDK END
 function handleTrackPause() {
   trackIsPlaying = false;
   console.log('current statePause:', trackIsPlaying);
   clearInterval(progressInterval);
   console.log('interval cleared, track time :', currentlyTrackTime);
-
   //stopProgressBar()
 }
+
+// set progress
+function setProgress(e) {
+  const width = progressBar.clientWidth;
+  const clickX = e.offsetX;
+  const currentTimeSet = (clickX / width) * totalDurationMs;
+  trackPositionMs = currentTimeSet;
+  if (playBtn?.classList.contains('pause')) {
+    startPlayback(playTrackBtns[indexCurrentlyTrack].id, currentTimeSet);
+  }
+  updateProgressBar(currentTimeSet);
+}
+
 function updateTrackDuration(duration: number) {
+  totalDurationMs = duration;
   totalDuration.innerHTML = `${time(duration)}`;
 }
 
 function setActiveTrack() {
+  console.log('setActiveTrack chosenTracks', chosenTracks);
   Array.from(chosenTracks)[indexCurrentlyTrack]?.classList.add(
     'chosen-track-active'
   );
@@ -175,7 +212,6 @@ async function startPlayback(offset: string, time: number = 0) {
   });
   if (res.status === 202) {
     console.log(`play: ${contextUri}`);
-    // currentlyTrackUri = tracksUris;
   }
 }
 
@@ -203,13 +239,13 @@ async function getCurrentlyTrack() {
 }
 
 function removePauseIcons() {
-  playTrackBtn?.forEach((btn) => {
+  playTrackBtns?.forEach((btn) => {
     btn.classList.remove('pause-icon');
   });
 }
 
 function addPauseIcon() {
-  playTrackBtn?.forEach((btn, index) => {
+  playTrackBtns?.forEach((btn, index) => {
     if (index === indexCurrentlyTrack) {
       btn.classList.add('pause-icon');
     }
@@ -218,7 +254,7 @@ function addPauseIcon() {
 
 async function clickPlayerBtn() {
   if (!playBtn?.classList.contains('pause')) {
-    startPlayback(playTrackBtn[indexCurrentlyTrack].id, currentlyTrackTime);
+    startPlayback(playTrackBtns[indexCurrentlyTrack].id, trackPositionMs);
     playBtn?.classList.add('pause');
     btnPlayPlaylist?.classList.add('pause');
     addPauseIcon();
@@ -231,12 +267,14 @@ async function clickPlayerBtn() {
   }
 }
 
-// здесь
-playTrackBtn.forEach((item, index) => {
-  item.addEventListener('click', (el) => {
+playTrackBtns.forEach((item, index) => {
+  item.addEventListener('click', () => {
     indexCurrentlyTrack = index;
     if (!item.classList.contains('pause-icon')) {
-      startPlayback(playTrackBtn[indexCurrentlyTrack].id);
+      if (currentTrackName !== item.id) {
+        trackPositionMs = 0;
+      }
+      startPlayback(playTrackBtns[indexCurrentlyTrack].id, trackPositionMs);
       playBtn?.classList.add('pause');
       btnPlayPlaylist?.classList.add('pause');
       removePauseIcons();
@@ -254,10 +292,11 @@ playTrackBtn.forEach((item, index) => {
 });
 
 async function skipToNext() {
+  console.log('clicked Btn skip to next');
   playBtn?.classList.add('pause');
   indexCurrentlyTrack++;
-  addPauseIcon();
   removePauseIcons();
+  addPauseIcon();
   setActiveTrack();
   setInfoInPlayer();
   const res = await axios({
@@ -271,9 +310,10 @@ async function skipToNext() {
 
 async function skipToPrevious() {
   playBtn?.classList.add('pause');
+  console.log('index current track:' indexCurrentlyTrack)
   indexCurrentlyTrack--;
-  addPauseIcon();
   removePauseIcons();
+  addPauseIcon();
   setActiveTrack();
   setInfoInPlayer();
   const res = await axios({
@@ -304,6 +344,9 @@ playBtn?.addEventListener('click', clickPlayerBtn);
 btnPlayPlaylist?.addEventListener('click', clickPlayerBtn);
 playNext?.addEventListener('click', skipToNext);
 playPrev?.addEventListener('click', skipToPrevious);
+progressBar?.addEventListener('click', (event) => {
+  setProgress(event);
+});
 volumeBarContainer?.addEventListener('click', (event) => {
   changeVolume(event);
 });

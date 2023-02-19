@@ -48,7 +48,6 @@ app.use(
 
 app.use((req: any, _res, next) => {
   req.requestTime = new Date().toISOString();
-  console.log(req.body);
   next();
 });
 

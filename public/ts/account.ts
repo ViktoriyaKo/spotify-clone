@@ -51,7 +51,6 @@ if (formPhoto) {
     if (inputPhoto.files) {
       const data = new FormData();
       data.append('photo', inputPhoto.files[0]);
-      console.log(inputPhoto.files[0].name);
       setPhoto(data);
     }
   });
