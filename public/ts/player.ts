@@ -1,5 +1,4 @@
 import axios from 'axios';
-import EventEmmiter from './EventEmmitter';
 import { time } from './search';
 
 const btnPlayPlaylist = document.querySelector('.btn-play-playlist');
@@ -38,7 +37,6 @@ let totalDurationMs;
 //СДК
 async function getToken() {
   let token;
-  console.log(token);
   const res = await axios({
     method: 'PUT',
     url: '/api/v1/spotyApi/getToken',
@@ -72,9 +70,8 @@ window.onSpotifyWebPlaybackSDKReady = async () => {
     },
     volume: 0.5,
   });
-  console.log('player', player);
+
   player.addListener('ready', async ({ device_id }) => {
-    console.log('Ready with Device ID', device_id);
     const res = await axios({
       method: 'PUT',
       url: '/api/v1/spotyApi/changeDevice',
@@ -83,7 +80,6 @@ window.onSpotifyWebPlaybackSDKReady = async () => {
       },
     });
     if (res.data.status === 'success') {
-      console.log('device changed');
       trackPositionMs = 0;
       await setDeviceId(device_id);
     }
@@ -109,21 +105,12 @@ window.onSpotifyWebPlaybackSDKReady = async () => {
     'player_state_changed',
     ({ position, duration, track_window: { current_track } }) => {
       updateTrackDuration(duration);
-      //setCurrentTrackPosition();
       //@ts-ignore
-      console.log('current state:', trackIsPlaying);
-      console.log('Currently Playing', current_track);
-      console.log('Position in Song', position);
-
       progressInterval = window.setInterval(function () {
         player.getCurrentState().then((state) => {
           if (playBtn?.classList.contains('pause')) {
             const stateTrack = state.track_window.current_track;
-            // if(!currentTrackName || currentTrackName != stateTrack) {
-            //   totalDurationMs = 0;
             currentTrackName = state.track_window.current_track.uri;
-            // }
-            console.log('track ms: ', state.position, currentTrackName);
             trackPositionMs = state.position as number;
           }
         });
@@ -139,7 +126,6 @@ window.onSpotifyWebPlaybackSDKReady = async () => {
 function updateProgressBar(progressTime: number) {
   if (!progressTime) return;
   const progressPercent = progressTime * 100;
-  console.log('track progress: ', progressTime * 100, '%');
   progress.style.width = `${progressPercent}%`;
 }
 
@@ -149,10 +135,7 @@ function updateProgressTime(duration: number) {
 //SDK END
 function handleTrackPause() {
   trackIsPlaying = false;
-  console.log('current statePause:', trackIsPlaying);
   clearInterval(progressInterval);
-  console.log('interval cleared, track time :', currentlyTrackTime);
-  //stopProgressBar()
 }
 
 // set progress
@@ -173,7 +156,6 @@ function updateTrackDuration(duration: number) {
 }
 
 function setActiveTrack() {
-  console.log('setActiveTrack chosenTracks', chosenTracks);
   Array.from(chosenTracks)[indexCurrentlyTrack]?.classList.add(
     'chosen-track-active'
   );
@@ -201,7 +183,6 @@ function setInfoInPlayer() {
 
 async function startPlayback(offset: string, time: number = 0) {
   trackIsPlaying = true;
-  console.log('offset: ', offset)
   const res = await axios({
     method: 'PUT',
     url: '/api/v1/spotyApi/startPlayback',
@@ -222,7 +203,6 @@ async function pausePlayback() {
     url: '/api/v1/spotyApi/pausePlayback',
   });
   if (res.status === 202) {
-    console.log(`pause`);
     handleTrackPause();
     await getCurrentlyTrack();
   }
@@ -293,7 +273,6 @@ playTrackBtns.forEach((item, index) => {
 });
 
 async function skipToNext() {
-  console.log('clicked Btn skip to next');
   playBtn?.classList.add('pause');
   indexCurrentlyTrack++;
   removePauseIcons();
@@ -311,7 +290,6 @@ async function skipToNext() {
 
 async function skipToPrevious() {
   playBtn?.classList.add('pause');
-  console.log('index current track:' indexCurrentlyTrack)
   indexCurrentlyTrack--;
   removePauseIcons();
   addPauseIcon();

@@ -62,7 +62,7 @@ const getFavoriteTracks = catchAsync(
       playlists,
       state: 'btnFavorite',
       //@ts-ignore
-      uris: tracks.items.map(el => el.track.uri).join(',')
+      uris: tracks.items.map((el) => el.track.uri).join(','),
     });
   }
 );
@@ -160,11 +160,14 @@ const getPlaylist = catchAsync(
     const playlist = await spotyApi.getPlaylist(id);
     const savedTracks = await checkSavedTracks(playlist.tracks.items);
     const playlists = await spotyApi.getUserPlaylists();
+
     res.status(200).render('playlist', {
       playlist,
       savedTracks,
       playlists,
       state: 'btnLibrary',
+      //@ts-ignore
+      uris: playlist.tracks.items.map((el) => el.track.uri).join(','),
     });
   }
 );
@@ -250,7 +253,7 @@ const getArtist = catchAsync(
       state: 'btnLibrary',
       playlists,
       //@ts-ignore
-      uris: artistTopTracks.tracks.map(el => el.uri).join(','),
+      uris: artistTopTracks.tracks.map((el) => el.uri).join(','),
     });
   }
 );
@@ -286,7 +289,7 @@ const getAlbum = catchAsync(
       state: 'btnLibrary',
       reviews,
       //@ts-ignore
-      uris: albumTracks.items.map(el => el.uri).join(',')
+      uris: albumTracks.items.map((el) => el.uri).join(','),
     });
   }
 );
@@ -432,7 +435,7 @@ const startPlayback = catchAsync(
   async (req: IReq, res: IRes, next: NextFunction) => {
     const offset = req.body.offset as string;
     //@ts-ignore
-    let uris = req.body.uris?.split(',') ?? [offset]  //? req.body.contextUri as string : 'spotify:album:186bb3vDk1yzNK5u3e7h7O';
+    let uris = req.body.uris?.split(',') ?? [offset]; //? req.body.contextUri as string : 'spotify:album:186bb3vDk1yzNK5u3e7h7O';
     const positionMs = req.body.positionMs;
     //@ts-ignore
     const { deviceId } = await User.findById(req.user.id);
