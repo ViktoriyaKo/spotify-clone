@@ -11,7 +11,7 @@ block content
           span.amount-liked-track= `${playlist.tracks.total} songs • `
     .wrapper-table
       button.btn-play-playlist.align-items-center.justify-content-center.rounded-circle(uris= uris)
-        
+      svg.menu-icon(id="dropdownPlaylistMenu" data-bs-toggle="dropdown" aria-expanded="false" width="30px" height="30px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#808080" stroke-width="1" stroke-linecap="round" stroke-linejoin="miter")
         line(x1="6.99" y1="12" x2="7" y2="12" stroke-linecap="round" stroke-width="3")
         line(x1="13.99" y1="12" x2="14" y2="12" stroke-linecap="round" stroke-width="3")
         line(x1="20.99" y1="12" x2="21" y2="12" stroke-linecap="round" stroke-width="3")
