@@ -569,15 +569,12 @@ const createPlaylist = async (userId: string, numberPlaylist: number) => {
 };
 
 const startPlayback = async (
-  context_uri: string,
+  uris: string[],
   offset: string,
   positionMs: number = 0,
   deviceIdFromDb: string
 ) => {
-  console.log(context_uri, offset, positionMs);
-  console.log(JSON.stringify({ uris: [offset] }));
-  console.log([offset]);
-  const uris = context_uri ? undefined : [offset];
+  //const uris = startPlayback //? undefined : [offset];
   const result = await axios({
     method: 'PUT',
     url: `https://api.spotify.com/v1/me/player/play?device_id=${deviceIdFromDb}`,
@@ -588,14 +585,13 @@ const startPlayback = async (
     },
     data: {
       uris,
-      context_uri,
       offset: { uri: offset },
       position_ms: positionMs,
     },
   });
 
   const data = result.data;
-  console.log(data);
+
   return data;
 };
 
@@ -630,7 +626,7 @@ const startPlaylistPlayback = async (uri: string, positionMs: number) => {
   });
 
   const data = result.data;
-  console.log(data);
+
   return data;
 };
 
@@ -677,10 +673,10 @@ const getCurrentlyTrack = async () => {
   return data;
 };
 
-const skipToNextTrack = async () => {
-  const result = await axios({
+const skipToNextTrack = async (deviceId: string) => {
+  await axios({
     method: 'POST',
-    url: 'https://api.spotify.com/v1/me/player/next',
+    url: `https://api.spotify.com/v1/me/player/next?device_id=${deviceId}`,
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
@@ -711,7 +707,6 @@ const setDeviceId = async (newDeviceId: string) => {
 };
 
 const changeDevice = async (deviceId: string) => {
-  console.log(token);
   const result = await axios({
     method: 'PUT',
     url: `https://api.spotify.com/v1/me/player`,
@@ -725,7 +720,6 @@ const changeDevice = async (deviceId: string) => {
       play: false,
     },
   });
-  console.log(result.status);
 };
 
 const changePlaylistDetail = async (id: string, newName: string) => {

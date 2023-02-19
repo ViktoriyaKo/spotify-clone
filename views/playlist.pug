@@ -10,7 +10,7 @@ block content
         small= `${playlist.owner.display_name} • `
           span.amount-liked-track= `${playlist.tracks.total} songs • `
     .wrapper-table
-      button.btn-play-playlist.align-items-center.justify-content-center.rounded-circle
+      button.btn-play-playlist.align-items-center.justify-content-center.rounded-circle(uris= uris)
         
         line(x1="6.99" y1="12" x2="7" y2="12" stroke-linecap="round" stroke-width="3")
         line(x1="13.99" y1="12" x2="14" y2="12" stroke-linecap="round" stroke-width="3")

@@ -61,6 +61,8 @@ const getFavoriteTracks = catchAsync(
       account,
       playlists,
       state: 'btnFavorite',
+      //@ts-ignore
+      uris: tracks.items.map((el) => el.track.uri).join(','),
     });
   }
 );
@@ -158,11 +160,14 @@ const getPlaylist = catchAsync(
     const playlist = await spotyApi.getPlaylist(id);
     const savedTracks = await checkSavedTracks(playlist.tracks.items);
     const playlists = await spotyApi.getUserPlaylists();
+
     res.status(200).render('playlist', {
       playlist,
       savedTracks,
       playlists,
       state: 'btnLibrary',
+      //@ts-ignore
+      uris: playlist.tracks.items.map((el) => el.track.uri).join(','),
     });
   }
 );
@@ -188,7 +193,6 @@ const deletePlaylist = catchAsync(
   async (req: IReq, res: IRes, next: NextFunction) => {
     const playlistId = req.body.playlistId as string;
     await spotyApi.deletePlaylist(playlistId);
-    console.log('ok');
     res.status(202).json({
       status: 'success',
     });
@@ -248,6 +252,8 @@ const getArtist = catchAsync(
       savedTracks,
       state: 'btnLibrary',
       playlists,
+      //@ts-ignore
+      uris: artistTopTracks.tracks.map((el) => el.uri).join(','),
     });
   }
 );
@@ -282,6 +288,8 @@ const getAlbum = catchAsync(
       playlists,
       state: 'btnLibrary',
       reviews,
+      //@ts-ignore
+      uris: albumTracks.items.map((el) => el.uri).join(','),
     });
   }
 );
@@ -425,13 +433,13 @@ const unfollowArtist = catchAsync(
 
 const startPlayback = catchAsync(
   async (req: IReq, res: IRes, next: NextFunction) => {
-    let contextUri = req.body.contextUri as string; //? req.body.contextUri as string : 'spotify:album:186bb3vDk1yzNK5u3e7h7O';
     const offset = req.body.offset as string;
+    //@ts-ignore
+    let uris = req.body.uris?.split(',') ?? [offset]; //? req.body.contextUri as string : 'spotify:album:186bb3vDk1yzNK5u3e7h7O';
     const positionMs = req.body.positionMs;
     //@ts-ignore
     const { deviceId } = await User.findById(req.user.id);
-    await spotyApi.startPlayback(contextUri, offset, positionMs, deviceId);
-    console.log('ok');
+    await spotyApi.startPlayback(uris, offset, positionMs, deviceId);
     res.status(202).json({});
   }
 );
@@ -441,7 +449,6 @@ const startPlaylistPlayback = catchAsync(
     const contextUri = req.body.tracksUris as string[];
     const positionMs = req.body.positionMs as number;
     // await spotyApi.startPlaylistPlayback(contextUri, positionMs);
-    console.log('ok');
     res.status(202).json({});
   }
 );
@@ -467,7 +474,9 @@ const getCurrentlyTrack = catchAsync(
 
 const skipToNextTrack = catchAsync(
   async (req: IReq, res: IRes, next: NextFunction) => {
-    await spotyApi.skipToNextTrack();
+    //@ts-ignore
+    const { deviceId } = await User.findById(req.user.id);
+    await spotyApi.skipToNextTrack(deviceId);
     const currentlyTrack = await spotyApi.getCurrentlyTrack();
     res.status(202).json({
       currentlyTrack,

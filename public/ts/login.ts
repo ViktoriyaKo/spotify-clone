@@ -5,7 +5,6 @@ const error2 = document.querySelector('.error2');
 
 export const login = async (email: string, password: string) => {
   try {
-    console.log('data was sent', email, password);
     const res = await axios({
       method: 'POST',
       url: '/api/v1/users/login',
@@ -16,7 +15,6 @@ export const login = async (email: string, password: string) => {
     });
     if (res.data.status === 'success') {
       window.setTimeout(() => {
-        console.log('redirecting from front');
         location.assign('/home');
       }, 300);
     }
@@ -55,7 +53,6 @@ export const signup = async (
   passwordConfirm: string
 ) => {
   try {
-    console.log('data was sent', name, email, role, password, passwordConfirm);
     const res = await axios({
       method: 'POST',
       url: '/api/v1/users/signup',
@@ -80,7 +77,7 @@ export const signup = async (
       if (err.response.status === 500) {
         console.log(err);
         error1.classList.remove('hidden');
-        error1.innerHTML = 'Incorrect password';
+        error1.innerHTML = 'Incorrect data';
       }
     }
     console.log(err);
@@ -89,7 +86,6 @@ export const signup = async (
 
 export const setPhoto = async (data: FormData) => {
   try {
-    console.log('photo was sent', data);
     const res = await axios({
       method: 'PATCH',
       url: '/api/v1/users/updateMe',
@@ -112,7 +108,6 @@ export const setPhoto = async (data: FormData) => {
 
 export const changeAccount = async (name: string, email: string) => {
   try {
-    console.log('data was sent', name, email);
     const res = await axios({
       method: 'PATCH',
       url: '/api/v1/users/updateMe',
@@ -153,7 +148,6 @@ export const changePassword = async (
   repeatNewPsw: string
 ) => {
   try {
-    console.log('password was sent', currentPsw, newPsw, repeatNewPsw);
     const res = await axios({
       method: 'PATCH',
       url: '/api/v1/users/updateMyPassword',

@@ -9,7 +9,6 @@ import './playlist';
 import './search';
 import './album-review';
 
-console.log('hello spoty');
 // DOM ELEMENTS
 const formSignup = document.querySelector('#formSignup') as HTMLFormElement;
 const formSignin = document.querySelector('#formSignin') as HTMLFormElement;

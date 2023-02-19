@@ -63,7 +63,6 @@ if (tablePlaylist) {
         }
       } else {
         target.classList.add('active-icon');
-        console.log('добавить');
         const res = await axios({
           method: 'PUT',
           url: '/api/v1/spotyApi/saveTrack',

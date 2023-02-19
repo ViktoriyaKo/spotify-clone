@@ -8,7 +8,7 @@ block content
           p.text-capitalize= artist.type
           h1.text-main= artist.name
           p= `${artist.followers.total} Followers`
-      button.btn-play-playlist.align-items-center.justify-content-center.rounded-circle
+      button.btn-play-playlist.align-items-center.justify-content-center.rounded-circle(uris= uris)
        
       button(class=(checkFollowArtist[0] === true ? 'active' : '')).btn-follow-artist.py-2.px-4= (checkFollowArtist[0] === true ? 'Following' : 'Follow')
       h3.text-light.py-3.fw-bold Popular tracks
