@@ -19,8 +19,9 @@ function renderComment(
         </div>
         <div>
           <p>
-            <span>${name}  </span></p>
-            <span>${time}</span></p>
+            <span class="fw-bold">${name}  </span>
+            <span class="time-comment">${time}</span>
+          </p>
           <p>${review}</p>
           <div>
             <svg
@@ -74,12 +75,10 @@ if (btnSendComment) {
     if (res.data.status === 'success') {
       // eslint-disable-next-line prefer-destructuring
       const name = res.data.data.reviews.name;
-      const time = `${res.data.data.reviews.createdAt}`
-        .split(' ')
-        .slice(1, 5)
-        .join('-');
+      const time = `${res.data.data.reviews.createdAt}`.slice(0, 10);
       // eslint-disable-next-line prefer-destructuring
       const photo = res.data.data.reviews.photo;
+      console.log(res.data.data.reviews);
       renderComment(name, time, photo, review);
     }
   });
