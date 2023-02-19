@@ -430,9 +430,9 @@ const unfollowArtist = catchAsync(
 
 const startPlayback = catchAsync(
   async (req: IReq, res: IRes, next: NextFunction) => {
-    //@ts-ignore
-    let uris = req.body.uris.split(',') as string[]; //? req.body.contextUri as string : 'spotify:album:186bb3vDk1yzNK5u3e7h7O';
     const offset = req.body.offset as string;
+    //@ts-ignore
+    let uris = req.body.uris?.split(',') ?? [offset]  //? req.body.contextUri as string : 'spotify:album:186bb3vDk1yzNK5u3e7h7O';
     const positionMs = req.body.positionMs;
     //@ts-ignore
     const { deviceId } = await User.findById(req.user.id);
