@@ -24,7 +24,8 @@ const volumeBarContainer = document.querySelector(
 ) as HTMLElement;
 const volumeBar = document.querySelector('.volume-bar-progress') as HTMLElement;
 const progress = document.querySelector('.progress') as HTMLElement;
-const contextUri = btnPlayPlaylist?.getAttribute('uri');
+//const contextUri = btnPlayPlaylist?.getAttribute('uri');
+const uris = btnPlayPlaylist?.getAttribute('uris');
 
 let currentTrackName;
 let currentlyTrackTime = 0; // ???
@@ -200,18 +201,18 @@ function setInfoInPlayer() {
 
 async function startPlayback(offset: string, time: number = 0) {
   trackIsPlaying = true;
-  console.log('contextUri:', contextUri);
+  console.log('offset: ', offset)
   const res = await axios({
     method: 'PUT',
     url: '/api/v1/spotyApi/startPlayback',
     data: {
-      contextUri,
+      uris,
       offset,
       positionMs: time,
     },
   });
   if (res.status === 202) {
-    console.log(`play: ${contextUri}`);
+    console.log(`play`);
   }
 }
 

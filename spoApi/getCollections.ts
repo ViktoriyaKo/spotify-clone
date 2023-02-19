@@ -569,12 +569,12 @@ const createPlaylist = async (userId: string, numberPlaylist: number) => {
 };
 
 const startPlayback = async (
-  context_uri: string,
+  uris: string[],
   offset: string,
   positionMs: number = 0,
   deviceIdFromDb: string
 ) => {
-  const uris = context_uri ? undefined : [offset];
+  //const uris = startPlayback //? undefined : [offset];
   const result = await axios({
     method: 'PUT',
     url: `https://api.spotify.com/v1/me/player/play?device_id=${deviceIdFromDb}`,
@@ -585,7 +585,6 @@ const startPlayback = async (
     },
     data: {
       uris,
-      context_uri,
       offset: { uri: offset },
       position_ms: positionMs,
     },
@@ -674,10 +673,10 @@ const getCurrentlyTrack = async () => {
   return data;
 };
 
-const skipToNextTrack = async () => {
-  const result = await axios({
+const skipToNextTrack = async (deviceId: string) => {
+  await axios({
     method: 'POST',
-    url: 'https://api.spotify.com/v1/me/player/next',
+    url: `https://api.spotify.com/v1/me/player/next?device_id=${deviceId}`,
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',

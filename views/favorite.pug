@@ -11,7 +11,7 @@ block content
         small.text-uppercase= `${account.display_name} - `
           span.amount-liked-track= tracks.total
           |  tracks
-    button.btn-play-playlist.align-items-center.justify-content-center.rounded-circle
+    button.btn-play-playlist.align-items-center.justify-content-center.rounded-circle(uris=uris)
     .wrapper-table
       if +tracks.total > 0
         table.table.table-playlist.table-favorite
