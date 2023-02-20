@@ -1,0 +1,94 @@
+extends base.pug
+block content
+  main
+    div
+      .mb-5
+        .mb-5        
+          if (id === 'recentTracks')
+            h3.text-uppercase.m-0
+              a.text-ref-main(href='#') Recently played
+            .d-flex.align-items-center.justify-content-between.mb-3
+              small.text-muted Your recent tracks          
+            .row
+              each recentlyTrack, index in recentlyTracks           
+                .col-xxl-2.col-xl-3.col-md-4.col-sm-6.mb-2(id=recentlyTrack.track.id)
+                  a.main-card.p-3.rounded-2(href=`/track/${recentlyTrack.track.id}`)
+                    .wrapper-img
+                      img(src=`${recentlyTrack.track.album.images[1].url}` alt='album')
+                      button.btn-play
+                        svg.svg-play(xmlns='http://www.w3.org/2000/svg' fill='none' viewbox='0 0 24 24' stroke-width='1.5' stroke='currentColor')
+                          path(stroke-linecap='round' stroke-linejoin='round' d='M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z')
+                    h4.mt-2= recentlyTrack.track.artists[0].name 
+                    p.text-muted= recentlyTrack.track.name
+        .mb-5        
+          if (id === 'bestTracks')
+            h3.text-uppercase.m-0
+              a.text-ref-main(href='#') Your best tracks
+            .d-flex.align-items-center.justify-content-between.mb-3
+              small.text-muted Your choice           
+            .row
+              each userTopTrack, index in userTopTracks.items
+                .col-xxl-2.col-xl-3.col-md-4.col-sm-6.mb-2(id=userTopTrack.id)
+                  a.main-card.p-3.rounded-2(href=`/track/${userTopTrack.id}`)
+                    .wrapper-img
+                      img(src=`${userTopTrack.album.images[1].url}` alt='album')
+                      button.btn-play
+                        svg.svg-play(xmlns='http://www.w3.org/2000/svg' fill='none' viewbox='0 0 24 24' stroke-width='1.5' stroke='currentColor')
+                          path(stroke-linecap='round' stroke-linejoin='round' d='M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z')
+                    h4.mt-2= userTopTrack.artists[0].name 
+                    p.text-muted= userTopTrack.name
+        .mb-5
+          if (id === 'releases')
+            h3.text-uppercase.m-0
+              a.text-ref-main(href='#') New Releases
+            .d-flex.align-items-center.justify-content-between.mb-3
+              small.text-muted Try the newest hits
+              
+            .row
+              each newRelease, index in newReleases
+                .col-xxl-2.col-xl-3.col-md-4.col-sm-6.mb-2
+                  a.main-card.p-3.rounded-2(href=`/album/${newRelease.id}`)
+                    .wrapper-img
+                      img(src=`${newRelease.images[1].url}` alt='newRelease')
+                      button.btn-play
+                        svg.svg-play(xmlns='http://www.w3.org/2000/svg' fill='none' viewbox='0 0 24 24' stroke-width='1.5' stroke='currentColor')
+                          path(stroke-linecap='round' stroke-linejoin='round' d='M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z')
+                    h4.mt-2= newRelease.artists[0].name
+                    p.text-muted= newRelease.name
+        .mb-5
+          if (id === 'bestArtists')
+            h3.text-uppercase.m-0
+              a.text-ref-main(href='#') Your best artists
+            .d-flex.align-items-center.justify-content-between.mb-3
+              small.text-muted Enjoy your music
+              
+            .row
+              each userTopArtist, index in userTopArtists.items
+                .col-xxl-2.col-xl-3.col-md-4.col-sm-6.mb-2(id=userTopArtist.id)
+                  a.main-card.p-3.rounded-2(href=`/artist/${userTopArtist.id}`)
+                    .wrapper-img
+                      img(src=`${userTopArtist.images[1].url}` alt='artist')
+                      button.btn-play
+                        svg.svg-play(xmlns='http://www.w3.org/2000/svg' fill='none' viewbox='0 0 24 24' stroke-width='1.5' stroke='currentColor')
+                          path(stroke-linecap='round' stroke-linejoin='round' d='M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z')
+                    h4.mt-2= userTopArtist.name
+                    p.text-muted= userTopArtist.genres[0]
+        .mb-5
+          if (id === 'recommendation')
+            h3.text-uppercase.m-0
+              a.text-ref-main(href='#') Your recommendation
+            .d-flex.align-items-center.justify-content-between.mb-3
+              small.text-muted Listen to your recommendation
+              
+            .row
+              each trackRecommendation, index in trackRecommendations
+                .col-xxl-2.col-xl-3.col-md-4.col-sm-6.mb-2
+                  a.main-card.p-3.rounded-2(href=`/track/${trackRecommendation.id}`)
+                    .wrapper-img
+                      img(src=`${trackRecommendation.album.images[1].url}` alt='artist')
+                      button.btn-play
+                        svg.svg-play(xmlns='http://www.w3.org/2000/svg' fill='none' viewbox='0 0 24 24' stroke-width='1.5' stroke='currentColor')
+                          path(stroke-linecap='round' stroke-linejoin='round' d='M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z')
+                    h4.mt-2= trackRecommendation.artists[0].name
+                    p.text-muted= trackRecommendation.name
+                    

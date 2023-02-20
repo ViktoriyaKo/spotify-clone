@@ -1,0 +1,28 @@
+extends base.pug
+block content
+  main
+    nav.library-nav.d-flex.gap-4
+      a#playlists.py-2.px-4.rounded(href='./playlists') Playlists
+      a#artists.py-2.px-4.rounded(href='./artists') Artists
+      a#albums.text-light.color-active.py-2.px-4.rounded(href='./albums') Albums
+    div
+      .row
+        h3.col-12.mb-3.text-ref-main.library-title Albums
+      .row
+        if +albums.total > 0
+        each album in albums.items
+          .col-xxl-2.col-xl-3.col-md-4.col-sm-6.mb-4
+            a.main-card.p-3.rounded-2(href=`/album/${album.album.id}`)
+              .wrapper-img
+                img(src=`${album.album.images[0].url}` alt='album cover')
+                button.btn-play
+                  svg.svg-play(xmlns='http://www.w3.org/2000/svg' fill='none' viewbox='0 0 24 24' stroke-width='1.5' stroke='currentColor')
+                    path(stroke-linecap='round' stroke-linejoin='round' d='M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z')
+              h4.mt-2.title= album.album.name
+              small.text-muted= album.album.artists[0].name
+        else
+          .text-center.p-5.text-gray
+            svg.logo-liked(xmlns='http://www.w3.org/2000/svg' fill='none' viewbox='0 0 24 24' stroke-width='1.5' stroke='currentColor')
+              path(stroke-linecap='round' stroke-linejoin='round' d=d="M9 9l10.5-3m0 6.553v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 11-.99-3.467l2.31-.66a2.25 2.25 0 001.632-2.163zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 01-.99-3.467l2.31-.66A2.25 2.25 0 009 15.553z")
+            h3.mb-3 Albums you like will appear here
+            p Save albums by tapping the heart icon.

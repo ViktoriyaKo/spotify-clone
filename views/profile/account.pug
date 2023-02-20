@@ -1,0 +1,33 @@
+extends profile-base.pug
+block content
+  main
+    .container-fluid
+      .p-4
+        h1.text-main-profile Change your profile
+        form#formPhoto
+          .modal-body.col-md-6
+            .mb-3
+              img.img-preview.mb-4.mb-3.rounded-2(src=`../img/users/${photo}` alt='user')
+              input.form-control#photo.mb-2(type='file' accept=".png, .jpg, .jpeg")
+              button.btn.btn-secondary.btn-set-photo.text-uppercase.px-5(type='button' disabled='')
+                | Save photo
+              .wrapper-info.hidden
+                .info
+            .mb-3
+        form#formChangeData
+          .modal-body.col-md-6
+            .mb-3
+              label.form-label(for='name') Change your name
+              input#name.form-control.inputChangeName(type='text' required='')
+            .mb-3
+              label.form-label(for='email') Change your email
+              input#email.form-control.inputChangeEmail(type='email' required='')
+              .error1.mb-1
+            .mb-3
+              .form-check
+                input#flexCheckDefault.form-check-input(type='checkbox')
+                label.form-check-label.text-privacy(for='flexCheckDefault')
+                  | Share my registration data with Spotify&apos;s content provides for
+                  | marketing purposes.
+            button.btn.btn-secondary.btn-set-profile.text-uppercase.px-5(type='submit' disabled='')
+              | Save profile

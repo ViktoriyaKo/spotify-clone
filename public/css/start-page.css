@@ -1,0 +1,78 @@
+body {
+  margin: 0;
+  font-family: Tahoma, sans-serif;
+  text-decoration: none;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.437);
+}
+
+.wrapper video {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+
+.text-area {
+  font-size: 40px;
+  color: #fff;
+  text-align: center;
+}
+
+.wrapper-btn {
+  display: flex;
+  width: 300px;
+  height: 100px;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.btn-set {
+  background: #7f6187;
+}
+
+.test {
+  position: absolute;
+  color: #fff;
+  top: 10%;
+  background: url('../img/spotify.svg') no-repeat left center;
+  padding-left: 20px;
+  text-decoration: none;
+}
+
+/* modal */
+.bi {
+  vertical-align: -0.125em;
+  fill: currentColor;
+}
+
+.modal-footer small {
+  font-size: 12px;
+  text-align: center;
+}
+
+.form-floating small {
+  font-size: 12px;
+}
+
+.error1,
+.error2 {
+  color: red;
+  display: block;
+}
+
+.hidden {
+  display: none;
+}
