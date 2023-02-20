@@ -78,7 +78,6 @@ if (btnSendComment) {
       const time = `${res.data.data.reviews.createdAt}`.slice(0, 10);
       // eslint-disable-next-line prefer-destructuring
       const photo = res.data.data.reviews.photo;
-      console.log(res.data.data.reviews);
       renderComment(name, time, photo, review);
     }
   });

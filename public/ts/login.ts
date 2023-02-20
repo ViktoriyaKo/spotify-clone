@@ -134,7 +134,6 @@ export const changeAccount = async (name: string, email: string) => {
     }
   } catch (err: any) {
     if (error1) {
-      console.log(err);
       error1.classList.remove('hidden');
       error1.innerHTML = 'Please enter correct data';
     }

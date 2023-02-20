@@ -31,7 +31,6 @@ const createSendToken = (
   res.cookie('jwt', token, cookieOptions);
   // remove the password from the responce
   user.password = '';
-  console.log('redirectTo:');
   res.status(200).json({
     status: 'success',
   });

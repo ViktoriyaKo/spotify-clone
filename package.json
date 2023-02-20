@@ -3,11 +3,12 @@
   "version": "1.0.0",
   "description": "",
   "main": "app.ts",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "ts-node-esm server.ts",
-    "build": "npx webpack",
-    "serve": "webpack serve"
+  "scripts": {    
+    "start": "node dist/app.js",
+    "postinstall": "tsc && mv -i -v public dist/ && rm -v -rf src",
+    "watch-node": "nodemon dist/app.js",
+    "watch-ts": "tsc -w",
+    "deploy": "git add . && git commit -m Heroku && git push heroku master"
   },
   "repository": {
     "type": "git",
@@ -73,5 +74,8 @@
     "webpack-dev-server": "^4.11.1",
     "webpack-merge": "^5.8.0",
     "xss-clean": "^0.1.1"
+  },
+  "engines": { 
+    "node": "16.8.1"
   }
 }

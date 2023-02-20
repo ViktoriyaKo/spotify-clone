@@ -156,7 +156,6 @@ if (btnSendComment) {
             const time = `${res.data.data.reviews.createdAt}`.slice(0, 10);
             // eslint-disable-next-line prefer-destructuring
             const photo = res.data.data.reviews.photo;
-            console.log(res.data.data.reviews);
             renderComment(name, time, photo, review);
         }
     });
@@ -453,7 +452,6 @@ const login = async (email, password) => {
                 error2.innerHTML = 'Incorrect email or password';
             }
         }
-        console.log(err);
     }
 };
 exports.login = login;
@@ -499,7 +497,6 @@ const signup = async (name, email, role, password, passwordConfirm) => {
     catch (err) {
         if (error1) {
             if (err.response.status === 500) {
-                console.log(err);
                 error1.classList.remove('hidden');
                 error1.innerHTML = 'Incorrect data';
             }
