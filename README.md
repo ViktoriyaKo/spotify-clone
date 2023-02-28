@@ -14,7 +14,7 @@ P.S. It's needed to do in our deploy because of settings of CORS from Spotify. T
 5. Please enter the following data (it's premium account):
 
 email: rstest@inbox.eu
-password: 1234567890spoty  
+password: 123456789spoty  
 
 6. You are in our application)) Thank you!  
 
